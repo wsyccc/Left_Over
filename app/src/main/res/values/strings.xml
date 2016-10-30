@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Leftovers</string>
     <string name="title_activity_main">Home</string>
+    <string name="title_activity_about">About</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
