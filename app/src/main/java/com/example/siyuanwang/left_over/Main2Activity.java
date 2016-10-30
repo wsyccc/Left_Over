@@ -87,6 +87,8 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_nearby) {
 
         } else if (id == R.id.nav_history) {
+            Intent intent = new Intent(this, HistoryPage.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutPage.class);
