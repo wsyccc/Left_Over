@@ -76,17 +76,17 @@ public class Main2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_ingredients) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_find_meal) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_nearby) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutPage.class);
