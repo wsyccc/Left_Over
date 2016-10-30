@@ -11,11 +11,10 @@
     tools:context="com.example.siyuanwang.left_over.AboutPage">
 
     <TextView
-        android:text="ok"
+        android:text="This is the About Page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/temp_about_page"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="111dp"
-        android:id="@+id/textView2" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
