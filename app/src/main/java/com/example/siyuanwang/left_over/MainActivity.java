@@ -78,15 +78,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_ingredients) {
             Intent intent = new Intent(this, Splash.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_find_meal) {
-
+            Intent intent = new Intent(this, HistoryPage.class);
+            startActivity(intent);
         } else if (id == R.id.nav_nearby) {
-
+            Intent intent = new Intent(this, Nearby.class);
+            startActivity(intent);
         } else if (id == R.id.nav_history) {
             Intent intent = new Intent(this, HistoryPage.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutPage.class);
             startActivity(intent);
