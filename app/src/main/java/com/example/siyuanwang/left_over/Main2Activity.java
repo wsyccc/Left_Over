@@ -61,7 +61,9 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_login) {
+            return true;
+        }else if (id == R.id.action_signup){
             return true;
         }
 
