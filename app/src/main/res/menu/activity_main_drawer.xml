@@ -4,27 +4,37 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/icon_home"
-            android:title="Home" />
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/nav_home" />
         <item
             android:id="@+id/nav_ingredients"
-            android:icon="@drawable/icon_ingredients"
-            android:title="Ingredients" />
+            android:icon="@drawable/ic_photo_library_black_24dp"
+            android:title="@string/nav_Ingredients" />
         <item
-            android:id="@+id/nav_find_meal"
-            android:icon="@drawable/icon_make_a_meal"
-            android:title="Find-a-meal" />
+            android:id="@+id/nav_find_a_meal"
+            android:icon="@drawable/ic_local_movies_black_24dp"
+            android:title="@string/nav_find_a_meal" />
+
         <item
             android:id="@+id/nav_nearby"
-            android:icon="@drawable/icon_nearby"
-            android:title="Nearby" />
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="@string/nav_nearBy" />
+
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/icon_history"
-            android:title="History" />
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/icon_about"
-            android:title="About" />
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/nav_history" />
     </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_about_us"
+                android:title="@string/nav_about_us" />
+            <item
+                android:id="@+id/nav_privacy_policy"
+                android:title="@string/privacy_policy" />
+        </menu>
+    </item>
+
 </menu>
