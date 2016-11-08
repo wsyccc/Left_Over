@@ -15,18 +15,19 @@ import java.util.ArrayList;
 
 public class MongoDB {
 
-    public ArrayList<ServerAddress> addresses;
-    public ArrayList<MongoCredential> credentials;
+    private ArrayList<ServerAddress> addresses;
+    private ArrayList<MongoCredential> credentials;
+    public MongoDatabase mongoDatabase;
 
     public boolean mongoConnect(){
         try{
             ServerAddress address = new ServerAddress("198.199.102.182", 27017);
             addresses.add(address);
 
-            MongoCredential credential = MongoCredential.createScramSha1Credential("admin", "king", "67971127w".toCharArray());
+            MongoCredential credential = MongoCredential.createScramSha1Credential("leftover", "wsyccc", "67971127w".toCharArray());
             credentials.add(credential);
             MongoClient mongoClient = new MongoClient(addresses, credentials);
-            MongoDatabase mongoDatabase = mongoClient.getDatabase("king");
+            mongoDatabase = mongoClient.getDatabase("leftover");
             return true;
         }catch (Exception e){
             e.printStackTrace();
