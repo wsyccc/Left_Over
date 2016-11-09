@@ -19,58 +19,24 @@ import com.bcit.Leftovers.R;
  * Created by Siyuan on 2016/11/8.
  */
 
-public class SignupDialog extends DialogFragment {
+public class SignupDialog extends DialogFragment{
+    private static String email;
+    private static String username;
+    private static String password;
+    private static String repassword;
+    private static TextView error;
+    private static View view;
+    private AlertDialog.Builder builder;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.signup_dialog, null);
+        view = inflater.inflate(R.layout.signup_dialog, null);
         builder.setView(view)
                 .setTitle("Signup")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditText email_txt = (EditText) view.findViewById(R.id.txt_email);
-                        EditText username_txt = (EditText) view.findViewById(R.id.txt_username);
-                        EditText password_txt = (EditText) view.findViewById(R.id.txt_password);
-                        EditText repassword_txt = (EditText) view.findViewById(R.id.txt_repassword);
-                        TextView error = (TextView) view.findViewById(R.id.txt_signuperror);
-
-                        String email = email_txt.getText().toString();
-                        String username = username_txt.getText().toString();
-                        String password = password_txt.getText().toString();
-                        String repassword = repassword_txt.getText().toString();
-                        if (password.compareToIgnoreCase(repassword) != 0){
-                            error.setText("Your email or password not correct!");
-                            error.setVisibility(View.VISIBLE);
-                        }else{
-                            error.setVisibility(View.INVISIBLE);
-                            if (!storeData(email,username,password)){
-                                Log.d("", "疼死老子了！！");
-                                error.setText("Server Error");
-                                error.setVisibility(View.VISIBLE);
-                                errorFlag = false;
-                            }else{
-                                ProgressDialog pd = new ProgressDialog(getActivity());
-                                pd.setMessage("Please wait!");
-                                pd.show();
-                                errorFlag = true;
-                            }
-                        }
-                    }
-                })
-                .setNeutralButton("Login", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-
+                .setPositiveButton(android.R.string.ok,null)
+                .setNeutralButton("already have an account?Login",null)
+                .setNegativeButton(android.R.string.cancel,null);
         return builder.create();
     }
     @Override
@@ -82,7 +48,33 @@ public class SignupDialog extends DialogFragment {
             positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    if (errorFlag){
+                    Boolean flag = false;
+                    EditText email_txt = (EditText) view.findViewById(R.id.txt_email);
+                    EditText username_txt = (EditText) view.findViewById(R.id.txt_username);
+                    EditText password_txt = (EditText) view.findViewById(R.id.txt_password);
+                    EditText repassword_txt = (EditText) view.findViewById(R.id.txt_repassword);
+                    error = (TextView) view.findViewById(R.id.txt_signuperror);
+
+                    email = email_txt.getText().toString();
+                    username = username_txt.getText().toString();
+                    password = password_txt.getText().toString();
+                    repassword = repassword_txt.getText().toString();
+                    if (password.compareToIgnoreCase(repassword) != 0){
+                        error.setText("Your password not match!");
+                        error.setVisibility(View.VISIBLE);
+                    }else{
+                        error.setVisibility(View.INVISIBLE);
+                        if (!storeData(email,username,password)){
+                            Log.d("", "疼死老子了！！");
+                            error.setText("Server Error");
+                            error.setVisibility(View.VISIBLE);
+                        }else{
+                            ProgressDialog pd = new ProgressDialog(getActivity());
+                            pd.setMessage("Please wait!");
+                            pd.show();
+                        }
+                    }
+                    if (flag){
                         dialog.dismiss();
                     }
                 }
