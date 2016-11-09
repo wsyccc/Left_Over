@@ -23,10 +23,28 @@
         <item>About Us</item>
     </string-array>
 
+    <!-- activities -->
     <string name="activity_title_about_us">About Us</string>
     <string name="activity_title_privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="title_activity_sign_up">Sign up</string>
+
+
+    <!-- actions -->
     <string name="action_clear_all">Clear All</string>
     <string name="action_logout">Logout</string>
+    <string name="action_login">Login</string>
     <string name="action_mark_all_read">Mark All as Read</string>
-    <string name="privacy_policy">Privacy Policy</string>
+
+
+    <!-- Strings related to signup -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
 </resources>

@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
-    //user name
-    private String userName;
-    //
 
 
     @Override
@@ -225,27 +221,22 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
-                        Log.d("", "homePresses");
                         break;
                     case R.id.nav_ingredients:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_INGREDIENTS;
-                        Log.d("", "INGREDIENTSPresses");
                         break;
                     case R.id.nav_find_a_meal:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_FIND_A_MEAL;
-                        Log.d("", "findPresses");
                         break;
                     case R.id.nav_nearby:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_NEARBY;
-                        Log.d("", "nearPresses");
                         break;
                     case R.id.nav_history:
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_HISTORY;
-                        Log.d("", "historyPresses");
                         break;
                     case R.id.nav_about_us:
                         // launch new intent instead of loading fragment
@@ -344,6 +335,11 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.action_login){
+            SignupDialog login = new SignupDialog();
+            login.show(getFragmentManager(), "Signup");
+            drawer.closeDrawers();
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
