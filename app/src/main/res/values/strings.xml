@@ -38,13 +38,17 @@
 
 
     <!-- Strings related to signup -->
+    <string name="signup_title">Sign Up</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_repassword">Confirm Password</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-
+    <string name="error_invalid_password">This password is invalid</string>
+    <string name="error_field_required">All fields are required</string>
+    <string name="already_have_account">already have an account?Login</string>
+    <string name="not_match_pwd">Your password not match!</string>
+    <string name="server_error">Server Error</string>
+    <string name="connect_fail">Cannot connect to database</string>
+    <string name="user_exist_error">Exist user!</string>
+    <string name="insert_error">Cannot insert value</string>
 </resources>
