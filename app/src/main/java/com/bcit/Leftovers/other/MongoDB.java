@@ -1,101 +1,87 @@
 package com.bcit.Leftovers.other;
 
-import android.util.Log;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import com.mongodb.WriteResult;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
-
-import org.bson.Document;
-import org.bson.conversions.Bson;
-import org.json.JSONObject;
-import java.util.ArrayList;
 
 /**
  * Created by Siyuan on 2016/10/30.
  */
 
-public class MongoDB {
+public class MongoDB extends AsyncTask<String,Void,String>{
 
-    private static ArrayList<ServerAddress> addresses = new ArrayList<>();
-    private static ArrayList<MongoCredential> credentials = new ArrayList<>();
-    public MongoDatabase db;
+    private static Context context;
+    private ProgressDialog pd;
+    private HttpsURLConnection connection;
 
-
-    public boolean mongoConnect(){
-        try{
-            ServerAddress address = new ServerAddress("198.199.102.182", 27017);
-            addresses.add(address);
-            MongoCredential credential = MongoCredential.createCredential("wsyccc", "leftover", "67971127w".toCharArray());
-            credentials.add(credential);
-            MongoClient mongoClient = new MongoClient(addresses, credentials);
-            db = mongoClient.getDatabase("leftover");
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.e(e.getClass().getName(), e.getMessage());
-            return false;
-        }
+    public MongoDB(Context context){
+        this.context = context;
     }
-    public boolean insertValue(String collection,String json){
-        try{
-            MongoCollection coll = db.getCollection(collection);
-            DBObject dbObject = (DBObject)JSON.parse(json);
-            coll.insertOne(dbObject);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.e(e.getClass().getName(), e.getMessage());
-            return false;
-        }
+    @Override
+    public void onPreExecute(){
+        pd = new ProgressDialog(context);
+        pd.setMessage("Please wait!");
+        pd.show();
     }
-    public boolean update(String collection, String email, String value,
-                          String updateItem, String updateValue){
-        try{
-            WriteResult result = null;
-            BasicDBObject field = new BasicDBObject();
-            field.put(email,value);
-            DBCollection coll = (DBCollection) db.getCollection(collection);
-            DBCursor cursor = coll.find(field);
-            while (cursor.hasNext()){
-                DBObject updateDocument = cursor.next();
-                updateDocument.put(updateItem,updateValue);
-                result = coll.update(field,updateDocument);
+    @Override
+    public String doInBackground(String... params){
+        String result = "null";
+        PrintWriter out = null;
+        BufferedReader in = null;
+        try {
+            URL url = new URL("https://wayneking.me/mongoDB/leftover_mongodb.php");
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setConnectTimeout(5*1000);
+            connection.setReadTimeout(5*1000);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+
+            connection.connect();
+            out = new PrintWriter(connection.getOutputStream());
+            out.print(params[0]);
+            out.flush();
+            if (connection.getResponseCode() == 200) {
+                in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                result = in.readLine();
             }
-            if (result.getN() > 0){
-                return true;
-            }else {
-                return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public void onPostExecute(String result){
+        try {
+            if (pd.isShowing()){
+                pd.dismiss();
             }
         }catch (Exception e){
             e.printStackTrace();
-            Log.e(e.getClass().getName(), e.getMessage());
-            return false;
+        }finally {
+            pd.dismiss();
+            connection.disconnect();
         }
     }
-    public JSONObject find(String collection, String key, String value){
-        try{
-            BasicDBObject field = new BasicDBObject();
-            field.put(key,value);
-            MongoCollection coll = db.getCollection(collection);
-            MongoCursor<Document> cursor = coll.find(field).iterator();
-            Bson result= cursor.next();
-            JSONObject output = new JSONObject(JSON.serialize(result));
-            return output;
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.e(e.getClass().getName(), e.getMessage());
-            return null;
-        }
-    }
-
 }

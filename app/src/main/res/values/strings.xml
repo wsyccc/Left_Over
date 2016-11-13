@@ -51,4 +51,6 @@
     <string name="connect_fail">Cannot connect to database</string>
     <string name="user_exist_error">Exist user!</string>
     <string name="insert_error">Cannot insert value</string>
+    <string name="success_title">Thank you</string>
+    <string name="success_msg">You\'ve successfully registered</string>
 </resources>

@@ -3,7 +3,6 @@ package com.bcit.Leftovers.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.MongoDB;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +28,6 @@ public class SignupDialog extends DialogFragment{
     private static String repassword;
     private static TextView error;
     private static View view;
-    private static final MongoDB db = new MongoDB();
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -49,70 +48,94 @@ public class SignupDialog extends DialogFragment{
             Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
                     EditText email_txt = (EditText) view.findViewById(R.id.txt_email);
                     EditText username_txt = (EditText) view.findViewById(R.id.txt_username);
                     EditText password_txt = (EditText) view.findViewById(R.id.txt_password);
                     EditText repassword_txt = (EditText) view.findViewById(R.id.txt_repassword);
                     error = (TextView) view.findViewById(R.id.txt_signuperror);
-
                     email = email_txt.getText().toString();
                     username = username_txt.getText().toString();
                     password = password_txt.getText().toString();
                     repassword = repassword_txt.getText().toString();
-                    if (email.isEmpty() || username.isEmpty() || password.isEmpty() || repassword.isEmpty()){
-                        error.setText(R.string.error_field_required);
-                        error.setVisibility(View.VISIBLE);
-                    }else if (password.compareToIgnoreCase(repassword) != 0){
-                        error.setText(R.string.not_match_pwd);
-                        error.setVisibility(View.VISIBLE);
-                    }else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                        error.setText(R.string.error_invalid_email);
-                        error.setVisibility(View.VISIBLE);
-                    }else if(password.length() < 8){
-                        error.setText(R.string.error_invalid_password);
-                        error.setVisibility(View.VISIBLE);
-                    }else if (!existUser(email)){
-                        error.setText(R.string.user_exist_error);
-                        error.setVisibility(View.VISIBLE);
-                    }
-                    else if (!storeData(email,username,password)) {
-                        error.setText(R.string.server_error);
-                        error.setVisibility(View.VISIBLE);
-                    }else {
-                        ProgressDialog pd = new ProgressDialog(getActivity());
-                        pd.setMessage("Please wait!");
-                        pd.show();
+
+                    try {
+                        error.setVisibility(View.INVISIBLE);
+                        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || repassword.isEmpty()) {
+                            error.setText(R.string.error_field_required);
+                            error.setVisibility(View.VISIBLE);
+                        } else if (password.compareToIgnoreCase(repassword) != 0) {
+                            error.setText(R.string.not_match_pwd);
+                            error.setVisibility(View.VISIBLE);
+                        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            error.setText(R.string.error_invalid_email);
+                            error.setVisibility(View.VISIBLE);
+                        } else if (password.length() < 8) {
+                            error.setText(R.string.error_invalid_password);
+                            error.setVisibility(View.VISIBLE);
+                        } else if (!existUser(email)) {
+                            error.setText(R.string.user_exist_error);
+                            error.setVisibility(View.VISIBLE);
+                        } else if (!storeData(email, username, password)) {
+                            error.setText(R.string.server_error);
+                            error.setVisibility(View.VISIBLE);
+                        } else {
+                            dialog.dismiss();
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle(R.string.success_title)
+                                    .setMessage(R.string.success_msg)
+                                    .setNegativeButton(android.R.string.ok,null)
+                                    .show();
+                            Log.d("done", "Done");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e("IOException", e.getMessage());
                     }
                 }
+
+
             });
         }
     }
-    public boolean existUser(String email){
-        if (!db.mongoConnect()){
-            error.setText(R.string.server_error);
-            error.setVisibility(View.VISIBLE);
-        }else if(db.find("usersInfo","email",email) != null){
-            return false;
-        }else {
+    public boolean existUser(String email) throws JSONException {
+        String json = "email=" + email + "&collection=usersInfo" + "&action=find";
+        MongoDB mongoDB = new MongoDB(getActivity());
+        String result = null;
+        try {
+            result = mongoDB.execute(json).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("exist", result);
+        if (result.equalsIgnoreCase("null")){
             return true;
-        }
-        return false;
-    }
-    public boolean storeData(String email, String username, String password){
-        if (!db.mongoConnect()){
-            error.setText(R.string.server_error);
-            error.setVisibility(View.VISIBLE);
         }else{
-            String json = "{'email':'"+email+"','username':'"+username+"','password':'"+password+"'}";
-            if (!db.insertValue("usersInfo",json)){
-                error.setText(R.string.insert_error);
-                error.setVisibility(View.VISIBLE);
-            }else {
-                return true;
-            }
+            return false;
         }
-        return false;
+        //JSONObject jsonObject = new JSONObject(result);
+        //String email_result = jsonObject.getString("email");
+        //Log.d("email", email_result);
+//        if (email_result != null){
+//            return false;
+//        }else{
+//            return true;
+//        }
+    }
+    public boolean storeData(String email, String username, String password) {
+        String json = "email=" + email + "&username=" + username + "&pwd=" + password + "&collection=usersInfo" + "&action=insert";
+        MongoDB mongoDB = new MongoDB(getActivity());
+        String result = null;
+        try {
+            result = mongoDB.execute(json).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!result.equalsIgnoreCase("null")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static boolean isValidPassword(final String password) {

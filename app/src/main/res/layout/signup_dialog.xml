@@ -13,7 +13,6 @@
         android:layout_marginRight="20dip"
         android:textColor="#ff0000"
         android:gravity="left"
-        android:text="asdfsdafdsadsafdsdsaf"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:visibility="invisible"
         />
