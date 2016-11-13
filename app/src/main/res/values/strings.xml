@@ -53,5 +53,7 @@
 
     <!-- Strings related to login -->
     <string name="login_tile">Login</string>
+    <string name="no_account">Register</string>
+    <string name="incorrect">email or password wrong</string>
 
 </resources>

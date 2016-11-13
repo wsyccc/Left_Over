@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.other.Encryption;
 import com.bcit.Leftovers.other.MongoDB;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -113,18 +113,19 @@ public class SignupDialog extends DialogFragment{
     public boolean existUser(String email) throws JSONException {
         String json = "email=" + email + "&collection=usersInfo" + "&action=find";
         MongoDB mongoDB = new MongoDB(getActivity());
-        String result = null;
+        String result;
         try {
             result = mongoDB.execute(json).get();
+            if (result.equalsIgnoreCase("null")){
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        Log.d("exist", result);
-        if (result.equalsIgnoreCase("null")){
-            return true;
-        }else{
             return false;
         }
+
         //JSONObject jsonObject = new JSONObject(result);
         //String email_result = jsonObject.getString("email");
         //Log.d("email", email_result);
@@ -134,18 +135,19 @@ public class SignupDialog extends DialogFragment{
 //            return true;
 //        }
     }
-    public boolean storeData(String email, String username, String password) {
-        String json = "email=" + email + "&username=" + username + "&pwd=" + password + "&collection=usersInfo" + "&action=insert";
+    public boolean storeData(String email, String username, String password) throws Exception {
+        String json = "email=" + email + "&username=" + username + "&pwd=" + Encryption.encrypt(email,password) + "&collection=usersInfo" + "&action=insert";
         MongoDB mongoDB = new MongoDB(getActivity());
-        String result = null;
+        String result;
         try {
             result = mongoDB.execute(json).get();
+            if (!result.equalsIgnoreCase("null")){
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        if (!result.equalsIgnoreCase("null")){
-            return true;
-        }else{
             return false;
         }
     }

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bcit.Leftovers.fragment.LoginDialog;
 import com.bcit.Leftovers.fragment.SignupDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -318,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         // show menu only when home fragment is selected
-        if (navItemIndex == 0) {
+        if (navItemIndex == 0 || navItemIndex == 1 || navItemIndex == 2 || navItemIndex == 4) {
             getMenuInflater().inflate(R.menu.main, menu);
         }
 
@@ -336,19 +337,23 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_signup){
-            if(false){
-                item.setVisible(false);
-            }else{
-                SignupDialog signupDialog = new SignupDialog();
-                signupDialog.show(getFragmentManager(), "Signup");
-                drawer.closeDrawers();
-            }
+        if (id == R.id.action_signup) {
+            SignupDialog signupDialog = new SignupDialog();
+            signupDialog.show(getFragmentManager(), "Signup");
+            drawer.closeDrawers();
+
+        }
+        if (id == R.id.action_login) {
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.show(getFragmentManager(), "Login");
+            drawer.closeDrawers();
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
             return true;
+
         }
 
         // user is in notifications fragment
