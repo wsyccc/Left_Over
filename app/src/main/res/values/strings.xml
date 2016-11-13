@@ -39,9 +39,6 @@
 
     <!-- Strings related to signup -->
     <string name="signup_title">Sign Up</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="prompt_repassword">Confirm Password</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is invalid</string>
     <string name="error_field_required">All fields are required</string>
@@ -53,4 +50,8 @@
     <string name="insert_error">Cannot insert value</string>
     <string name="success_title">Thank you</string>
     <string name="success_msg">You\'ve successfully registered</string>
+
+    <!-- Strings related to login -->
+    <string name="login_tile">Login</string>
+
 </resources>
