@@ -3,7 +3,9 @@ package com.bcit.Leftovers.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.MongoDB;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -81,12 +84,21 @@ public class SignupDialog extends DialogFragment{
                             error.setVisibility(View.VISIBLE);
                         } else {
                             dialog.dismiss();
-                            new AlertDialog.Builder(getActivity())
+                            final ProgressDialog pd = new ProgressDialog(getActivity());
+                            pd.setMessage("Please Wait!");
+                            final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
                                     .setTitle(R.string.success_title)
                                     .setMessage(R.string.success_msg)
-                                    .setNegativeButton(android.R.string.ok,null)
-                                    .show();
-                            Log.d("done", "Done");
+                                    .setNegativeButton(android.R.string.ok,null);
+                            pd.show();
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pd.dismiss();
+                                    ab.show();
+                                }
+                            }, 2000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

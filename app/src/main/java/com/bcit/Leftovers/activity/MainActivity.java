@@ -336,10 +336,14 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_login){
-            SignupDialog login = new SignupDialog();
-            login.show(getFragmentManager(), "Signup");
-            drawer.closeDrawers();
+        if (id == R.id.action_signup){
+            if(false){
+                item.setVisible(false);
+            }else{
+                SignupDialog signupDialog = new SignupDialog();
+                signupDialog.show(getFragmentManager(), "Signup");
+                drawer.closeDrawers();
+            }
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {

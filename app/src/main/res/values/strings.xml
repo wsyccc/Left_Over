@@ -33,7 +33,7 @@
     <!-- actions -->
     <string name="action_clear_all">Clear All</string>
     <string name="action_logout">Logout</string>
-    <string name="action_login">Login</string>
+    <string name="action_signup">SignUp</string>
     <string name="action_mark_all_read">Mark All as Read</string>
 
 
@@ -45,7 +45,7 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is invalid</string>
     <string name="error_field_required">All fields are required</string>
-    <string name="already_have_account">already have an account?Login</string>
+    <string name="already_have_account">Login</string>
     <string name="not_match_pwd">Your password not match!</string>
     <string name="server_error">Server Error</string>
     <string name="connect_fail">Cannot connect to database</string>
