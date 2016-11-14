@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bcit.Leftovers.fragment.LoginDialog;
-import com.bcit.Leftovers.fragment.SignupDialog;
+import com.bcit.Leftovers.fragment.LogIn_Dialog;
+import com.bcit.Leftovers.fragment.SignUp_Dialog;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.Logout;
 import com.bcit.Leftovers.other.SaveSharedPreference;
@@ -28,11 +28,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import com.bcit.Leftovers.R;
-import com.bcit.Leftovers.fragment.Find_a_meal_Fragment;
-import com.bcit.Leftovers.fragment.HomeFragment;
-import com.bcit.Leftovers.fragment.IngredientsFragment;
-import com.bcit.Leftovers.fragment.NearbyFragment;
-import com.bcit.Leftovers.fragment.HistoryFragment;
+import com.bcit.Leftovers.fragment.FindAMeal_Fragment;
+import com.bcit.Leftovers.fragment.Home_Fragment;
+import com.bcit.Leftovers.fragment.Ingredients_Fragment;
+import com.bcit.Leftovers.fragment.Nearby_Fragment;
+import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,11 +75,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (SaveSharedPreference.getEmail(this).length() != 0){
-            if (!(new Login(SaveSharedPreference.getEmail(this), this).login())){
-                Log.d(MainActivity.class.getName(), SaveSharedPreference.getEmail(this));
-            }
-        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -98,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
-
         // load nav menu header data
         loadNavHeader();
 
@@ -109,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
             navItemIndex = 0;
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
+        }
+        if (SaveSharedPreference.getEmail(this).length() != 0){
+            Log.d(getClass().getName()+"email!", SaveSharedPreference.getEmail(this));
+            Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUserName(this));
+            if (!(new Login(SaveSharedPreference.getEmail(this), this).login())){
+                Log.d(MainActivity.class.getName(), SaveSharedPreference.getEmail(this));
+            }
         }
     }
 
@@ -190,27 +191,27 @@ public class MainActivity extends AppCompatActivity {
         switch (navItemIndex) {
             case 0:
                 // home
-                HomeFragment homeFragment = new HomeFragment();
+                Home_Fragment homeFragment = new Home_Fragment();
                 return homeFragment;
             case 1:
                 // photos
-                NearbyFragment nearbyFragment = new NearbyFragment();
+                Nearby_Fragment nearbyFragment = new Nearby_Fragment();
                 return nearbyFragment;
             case 2:
                 // movies fragment
-                IngredientsFragment ingredientsFragment = new IngredientsFragment();
+                Ingredients_Fragment ingredientsFragment = new Ingredients_Fragment();
                 return ingredientsFragment;
             case 3:
                 // notifications fragment
-                Find_a_meal_Fragment find_a_meal_Fragment = new Find_a_meal_Fragment();
+                FindAMeal_Fragment find_a_meal_Fragment = new FindAMeal_Fragment();
                 return find_a_meal_Fragment;
 
             case 4:
                 // settings fragment
-                HistoryFragment historyFragment = new HistoryFragment();
+                History_Fragment historyFragment = new History_Fragment();
                 return historyFragment;
             default:
-                return new HomeFragment();
+                return new Home_Fragment();
         }
     }
 
@@ -373,13 +374,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_signup) {
-            SignupDialog signupDialog = new SignupDialog();
+            SignUp_Dialog signupDialog = new SignUp_Dialog();
             signupDialog.show(getFragmentManager(), "Signup");
             item.setVisible(false);
             drawer.closeDrawers();
         }
         if (id == R.id.action_login) {
-            LoginDialog loginDialog = new LoginDialog();
+            LogIn_Dialog loginDialog = new LogIn_Dialog();
             loginDialog.show(getFragmentManager(), "Login");
             Log.d("status", Login.loginStatus+"");
             drawer.closeDrawers();

@@ -39,7 +39,6 @@ public class SaveSharedPreference {
         String email = null;
         for (Object s : result){
             email =  s.toString();
-            break;
         }
         return email;
     }
@@ -48,6 +47,7 @@ public class SaveSharedPreference {
         String username = null;
         for (Object o : result){
             username = o.toString();
+            break;
         }
         //Log.d(SaveSharedPreference.class.getName(), username);
         return username;
