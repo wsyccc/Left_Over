@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * Created by Siyuan on 2016/11/8.
  */
 
-public class SignupDialog extends DialogFragment{
+public class SignUp_Dialog extends DialogFragment{
     private static String email;
     private static String username;
     private static String password;

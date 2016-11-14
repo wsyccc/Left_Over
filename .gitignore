@@ -7,3 +7,5 @@
 /build
 /captures
 .externalNativeBuild
+.idea
+app/src/main/java/com/bcit/Leftovers/activity/MainActivity.java

@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * Created by siyuanwang on 2016-11-12.
  */
 
-public class LoginDialog extends DialogFragment{
+public class LogIn_Dialog extends DialogFragment{
 
     private static String email;
     private static String password;
