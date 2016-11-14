@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bcit.Leftovers.fragment.Find_a_meal_Fragment"
+    tools:context="com.bcit.Leftovers.fragment.Nearby_Fragment"
     android:orientation="vertical">
 
     <TextView

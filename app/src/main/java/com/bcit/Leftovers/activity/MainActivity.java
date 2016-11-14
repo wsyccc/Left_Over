@@ -18,17 +18,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bcit.Leftovers.fragment.LoginDialog;
-import com.bcit.Leftovers.fragment.SignupDialog;
+import com.bcit.Leftovers.fragment.FindAMeal_Fragment;
+import com.bcit.Leftovers.fragment.LogIn_Dialog;
+import com.bcit.Leftovers.fragment.SignUp_Dialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import com.bcit.Leftovers.R;
-import com.bcit.Leftovers.fragment.Find_a_meal_Fragment;
-import com.bcit.Leftovers.fragment.HomeFragment;
-import com.bcit.Leftovers.fragment.IngredientsFragment;
-import com.bcit.Leftovers.fragment.NearbyFragment;
-import com.bcit.Leftovers.fragment.HistoryFragment;
+import com.bcit.Leftovers.fragment.Nearby_Fragment;
+import com.bcit.Leftovers.fragment.Home_Fragment;
+import com.bcit.Leftovers.fragment.Ingredients_Fragment;
+import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
 
 public class MainActivity extends AppCompatActivity {
@@ -181,27 +181,27 @@ public class MainActivity extends AppCompatActivity {
         switch (navItemIndex) {
             case 0:
                 // home
-                HomeFragment homeFragment = new HomeFragment();
+                Home_Fragment homeFragment = new Home_Fragment();
                 return homeFragment;
             case 1:
                 // photos
-                NearbyFragment nearbyFragment = new NearbyFragment();
-                return nearbyFragment;
+                Ingredients_Fragment ingredientsFragment = new Ingredients_Fragment();
+                return ingredientsFragment;
             case 2:
                 // movies fragment
-                IngredientsFragment ingredientsFragment = new IngredientsFragment();
-                return ingredientsFragment;
+                FindAMeal_Fragment findAMealFragment = new FindAMeal_Fragment();
+                return findAMealFragment;
             case 3:
                 // notifications fragment
-                Find_a_meal_Fragment find_a_meal_Fragment = new Find_a_meal_Fragment();
-                return find_a_meal_Fragment;
+                Nearby_Fragment nearby_Fragment = new Nearby_Fragment();
+                return nearby_Fragment;
 
             case 4:
                 // settings fragment
-                HistoryFragment historyFragment = new HistoryFragment();
+                History_Fragment historyFragment = new History_Fragment();
                 return historyFragment;
             default:
-                return new HomeFragment();
+                return new Home_Fragment();
         }
     }
 
@@ -342,14 +342,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_signup) {
-            SignupDialog signupDialog = new SignupDialog();
-            signupDialog.show(getFragmentManager(), "Signup");
+            SignUp_Dialog signUpDialog = new SignUp_Dialog();
+            signUpDialog.show(getFragmentManager(), "Signup");
             drawer.closeDrawers();
 
         }
         if (id == R.id.action_login) {
-            LoginDialog loginDialog = new LoginDialog();
-            loginDialog.show(getFragmentManager(), "Login");
+            LogIn_Dialog logInDialog = new LogIn_Dialog();
+            logInDialog.show(getFragmentManager(), "Login");
             drawer.closeDrawers();
         }
         //noinspection SimplifiableIfStatement
