@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.Encryption;
+import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.MongoDB;
-import com.bcit.Leftovers.other.SaveSharedPreference;
 
 import org.json.JSONException;
 
@@ -93,17 +93,20 @@ public class SignupDialog extends DialogFragment{
                                     .setMessage(R.string.success_msg)
                                     .setNegativeButton(android.R.string.ok,null);
                             pd.show();
-                            SaveSharedPreference.addUser(email,username);
-                            SaveSharedPreference.setUser(getActivity());
-
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    pd.dismiss();
-                                    ab.show();
-                                }
-                            }, 2000);
+                            if (!(new Login(email,getActivity()).login())){
+                                error.setText(R.string.server_error);
+                                error.setVisibility(View.VISIBLE);
+                                pd.dismiss();
+                            } else {
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        pd.dismiss();
+                                        ab.show();
+                                    }
+                                }, 2000);
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -141,7 +144,9 @@ public class SignupDialog extends DialogFragment{
 //        }
     }
     public boolean storeData(String email, String username, String password) throws Exception {
-        String json = "email=" + email + "&username=" + username + "&pwd=" + Encryption.encrypt(email,password) + "&collection=usersInfo" + "&action=insert";
+        String json = "email=" + email + "&username=" + username + "&pwd="
+                + Encryption.encrypt(email,password) + "&collection=usersInfo"
+                + "&action=insert" + "&login=1";
         MongoDB mongoDB = new MongoDB(getActivity());
         String result;
         try {

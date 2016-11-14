@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.Encryption;
+import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.MongoDB;
+import com.bcit.Leftovers.other.SaveSharedPreference;
 
 import org.json.JSONObject;
 
@@ -77,18 +79,24 @@ public class LoginDialog extends DialogFragment{
                             final ProgressDialog pd = new ProgressDialog(getActivity());
                             pd.setMessage("Please Wait!");
                             final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
-                                    .setTitle(R.string.success_title)
-                                    .setMessage(R.string.success_msg)
+                                    .setTitle("Welcome "+ SaveSharedPreference.getUserName(getActivity()))
+                                    .setMessage(R.string.login_success)
                                     .setNegativeButton(android.R.string.ok,null);
                             pd.show();
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    pd.dismiss();
-                                    ab.show();
-                                }
-                            }, 2000);
+                            if (!(new Login(email,getActivity()).login())){
+                                error.setText(R.string.server_error);
+                                error.setVisibility(View.VISIBLE);
+                                pd.dismiss();
+                            }else {
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        pd.dismiss();
+                                        ab.show();
+                                    }
+                                }, 2000);
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

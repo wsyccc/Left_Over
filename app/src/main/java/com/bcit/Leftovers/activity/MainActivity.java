@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 import com.bcit.Leftovers.fragment.LoginDialog;
 import com.bcit.Leftovers.fragment.SignupDialog;
+import com.bcit.Leftovers.other.Login;
+import com.bcit.Leftovers.other.Logout;
+import com.bcit.Leftovers.other.SaveSharedPreference;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -37,16 +41,16 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
-    private TextView txtName, txtWebsite;
+    public static TextView txtName, txtWebsite;
     private Toolbar toolbar;
 
     // urls to load navigation header background image
     // and profile image
     private static final String urlProfileImg = "https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
     //userName
-    private static String userName = "";
+    public static String userName = "King";
     //email
-    private static String email = "";
+    public static String email = "leftover@bcit.ca";
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
@@ -71,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (SaveSharedPreference.getEmail(this).length() != 0){
+            if (!(new Login(SaveSharedPreference.getEmail(this), this).login())){
+                Log.d(MainActivity.class.getName(), SaveSharedPreference.getEmail(this));
+            }
+        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -110,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("King");
-        txtWebsite.setText("android project");
+        txtName.setText(userName);
+        txtWebsite.setText(email);
 
         // loading header background image
         Glide.with(this).load(R.drawable.drawer_header_bg)
@@ -319,12 +328,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(Login.loginStatus == 1) {
+            menu.findItem(R.id.action_logout).setVisible(true);
+            menu.findItem(R.id.action_login).setVisible(false);
+            menu.findItem(R.id.action_signup).setVisible(false);
+        }else if (Login.loginStatus == 0){
+            menu.findItem(R.id.action_logout).setVisible(false);
+            menu.findItem(R.id.action_login).setVisible(true);
+            menu.findItem(R.id.action_signup).setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         // show menu only when home fragment is selected
         if (navItemIndex == 0 || navItemIndex == 1 || navItemIndex == 2 || navItemIndex == 4) {
             getMenuInflater().inflate(R.menu.main, menu);
+            MenuItem signup = menu.findItem(R.id.action_signup);
+            MenuItem login = menu.findItem(R.id.action_signup);
+            MenuItem logout = menu.findItem(R.id.action_logout);
+            Log.d("status", Login.loginStatus+"");
+            signup.setVisible(Login.loginStatus == 0);
+            login.setVisible(Login.loginStatus == 0);
+            logout.setVisible(Login.loginStatus == 1);
         }
 
         // when fragment is notifications, load the menu created for notifications
@@ -339,25 +369,30 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         if (id == R.id.action_signup) {
             SignupDialog signupDialog = new SignupDialog();
             signupDialog.show(getFragmentManager(), "Signup");
+            item.setVisible(false);
             drawer.closeDrawers();
-
         }
         if (id == R.id.action_login) {
             LoginDialog loginDialog = new LoginDialog();
             loginDialog.show(getFragmentManager(), "Login");
+            Log.d("status", Login.loginStatus+"");
             drawer.closeDrawers();
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-
-            Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-            return true;
-
+            if(!(new Logout(Login.email,MainActivity.this).logout())){
+                return false;
+            }else{
+                Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+                Log.d("status", Login.loginStatus+"");
+                return true;
+            }
         }
 
         // user is in notifications fragment
