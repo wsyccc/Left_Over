@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-        if (SaveSharedPreference.getEmail(this).length() != 0){
+        if (SaveSharedPreference.getEmail(this) != null){
             Log.d(getClass().getName()+"email!", SaveSharedPreference.getEmail(this));
             Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUserName(this));
             if (!(new Login(SaveSharedPreference.getEmail(this), this).login())){
@@ -330,16 +330,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if(Login.loginStatus == 1) {
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_login).setVisible(false);
-            menu.findItem(R.id.action_signup).setVisible(false);
-        }else if (Login.loginStatus == 0){
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_login).setVisible(true);
-            menu.findItem(R.id.action_signup).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
+        if (navItemIndex != 3){
+            if(Login.loginStatus == 1) {
+                menu.findItem(R.id.action_logout).setVisible(true);
+                menu.findItem(R.id.action_login).setVisible(false);
+                menu.findItem(R.id.action_signup).setVisible(false);
+            }else if (Login.loginStatus == 0){
+                menu.findItem(R.id.action_logout).setVisible(false);
+                menu.findItem(R.id.action_login).setVisible(true);
+                menu.findItem(R.id.action_signup).setVisible(true);
+            }
         }
-        return super.onPrepareOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -349,13 +352,7 @@ public class MainActivity extends AppCompatActivity {
         // show menu only when home fragment is selected
         if (navItemIndex == 0 || navItemIndex == 1 || navItemIndex == 2 || navItemIndex == 4) {
             getMenuInflater().inflate(R.menu.main, menu);
-            MenuItem signup = menu.findItem(R.id.action_signup);
-            MenuItem login = menu.findItem(R.id.action_signup);
-            MenuItem logout = menu.findItem(R.id.action_logout);
-            Log.d("status", Login.loginStatus+"");
-            signup.setVisible(Login.loginStatus == 0);
-            login.setVisible(Login.loginStatus == 0);
-            logout.setVisible(Login.loginStatus == 1);
+
         }
 
         // when fragment is notifications, load the menu created for notifications
@@ -376,7 +373,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_signup) {
             SignUp_Dialog signupDialog = new SignUp_Dialog();
             signupDialog.show(getFragmentManager(), "Signup");
-            item.setVisible(false);
             drawer.closeDrawers();
         }
         if (id == R.id.action_login) {

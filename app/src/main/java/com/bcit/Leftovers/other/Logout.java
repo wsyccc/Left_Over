@@ -40,6 +40,7 @@ public class Logout {
 
     public boolean logout() {
         if (SaveSharedPreference.getUserName(context).length() != 0 && Login.email != null) {
+            SaveSharedPreference.clear();
             MainActivity.userName = "King";
             MainActivity.txtName.setText(MainActivity.userName);
             MainActivity.email = "leftover@bcit.ca";
