@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     // urls to load navigation header background image
     // and profile image
     private static final String urlProfileImg = "https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
+    //userName
+    private static String userName = "";
+    //email
+    private static String email = "";
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;

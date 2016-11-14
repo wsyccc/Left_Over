@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.Encryption;
 import com.bcit.Leftovers.other.MongoDB;
+import com.bcit.Leftovers.other.SaveSharedPreference;
+
 import org.json.JSONException;
 
 import java.util.regex.Matcher;
@@ -91,6 +93,9 @@ public class SignupDialog extends DialogFragment{
                                     .setMessage(R.string.success_msg)
                                     .setNegativeButton(android.R.string.ok,null);
                             pd.show();
+                            SaveSharedPreference.addUser(email,username);
+                            SaveSharedPreference.setUser(getActivity());
+
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
