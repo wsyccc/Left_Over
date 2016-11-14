@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.ImageButton;
 
 import com.bcit.Leftovers.R;
 
@@ -105,5 +107,11 @@ public class Find_a_meal_Fragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void addIngredient(View view) {
+        GridLayout g = (GridLayout) view.findViewById(R.id.chosenIngredients);
+
+        g.addView(view);
     }
 }
