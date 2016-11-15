@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-        if (SaveSharedPreference.getEmail(this) != null){
-            if (!(new Login(SaveSharedPreference.getEmail(this), this).login())){
-                Log.d(MainActivity.class.getName(), SaveSharedPreference.getEmail(this));
+        if (SaveSharedPreference.getUser(this,"email") != null){
+            if (!(new Login(SaveSharedPreference.getUser(this,"email"), this).login())){
+                Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this,"email"));
             }
         }
     }

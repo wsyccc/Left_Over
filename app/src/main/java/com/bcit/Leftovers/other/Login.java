@@ -41,12 +41,11 @@ public class Login {
     public boolean login(){
         if (userName != null){
             String CuserName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
-            SaveSharedPreference.addUser(this.email, CuserName);
-            SaveSharedPreference.setUser(context);
-            MainActivity.userName = SaveSharedPreference.getUserName(context);
-            MainActivity.email = SaveSharedPreference.getEmail(context);
-            Log.d(getClass().getName()+"email!", SaveSharedPreference.getEmail(context));
-            Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUserName(context));
+            SaveSharedPreference.setUser(this.email, CuserName, context);
+            MainActivity.userName = SaveSharedPreference.getUser(context,"userName");
+            MainActivity.email = SaveSharedPreference.getUser(context, "email");
+            Log.d(getClass().getName()+"email!", SaveSharedPreference.getUser(context, "email"));
+            Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUser(context,"userName"));
             MainActivity.txtName.setText(MainActivity.userName);
             MainActivity.txtWebsite.setText(MainActivity.email);
             Log.d(getClass().getName(), MainActivity.userName);

@@ -93,7 +93,7 @@ public class LogIn_Dialog extends DialogFragment{
                                 pd.dismiss();
                             }else {
                                 final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
-                                        .setTitle("Welcome "+ SaveSharedPreference.getUserName(getActivity()))
+                                        .setTitle("Welcome "+ SaveSharedPreference.getUser(getActivity(),"userName"))
                                         .setMessage(R.string.login_success)
                                         .setNegativeButton(android.R.string.ok,null);
                                 pd.show();
@@ -104,7 +104,7 @@ public class LogIn_Dialog extends DialogFragment{
                                         pd.dismiss();
                                         ab.show();
                                     }
-                                }, 2000);
+                                }, 500);
                             }
                         }
                     } catch (Exception e) {

@@ -114,7 +114,7 @@ public class SignUp_Dialog extends DialogFragment{
                                         pd.dismiss();
                                         ab.show();
                                     }
-                                }, 2000);
+                                }, 500);
                             }
                         }
                     } catch (Exception e) {

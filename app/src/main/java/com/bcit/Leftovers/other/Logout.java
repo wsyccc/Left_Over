@@ -27,7 +27,7 @@ public class Logout {
         try {
             result = mongoDB.execute(json).get();
             if (result.equalsIgnoreCase("null")) {
-                Log.e(Login.class.getName(), "Cannot find the user");
+                Log.e(Logout.class.getName(), "Cannot find the user");
             }else{
                 JSONObject jsonObject = new JSONObject(result);
                 loginStatus = jsonObject.getInt("login");
@@ -39,7 +39,7 @@ public class Logout {
     }
 
     public boolean logout() {
-        if (SaveSharedPreference.getUserName(context).length() != 0 && Login.email != null) {
+        if (SaveSharedPreference.getUser(context,"email").length() != 0 && Login.email != null) {
             SaveSharedPreference.clear();
             MainActivity.userName = "King";
             MainActivity.txtName.setText(MainActivity.userName);

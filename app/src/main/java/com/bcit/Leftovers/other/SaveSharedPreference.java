@@ -3,12 +3,6 @@ package com.bcit.Leftovers.other;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
 
 
 /**
@@ -16,39 +10,25 @@ import java.util.Set;
  */
 
 public class SaveSharedPreference {
-    private static final String PREF_USER = "user";
     private static SharedPreferences.Editor editor;
-    private static HashSet<String> set = new HashSet<>();
     static SharedPreferences getSharedPreferences(Context ctx){
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
-    public static void addUser(String email, String username){
-        set.clear();
-        set.add(email);
-        set.add(username);
-    }
-    public static void setUser(Context ctx){
+    public static void setUser(String email, String userName, Context ctx){
         editor = getSharedPreferences(ctx).edit();
-        editor.clear();
-        editor.putStringSet(PREF_USER, set);
+        clear();
+        editor.putString("email", email);
+        editor.putString("userName", userName);
         editor.commit();
     }
-    public static Set getUser(Context ctx){
-        return getSharedPreferences(ctx).getStringSet(PREF_USER, new HashSet<String>());
-    }
-    public static String getEmail(Context ctx){
-        Set result = getUser(ctx);
-        return result.iterator().next().toString();
-    }
-    public static String getUserName(Context ctx){
-        Set result = getUser(ctx);
-        String username = null;
-        for (Object o : result){
-            username = o.toString();
+    public static String getUser(Context ctx, String what){
+        try{
+            return getSharedPreferences(ctx).getString(what, null);
+        }catch (Exception e){
+            return null;
         }
-        //Log.d(SaveSharedPreference.class.getName(), username);
-        return username;
     }
+
     public static void clear(){
         editor.clear();
         editor.commit();
