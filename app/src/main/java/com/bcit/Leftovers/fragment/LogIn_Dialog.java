@@ -50,6 +50,15 @@ public class LogIn_Dialog extends DialogFragment{
         super.onStart();
         final AlertDialog dialog = (AlertDialog)getDialog();
         if (dialog != null){
+            Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
+            neutralButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    dialog.cancel();
+                    SignUp_Dialog signupDialog = new SignUp_Dialog();
+                    signupDialog.show(getFragmentManager(), "Signup");
+                }
+            });
             Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -78,16 +87,16 @@ public class LogIn_Dialog extends DialogFragment{
                             dialog.dismiss();
                             final ProgressDialog pd = new ProgressDialog(getActivity());
                             pd.setMessage("Please Wait!");
-                            final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
-                                    .setTitle("Welcome "+ SaveSharedPreference.getUserName(getActivity()))
-                                    .setMessage(R.string.login_success)
-                                    .setNegativeButton(android.R.string.ok,null);
-                            pd.show();
                             if (!(new Login(email,getActivity()).login())){
                                 error.setText(R.string.server_error);
                                 error.setVisibility(View.VISIBLE);
                                 pd.dismiss();
                             }else {
+                                final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
+                                        .setTitle("Welcome "+ SaveSharedPreference.getUserName(getActivity()))
+                                        .setMessage(R.string.login_success)
+                                        .setNegativeButton(android.R.string.ok,null);
+                                pd.show();
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override

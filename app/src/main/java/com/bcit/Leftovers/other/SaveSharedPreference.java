@@ -18,16 +18,18 @@ import java.util.Set;
 public class SaveSharedPreference {
     private static final String PREF_USER = "user";
     private static SharedPreferences.Editor editor;
-    private static Set<String> set = new HashSet<>();
+    private static HashSet<String> set = new HashSet<>();
     static SharedPreferences getSharedPreferences(Context ctx){
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
     public static void addUser(String email, String username){
+        set.clear();
         set.add(email);
         set.add(username);
     }
     public static void setUser(Context ctx){
         editor = getSharedPreferences(ctx).edit();
+        editor.clear();
         editor.putStringSet(PREF_USER, set);
         editor.commit();
     }
@@ -36,18 +38,13 @@ public class SaveSharedPreference {
     }
     public static String getEmail(Context ctx){
         Set result = getUser(ctx);
-        String email = null;
-        for (Object s : result){
-            email =  s.toString();
-        }
-        return email;
+        return result.iterator().next().toString();
     }
     public static String getUserName(Context ctx){
         Set result = getUser(ctx);
         String username = null;
         for (Object o : result){
             username = o.toString();
-            break;
         }
         //Log.d(SaveSharedPreference.class.getName(), username);
         return username;

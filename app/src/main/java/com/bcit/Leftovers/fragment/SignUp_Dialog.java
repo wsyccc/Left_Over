@@ -50,6 +50,15 @@ public class SignUp_Dialog extends DialogFragment{
         super.onStart();
         final AlertDialog dialog = (AlertDialog)getDialog();
         if (dialog != null){
+            Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
+            neutralButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    dialog.cancel();
+                    LogIn_Dialog loginDialog = new LogIn_Dialog();
+                    loginDialog.show(getFragmentManager(), "Login");
+                }
+            });
             Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override

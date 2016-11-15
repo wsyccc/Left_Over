@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class Login {
 
     public static int loginStatus = 0;
-    private Context context;
+    private Context context = null;
     private String userName = null;
     public static String email = null;
 
@@ -45,6 +45,8 @@ public class Login {
             SaveSharedPreference.setUser(context);
             MainActivity.userName = SaveSharedPreference.getUserName(context);
             MainActivity.email = SaveSharedPreference.getEmail(context);
+            Log.d(getClass().getName()+"email!", SaveSharedPreference.getEmail(context));
+            Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUserName(context));
             MainActivity.txtName.setText(MainActivity.userName);
             MainActivity.txtWebsite.setText(MainActivity.email);
             Log.d(getClass().getName(), MainActivity.userName);

@@ -105,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
             loadHomeFragment();
         }
         if (SaveSharedPreference.getEmail(this) != null){
-            Log.d(getClass().getName()+"email!", SaveSharedPreference.getEmail(this));
-            Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUserName(this));
             if (!(new Login(SaveSharedPreference.getEmail(this), this).login())){
                 Log.d(MainActivity.class.getName(), SaveSharedPreference.getEmail(this));
             }
@@ -378,7 +376,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_login) {
             LogIn_Dialog loginDialog = new LogIn_Dialog();
             loginDialog.show(getFragmentManager(), "Login");
-            Log.d("status", Login.loginStatus+"");
             drawer.closeDrawers();
         }
         //noinspection SimplifiableIfStatement
