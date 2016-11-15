@@ -16,7 +16,7 @@ import com.bcit.Leftovers.R;
 public class Splash extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 1500;
-    int time = 1;
+    private int time = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,27 +25,24 @@ public class Splash extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getActiveNetworkInfo();
+        if (mWifi == null) {
+            time = 1000000000;
+            Toast.makeText(Splash.this, "This application requires internet connect. Please connect to the internet and try again.", Toast.LENGTH_LONG).show();
+        }
         new Handler().postDelayed(new Runnable() {
-
 
             @Override
             public void run() {
 
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo mWifi = connManager.getActiveNetworkInfo();
-                if (mWifi == null){
-                    Splash.this.time = 100000;
-                    Toast.makeText(Splash.this, "This application requires internet connect. Please connect to the internet and try again.",Toast.LENGTH_LONG).show();
-                }else {
-                    Intent i = new Intent(Splash.this, MainActivity.class);
-                    startActivity(i);
-                }
-
+                Intent i = new Intent(Splash.this, MainActivity.class);
+                startActivity(i);
                 // close this activity
                 finish();
             }
-        }, SPLASH_TIME_OUT*time);
+        }, SPLASH_TIME_OUT * time);
     }
 }
