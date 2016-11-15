@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
-    private ImageView imgNavHeaderBg, imgProfile;
+    private ImageView imgNavHeaderBg;
+    protected ImageView imgProfile;
     public static TextView txtName, txtWebsite;
     private Toolbar toolbar;
 
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 .crossFade()
                 .thumbnail(0.5f)
                 .bitmapTransform(new CircleTransform(this))
+
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
@@ -215,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setToolbarTitle() {
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
     }
 
     private void selectNavMenu() {
@@ -292,6 +297,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shrink_to_original);
+                imgProfile.startAnimation(anim);
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -302,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
     }
+
 
     @Override
     public void onBackPressed() {
