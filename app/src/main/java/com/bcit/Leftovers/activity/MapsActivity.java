@@ -1,8 +1,9 @@
-package com.bcit.Leftovers;
+package com.bcit.Leftovers.activity;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.bcit.Leftovers.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

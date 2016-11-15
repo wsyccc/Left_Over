@@ -45,8 +45,8 @@ public class Login {
             SaveSharedPreference.setUser(context);
             MainActivity.userName = SaveSharedPreference.getUserName(context);
             MainActivity.email = SaveSharedPreference.getEmail(context);
-            MainActivity.txtName.setText(userName);
-            MainActivity.txtWebsite.setText(email);
+            MainActivity.txtName.setText(MainActivity.userName);
+            MainActivity.txtWebsite.setText(MainActivity.email);
             Log.d(getClass().getName(), MainActivity.userName);
             Log.d(getClass().getName(), MainActivity.email);
             if (loginStatus == 0){
