@@ -116,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageSelector selector = new ImageSelector(MainActivity.this);
+//                Intent intent = new Intent(MainActivity.this, ImagePicker.class);
+//                MainActivity.this.startActivity(intent);
+                ImageSelector imageSelector = new ImageSelector(MainActivity.this);
+                imageSelector.init();
             }
         });
     }
