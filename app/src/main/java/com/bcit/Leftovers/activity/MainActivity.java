@@ -207,16 +207,18 @@ public class MainActivity extends AppCompatActivity {
                 return homeFragment;
             case 1:
                 // photos
-                Nearby_Fragment nearbyFragment = new Nearby_Fragment();
-                return nearbyFragment;
-            case 2:
-                // movies fragment
                 Ingredients_Fragment ingredientsFragment = new Ingredients_Fragment();
                 return ingredientsFragment;
-            case 3:
-                // notifications fragment
+
+            case 2:
+                // movies fragment
                 FindAMeal_Fragment find_a_meal_Fragment = new FindAMeal_Fragment();
                 return find_a_meal_Fragment;
+
+            case 3:
+                // notifications fragment
+                Nearby_Fragment nearbyFragment = new Nearby_Fragment();
+                return nearbyFragment;
 
             case 4:
                 // settings fragment
