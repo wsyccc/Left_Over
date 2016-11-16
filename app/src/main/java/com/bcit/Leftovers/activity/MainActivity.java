@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bcit.Leftovers.fragment.LogIn_Dialog;
 import com.bcit.Leftovers.fragment.SignUp_Dialog;
+import com.bcit.Leftovers.other.ImageSelector;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.Logout;
 import com.bcit.Leftovers.other.SaveSharedPreference;
@@ -112,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this,"email"));
             }
         }
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageSelector selector = new ImageSelector(MainActivity.this);
+            }
+        });
     }
 
     /***
