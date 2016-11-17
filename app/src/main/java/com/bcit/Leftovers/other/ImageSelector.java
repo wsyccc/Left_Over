@@ -29,6 +29,8 @@ public class ImageSelector {
         this.context = activity.getApplicationContext();
     }
 
+
+
     public void init(){
         RxGalleryFinal
                 .with(context)

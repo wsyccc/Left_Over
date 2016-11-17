@@ -1,16 +1,20 @@
 package com.bcit.Leftovers.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -40,6 +44,7 @@ import com.bcit.Leftovers.fragment.Nearby_Fragment;
 import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,27 +124,65 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this,"email"));
             }
         }
-        imgProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (Login.loginStatus == 1 && Login.loginStatus != 0){
+            avatarClickListener();
+        }
+    }
+
+    /**
+     * For avatar
+     */
+
+    public void avatarClickListener(){
+        if (Login.loginStatus == 1 && Login.loginStatus != 0){
+            imgProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                Intent intent = new Intent(MainActivity.this, ImagePicker.class);
 //                MainActivity.this.startActivity(intent);
 //                ImageSelector imageSelector = new ImageSelector(MainActivity.this);
 //                imageSelector.init();
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    selectImage();
+                }
+            });
+        }
+    }
+    private void selectImage() {
+        final CharSequence[] items = { "Take Photo", "Choose from Library",
+                "Cancel" };
 
-                intent.setType("image/*");
-                intent.putExtra("crop", "true");
-                intent.putExtra("scale", true);
-                intent.putExtra("outputX", 100);
-                intent.putExtra("outputY", 100);
-                intent.putExtra("aspectX", 1);
-                intent.putExtra("aspectY", 1);
-                intent.putExtra("return-data", true);
-                startActivityForResult(intent, 1);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    File f = new File(android.os.Environment
+                            .getExternalStorageDirectory(), "temp.jpg");
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    startActivityForResult(intent, 0);
+                } else if (items[item].equals("Choose from Library")) {
+                    Intent intent = new Intent(
+                            Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");
+                    intent.putExtra("crop", "true");
+                    intent.putExtra("scale", true);
+                    intent.putExtra("outputX", 100);
+                    intent.putExtra("outputY", 100);
+                    intent.putExtra("aspectX", 1);
+                    intent.putExtra("aspectY", 1);
+                    intent.putExtra("return-data", true);
+                    startActivityForResult(
+                            Intent.createChooser(intent, "Select File"),
+                            1);
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
             }
         });
+        builder.show();
     }
 
     @Override

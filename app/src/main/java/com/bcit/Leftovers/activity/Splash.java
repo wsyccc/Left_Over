@@ -30,19 +30,24 @@ public class Splash extends AppCompatActivity {
         if (mWifi == null) {
             time = 1000000000;
             Toast.makeText(Splash.this, "This application requires internet connect. Please connect to the internet and try again.", Toast.LENGTH_LONG).show();
-        }
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-
-                // This method will be executed once the timer is over
-                // Start your app main activity
-                Intent i = new Intent(Splash.this, MainActivity.class);
-                startActivity(i);
-                // close this activity
-                finish();
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }, SPLASH_TIME_OUT * time);
+        }else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    // This method will be executed once the timer is over
+                    // Start your app main activity
+                    Intent i = new Intent(Splash.this, MainActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
+                }
+            }, SPLASH_TIME_OUT);
+        }
     }
 }

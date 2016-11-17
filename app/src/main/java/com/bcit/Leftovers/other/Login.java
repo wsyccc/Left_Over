@@ -62,6 +62,8 @@ public class Login {
                         return false;
                     }else{
                         loginStatus = 1;
+                        MainActivity mainActivity = new MainActivity();
+                        mainActivity.avatarClickListener();
                         return true;
                     }
                 } catch (Exception e) {
@@ -69,6 +71,8 @@ public class Login {
                     return false;
                 }
             } else {
+                MainActivity mainActivity = new MainActivity();
+                mainActivity.avatarClickListener();
                 return true;
             }
             //for the future
