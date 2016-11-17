@@ -1,6 +1,8 @@
 package com.bcit.Leftovers.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -37,6 +39,10 @@ import com.bcit.Leftovers.fragment.Ingredients_Fragment;
 import com.bcit.Leftovers.fragment.Nearby_Fragment;
 import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -118,10 +124,43 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent intent = new Intent(MainActivity.this, ImagePicker.class);
 //                MainActivity.this.startActivity(intent);
-                ImageSelector imageSelector = new ImageSelector(MainActivity.this);
-                imageSelector.init();
+//                ImageSelector imageSelector = new ImageSelector(MainActivity.this);
+//                imageSelector.init();
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+                intent.setType("image/*");
+                intent.putExtra("crop", "true");
+                intent.putExtra("scale", true);
+                intent.putExtra("outputX", 100);
+                intent.putExtra("outputY", 100);
+                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectY", 1);
+                intent.putExtra("return-data", true);
+                startActivityForResult(intent, 1);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(getClass().getName(), requestCode+"");
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == 1) {
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                final InputStream ist = this.getContentResolver().openInputStream(data.getData());
+                final Bitmap bitmap = BitmapFactory.decodeStream(ist, null, options);
+                imgProfile.setImageBitmap(bitmap);
+                ist.close();
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.e(getClass().getName()+"image", e.getMessage());
+            }
+        }
     }
 
     /***

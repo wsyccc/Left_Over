@@ -2,7 +2,9 @@ package com.bcit.Leftovers.other;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.ImageReader;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
 import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultSubscriber;
 import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
 import cn.finalteam.rxgalleryfinal.utils.ThemeUtils;
+
 
 /**
  * Created by Siyuan on 2016/11/16.
