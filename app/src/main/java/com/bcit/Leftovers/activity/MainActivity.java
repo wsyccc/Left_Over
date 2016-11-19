@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 import com.bcit.Leftovers.fragment.LogIn_Dialog;
 import com.bcit.Leftovers.fragment.SignUp_Dialog;
-import com.bcit.Leftovers.other.ImageSelector;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.Logout;
 import com.bcit.Leftovers.other.SaveSharedPreference;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg;
-    protected ImageView imgProfile;
+    protected static ImageView imgProfile;
     public static TextView txtName, txtWebsite;
     private Toolbar toolbar;
 
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this, "email"));
             }
         }
-        if (Login.loginStatus == 1 && Login.loginStatus != 0) {
+        if (Login.loginStatus == 1 && Login.loginStatus != 0){
             avatarClickListener();
         }
     }
@@ -137,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void avatarClickListener() {
+        imgProfile.setClickable(true);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,22 +149,25 @@ public class MainActivity extends AppCompatActivity {
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Take Photo")) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(android.os.Environment
-                            .getExternalStorageDirectory(), "temp.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(intent, 1);
+                    try{
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        File f = new File(android.os.Environment
+                                .getExternalStorageDirectory(), "temp.jpg");
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                        startActivityForResult(intent, 1);
+                    }catch (Exception e){
+                        Toast.makeText(MainActivity.this, "You don't have camera", Toast.LENGTH_LONG).show();
+                    }
                 } else if (items[item].equals("Choose from Library")) {
-                    Intent intent = new Intent(
-                            Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent intent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
                     intent.setType("image/*");
                     intent.putExtra("crop", "true");
                     intent.putExtra("scale", true);
@@ -173,9 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("aspectX", 1);
                     intent.putExtra("aspectY", 1);
                     intent.putExtra("return-data", true);
-                    startActivityForResult(
-                            Intent.createChooser(intent, "Select File"),
-                            2);
+                    startActivityForResult(intent, 2);
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -198,9 +199,9 @@ public class MainActivity extends AppCompatActivity {
                 final Bitmap bitmap = BitmapFactory.decodeStream(ist, null, options);
                 imgProfile.setImageBitmap(bitmap);
                 ist.close();
-            } catch (Exception e) {
+            }catch (Exception e){
                 e.printStackTrace();
-                Log.e(getClass().getName() + "image", e.getMessage());
+                Log.e(getClass().getName()+"image", e.getMessage());
             }
         } else if (requestCode == 1) {
             try {
@@ -434,6 +435,9 @@ public class MainActivity extends AppCompatActivity {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
                 Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shrink_to_original);
                 imgProfile.startAnimation(anim);
+                if (Login.loginStatus == 1 && Login.loginStatus != 0){
+                    avatarClickListener();
+                }
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -518,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_login) {
             LogIn_Dialog loginDialog = new LogIn_Dialog();
-            loginDialog.show(getFragmentManager(), "Login");
+            synchronized (this){loginDialog.show(getFragmentManager(), "Login");}
             drawer.closeDrawers();
         }
         //noinspection SimplifiableIfStatement

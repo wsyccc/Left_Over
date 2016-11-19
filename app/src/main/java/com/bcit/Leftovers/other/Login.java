@@ -20,7 +20,6 @@ public class Login {
     private Context context = null;
     private String userName = null;
     public static String email = null;
-    public static boolean flag = false;
 
     public Login(String email, Context ctx) {
         this.context = ctx;
@@ -66,7 +65,6 @@ public class Login {
                         return false;
                     } else {
                         loginStatus = 1;
-                        flag = true;
                         return true;
                     }
                 } catch (Exception e) {
@@ -74,7 +72,6 @@ public class Login {
                     return false;
                 }
             } else {
-                flag = true;
                 return true;
             }
             //for the future

@@ -4,12 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
-import com.bcit.Leftovers.activity.MainActivity;
 import com.bcit.Leftovers.other.Encryption;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.MongoDB;
@@ -39,6 +34,10 @@ public class LogIn_Dialog extends DialogFragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -47,7 +46,8 @@ public class LogIn_Dialog extends DialogFragment {
                 .setTitle(R.string.login_tile)
                 .setPositiveButton(android.R.string.ok, null)
                 .setNeutralButton(R.string.no_account, null)
-                .setNegativeButton(android.R.string.cancel, null);
+                .setNegativeButton(android.R.string.cancel, null)
+                .setCancelable(false);
         return builder.create();
     }
 
@@ -101,7 +101,7 @@ public class LogIn_Dialog extends DialogFragment {
                                 final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
                                         .setTitle("Welcome " + SaveSharedPreference.getUser(getActivity(), "userName"))
                                         .setMessage(R.string.login_success)
-                                        .setNegativeButton(android.R.string.ok, null);
+                                        .setPositiveButton(android.R.string.ok, null);
                                 pd.show();
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -150,6 +150,4 @@ public class LogIn_Dialog extends DialogFragment {
             return false;
         }
     }
-
-
 }
