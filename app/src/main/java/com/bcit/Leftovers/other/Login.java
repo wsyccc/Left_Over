@@ -18,7 +18,7 @@ public class Login {
     private String userName = null;
     public static String email = null;
 
-    public Login(String email, Context ctx){
+    public Login(String email, Context ctx) {
         this.context = ctx;
         String json = "email=" + email + "&collection=usersInfo"
                 + "&action=find";
@@ -28,7 +28,7 @@ public class Login {
             result = mongoDB.execute(json).get();
             if (result.equalsIgnoreCase("null")) {
                 Log.e(Login.class.getName(), "Cannot find the user");
-            }else{
+            } else {
                 JSONObject jsonObject = new JSONObject(result);
                 userName = jsonObject.getString("username");
                 this.email = jsonObject.getString("email");
@@ -38,21 +38,21 @@ public class Login {
         }
     }
 
-    public boolean login(){
-        if (userName != null){
+    public boolean login() {
+        if (userName != null) {
             String CuserName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
             SaveSharedPreference.setUser(this.email, CuserName, context);
-            MainActivity.userName = SaveSharedPreference.getUser(context,"userName");
+            MainActivity.userName = SaveSharedPreference.getUser(context, "userName");
             MainActivity.email = SaveSharedPreference.getUser(context, "email");
-            Log.d(getClass().getName()+"email!", SaveSharedPreference.getUser(context, "email"));
-            Log.d(getClass().getName()+"username!!!!!!!!!", SaveSharedPreference.getUser(context,"userName"));
+            Log.d(getClass().getName() + "email!", SaveSharedPreference.getUser(context, "email"));
+            Log.d(getClass().getName() + "username!!!!!!!!!", SaveSharedPreference.getUser(context, "userName"));
             MainActivity.txtName.setText(MainActivity.userName);
             MainActivity.txtWebsite.setText(MainActivity.email);
             Log.d(getClass().getName(), MainActivity.userName);
             Log.d(getClass().getName(), MainActivity.email);
-            if (loginStatus == 0){
+            if (loginStatus == 0) {
                 String json = "email=" + email + "&collection=usersInfo"
-                        + "&action=updateOne" + "&which=login"+"&to=1";
+                        + "&action=updateOne" + "&which=login" + "&to=1";
                 MongoDB mongoDB = new MongoDB(context);
                 String result;
                 try {
@@ -60,10 +60,10 @@ public class Login {
                     if (result.equalsIgnoreCase("null")) {
                         Log.e(Login.class.getName(), "Cannot update login");
                         return false;
-                    }else{
-                        loginStatus = 1;
+                    } else {
                         MainActivity mainActivity = new MainActivity();
                         mainActivity.avatarClickListener();
+                        loginStatus = 1;
                         return true;
                     }
                 } catch (Exception e) {

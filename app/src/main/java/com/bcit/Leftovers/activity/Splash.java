@@ -16,7 +16,6 @@ import com.bcit.Leftovers.R;
 public class Splash extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 1500;
-    private int time = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +27,13 @@ public class Splash extends AppCompatActivity {
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getActiveNetworkInfo();
         if (mWifi == null) {
-            time = 1000000000;
             Toast.makeText(Splash.this, "This application requires internet connect. Please connect to the internet and try again.", Toast.LENGTH_LONG).show();
-            try {
-                Thread.sleep(time);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            }, 1000000000);
         }else{
             new Handler().postDelayed(new Runnable() {
                 @Override

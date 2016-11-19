@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
@@ -46,8 +47,10 @@ import com.bcit.Leftovers.other.CircleTransform;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -119,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-        if (SaveSharedPreference.getUser(this,"email") != null){
-            if (!(new Login(SaveSharedPreference.getUser(this,"email"), this).login())){
-                Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this,"email"));
+        if (SaveSharedPreference.getUser(this, "email") != null) {
+            if (!(new Login(SaveSharedPreference.getUser(this, "email"), this).login())) {
+                Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this, "email"));
             }
         }
-        if (Login.loginStatus == 1 && Login.loginStatus != 0){
+        if (Login.loginStatus == 1 && Login.loginStatus != 0) {
             avatarClickListener();
         }
     }
@@ -133,23 +136,19 @@ public class MainActivity extends AppCompatActivity {
      * For avatar
      */
 
-    public void avatarClickListener(){
-        if (Login.loginStatus == 1 && Login.loginStatus != 0){
-            imgProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ImagePicker.class);
-//                MainActivity.this.startActivity(intent);
-//                ImageSelector imageSelector = new ImageSelector(MainActivity.this);
-//                imageSelector.init();
-                    selectImage();
-                }
-            });
-        }
+    public void avatarClickListener() {
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+
     }
+
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Add Photo!");
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     File f = new File(android.os.Environment
                             .getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(intent, 0);
+                    startActivityForResult(intent, 1);
                 } else if (items[item].equals("Choose from Library")) {
                     Intent intent = new Intent(
                             Intent.ACTION_PICK,
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("return-data", true);
                     startActivityForResult(
                             Intent.createChooser(intent, "Select File"),
-                            1);
+                            2);
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -187,21 +186,63 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(getClass().getName(), requestCode+"");
+        Log.d(getClass().getName(), requestCode + "");
         if (resultCode != RESULT_OK) {
             return;
         }
 
-        if (requestCode == 1) {
+        if (requestCode == 2) {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 final InputStream ist = this.getContentResolver().openInputStream(data.getData());
                 final Bitmap bitmap = BitmapFactory.decodeStream(ist, null, options);
                 imgProfile.setImageBitmap(bitmap);
                 ist.close();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(getClass().getName()+"image", e.getMessage());
+                Log.e(getClass().getName() + "image", e.getMessage());
+            }
+        } else if (requestCode == 1) {
+            try {
+
+                File f = new File(Environment.getExternalStorageDirectory()
+                        .toString());
+                for (File temp : f.listFiles()) {
+                    if (temp.getName().equals("temp.jpg")) {
+                        f = temp;
+                        break;
+                    }
+                }
+                Bitmap bitmap;
+                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+
+                bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
+                        bitmapOptions);
+                imgProfile.setImageBitmap(bitmap);
+
+                String path = android.os.Environment
+                        .getExternalStorageDirectory()
+                        + File.separator
+                        + "Phoenix" + File.separator + "default";
+                f.delete();
+                OutputStream outFile = null;
+                File file = new File(path, String.valueOf(System
+                        .currentTimeMillis()) + ".jpg");
+                try {
+                    outFile = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
+                    outFile.flush();
+                    outFile.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -431,12 +472,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (navItemIndex != 3){
-            if(Login.loginStatus == 1) {
+        if (navItemIndex != 3) {
+            if (Login.loginStatus == 1) {
                 menu.findItem(R.id.action_logout).setVisible(true);
                 menu.findItem(R.id.action_login).setVisible(false);
                 menu.findItem(R.id.action_signup).setVisible(false);
-            }else if (Login.loginStatus == 0){
+            } else if (Login.loginStatus == 0) {
                 menu.findItem(R.id.action_logout).setVisible(false);
                 menu.findItem(R.id.action_login).setVisible(true);
                 menu.findItem(R.id.action_signup).setVisible(true);
@@ -482,11 +523,12 @@ public class MainActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            if(!(new Logout(Login.email,MainActivity.this).logout())){
+            if (!(new Logout(Login.email, MainActivity.this).logout())) {
                 return false;
-            }else{
+            } else {
                 Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-                Log.d("status", Login.loginStatus+"");
+                Log.d("status", Login.loginStatus + "");
+                imgProfile.setClickable(false);
                 return true;
             }
         }
