@@ -4,8 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.activity.MainActivity;
 import com.bcit.Leftovers.other.Encryption;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.MongoDB;
@@ -25,7 +30,7 @@ import org.json.JSONObject;
  * Created by siyuanwang on 2016-11-12.
  */
 
-public class LogIn_Dialog extends DialogFragment{
+public class LogIn_Dialog extends DialogFragment {
 
     private static String email;
     private static String password;
@@ -40,27 +45,28 @@ public class LogIn_Dialog extends DialogFragment{
         view = inflater.inflate(R.layout.login_dialog, null);
         builder.setView(view)
                 .setTitle(R.string.login_tile)
-                .setPositiveButton(android.R.string.ok,null)
-                .setNeutralButton(R.string.no_account,null)
-                .setNegativeButton(android.R.string.cancel,null);
+                .setPositiveButton(android.R.string.ok, null)
+                .setNeutralButton(R.string.no_account, null)
+                .setNegativeButton(android.R.string.cancel, null);
         return builder.create();
     }
+
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
-        final AlertDialog dialog = (AlertDialog)getDialog();
-        if (dialog != null){
+        final AlertDialog dialog = (AlertDialog) getDialog();
+        if (dialog != null) {
             Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
-            neutralButton.setOnClickListener(new View.OnClickListener(){
+            neutralButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
                     dialog.cancel();
                     SignUp_Dialog signupDialog = new SignUp_Dialog();
                     signupDialog.show(getFragmentManager(), "Signup");
                 }
             });
             Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
-            positiveButton.setOnClickListener(new View.OnClickListener(){
+            positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     EditText email_txt = (EditText) view.findViewById(R.id.login_txt_email);
@@ -87,15 +93,15 @@ public class LogIn_Dialog extends DialogFragment{
                             dialog.dismiss();
                             final ProgressDialog pd = new ProgressDialog(getActivity());
                             pd.setMessage("Please Wait!");
-                            if (!(new Login(email,getActivity()).login())){
+                            if (!(new Login(email, getActivity()).login())) {
                                 error.setText(R.string.server_error);
                                 error.setVisibility(View.VISIBLE);
                                 pd.dismiss();
-                            }else {
+                            } else {
                                 final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
-                                        .setTitle("Welcome "+ SaveSharedPreference.getUser(getActivity(),"userName"))
+                                        .setTitle("Welcome " + SaveSharedPreference.getUser(getActivity(), "userName"))
                                         .setMessage(R.string.login_success)
-                                        .setNegativeButton(android.R.string.ok,null);
+                                        .setNegativeButton(android.R.string.ok, null);
                                 pd.show();
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -126,16 +132,16 @@ public class LogIn_Dialog extends DialogFragment{
         try {
             result = mongoDB.execute(json).get();
             Log.d("result", result);
-            if (result.equalsIgnoreCase("null")){
+            if (result.equalsIgnoreCase("null")) {
                 return false;
-            }else{
+            } else {
                 JSONObject jsonObject = new JSONObject(result);
                 actual_email = jsonObject.getString("email");
                 encrypt_password = jsonObject.getString("password");
                 decrypt_password = Encryption.decrypt(actual_email, encrypt_password);
-                if (password.equals(decrypt_password)){
+                if (password.equals(decrypt_password)) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
             }
@@ -144,7 +150,6 @@ public class LogIn_Dialog extends DialogFragment{
             return false;
         }
     }
-
 
 
 }

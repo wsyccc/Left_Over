@@ -1,6 +1,9 @@
 package com.bcit.Leftovers.other;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.util.Log;
 
 import com.bcit.Leftovers.activity.MainActivity;
@@ -17,6 +20,7 @@ public class Login {
     private Context context = null;
     private String userName = null;
     public static String email = null;
+    public static boolean flag = false;
 
     public Login(String email, Context ctx) {
         this.context = ctx;
@@ -61,9 +65,8 @@ public class Login {
                         Log.e(Login.class.getName(), "Cannot update login");
                         return false;
                     } else {
-                        MainActivity mainActivity = new MainActivity();
-                        mainActivity.avatarClickListener();
                         loginStatus = 1;
+                        flag = true;
                         return true;
                     }
                 } catch (Exception e) {
@@ -71,8 +74,7 @@ public class Login {
                     return false;
                 }
             } else {
-                MainActivity mainActivity = new MainActivity();
-                mainActivity.avatarClickListener();
+                flag = true;
                 return true;
             }
             //for the future

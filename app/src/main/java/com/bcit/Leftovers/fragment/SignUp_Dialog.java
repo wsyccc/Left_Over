@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.activity.MainActivity;
 import com.bcit.Leftovers.other.Encryption;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.MongoDB;
@@ -100,7 +103,7 @@ public class SignUp_Dialog extends DialogFragment{
                             final AlertDialog.Builder ab = new AlertDialog.Builder(getActivity())
                                     .setTitle(R.string.success_title)
                                     .setMessage(R.string.success_msg)
-                                    .setNegativeButton(android.R.string.ok,null);
+                                    .setNegativeButton(android.R.string.ok, null);
                             pd.show();
                             if (!(new Login(email,getActivity()).login())){
                                 error.setText(R.string.server_error);
