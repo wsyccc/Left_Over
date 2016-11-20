@@ -6,31 +6,6 @@
     tools:context="com.bcit.Leftovers.fragment.Nearby_Fragment"
     android:orientation="vertical">
 
-    <TextView
-        android:text="Choosen Ingredients"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2">
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/chosenIngredients">
-
-            <ImageButton
-                android:layout_width="95dp"
-                android:layout_height="77dp"
-                app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                android:id="@+id/imageButton29" />
-        </GridLayout>
-    </HorizontalScrollView>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -48,63 +23,78 @@
 
             <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="159dp">
+                android:layout_height="180dp">
 
-                <ImageButton
-                    android:layout_width="96dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton5" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_row="0"
+                    android:layout_column="0">
 
-                <ImageButton
-                    android:layout_width="96dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton7" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
 
-                <ImageButton
-                    android:layout_width="94dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton8" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
 
-                <ImageButton
-                    android:layout_width="94dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton6" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
 
-                <ImageButton
-                    android:layout_width="96dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton1"
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp" android:orientation="horizontal"
                     android:layout_row="1"
-                    android:layout_column="0" />
+                    android:layout_column="0">
 
-                <ImageButton
-                    android:layout_width="94dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton2"
-                    android:layout_row="1"
-                    android:layout_column="1" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example5"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
 
-                <ImageButton
-                    android:layout_width="96dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton3"
-                    android:layout_row="1"
-                    android:layout_column="2" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
 
-                <ImageButton
-                    android:layout_width="94dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton4"
-                    android:layout_row="1"
-                    android:layout_column="3" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example7"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example8"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"/>
+                </LinearLayout>
+
             </GridLayout>
 
             <TextView

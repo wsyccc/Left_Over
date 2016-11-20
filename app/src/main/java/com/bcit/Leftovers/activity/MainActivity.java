@@ -58,6 +58,8 @@ import java.util.concurrent.ExecutionException;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
+import com.beardedhen.androidbootstrap.TypefaceProvider;
+
 public class MainActivity extends AppCompatActivity {
 
     private NavigationView navigationView;
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TypefaceProvider.registerDefaultIconSets();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
