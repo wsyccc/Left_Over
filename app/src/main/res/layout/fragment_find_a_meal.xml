@@ -19,7 +19,9 @@
                 android:text="Meat/Protein"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView4" />
+                android:id="@+id/textView4"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -101,7 +103,9 @@
                 android:text="Vegetables"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5" />
+                android:id="@+id/textView5"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -200,7 +204,9 @@
                 android:text="Grains/Carbs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6" />
+                android:id="@+id/textView6"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -235,7 +241,9 @@
                 android:text="Dairy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView8" />
+                android:id="@+id/textView8"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -258,13 +266,6 @@
                     android:layout_height="77dp"
                     app:srcCompat="@drawable/ic_photo_library_black_24dp"
                     android:id="@+id/imageButton27" />
-
-                <ImageButton
-                    android:layout_width="94dp"
-                    android:layout_height="77dp"
-                    app:srcCompat="@drawable/ic_photo_library_black_24dp"
-                    android:id="@+id/imageButton28"
-                    android:onClick="addIngredient"/>
             </GridLayout>
         </LinearLayout>
     </ScrollView>
