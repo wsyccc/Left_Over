@@ -28,11 +28,10 @@ public class ImageUploader extends AsyncTask<String, Void, String> {
     private int connectTimeout = 10 * 1000;
     private static final String fileKey = "avatar";
     private String userName, email;
-    /***
-     * 请求使用多长时间
-     */
+
+    
     private static int requestTime = 0;
-    private static final String CHARSET = "utf-8"; 
+    private static final String CHARSET = "utf-8";
 
     public ImageUploader(String userName, String email){
         this.userName = userName;
