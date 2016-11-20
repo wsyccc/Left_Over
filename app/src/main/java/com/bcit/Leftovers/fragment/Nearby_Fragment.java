@@ -107,10 +107,4 @@ public class Nearby_Fragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    public void addIngredient(View view) {
-        GridLayout g = (GridLayout) view.findViewById(R.id.chosenIngredients);
-
-        g.addView(view);
-    }
 }
