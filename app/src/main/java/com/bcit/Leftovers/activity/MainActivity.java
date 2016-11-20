@@ -1,7 +1,10 @@
 package com.bcit.Leftovers.activity;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -30,8 +33,10 @@ import android.widget.Toast;
 
 import com.bcit.Leftovers.fragment.LogIn_Dialog;
 import com.bcit.Leftovers.fragment.SignUp_Dialog;
+import com.bcit.Leftovers.other.ImageUploader;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.Logout;
+import com.bcit.Leftovers.other.MongoDB;
 import com.bcit.Leftovers.other.SaveSharedPreference;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -43,13 +48,15 @@ import com.bcit.Leftovers.fragment.Ingredients_Fragment;
 import com.bcit.Leftovers.fragment.Nearby_Fragment;
 import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg;
-    protected static ImageView imgProfile;
+    public static ImageView imgProfile;
     public static TextView txtName, txtWebsite;
     private Toolbar toolbar;
 
     // urls to load navigation header background image
     // and profile image
-    private static final String urlProfileImg = "https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
+    public static String urlProfileImg = "https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
     //userName
     public static String userName = "King";
     //email
@@ -86,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+    private static Uri mCropImageUri;
 
 
     @Override
@@ -123,10 +131,10 @@ public class MainActivity extends AppCompatActivity {
         }
         if (SaveSharedPreference.getUser(this, "email") != null) {
             if (!(new Login(SaveSharedPreference.getUser(this, "email"), this).login())) {
-                Log.d(MainActivity.class.getName(), SaveSharedPreference.getUser(this, "email"));
+                Log.e(MainActivity.class.getName(), SaveSharedPreference.getUser(this, "email"));
             }
         }
-        if (Login.loginStatus == 1 && Login.loginStatus != 0){
+        if (Login.loginStatus == 1 && Login.loginStatus != 0) {
             avatarClickListener();
         }
     }
@@ -140,113 +148,102 @@ public class MainActivity extends AppCompatActivity {
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
-            }
-        });
-
-    }
-
-    private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Library",
-                "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Add Photo!");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (items[item].equals("Take Photo")) {
-                    try{
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        File f = new File(android.os.Environment
-                                .getExternalStorageDirectory(), "temp.jpg");
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                        startActivityForResult(intent, 1);
-                    }catch (Exception e){
-                        Toast.makeText(MainActivity.this, "You don't have camera", Toast.LENGTH_LONG).show();
-                    }
-                } else if (items[item].equals("Choose from Library")) {
-                    Intent intent = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-
-                    intent.setType("image/*");
-                    intent.putExtra("crop", "true");
-                    intent.putExtra("scale", true);
-                    intent.putExtra("outputX", 100);
-                    intent.putExtra("outputY", 100);
-                    intent.putExtra("aspectX", 1);
-                    intent.putExtra("aspectY", 1);
-                    intent.putExtra("return-data", true);
-                    startActivityForResult(intent, 2);
-                } else if (items[item].equals("Cancel")) {
-                    dialog.dismiss();
+                if (CropImage.isExplicitCameraPermissionRequired(MainActivity.this)) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+                } else {
+                    CropImage.startPickImageActivity(MainActivity.this);
                 }
             }
         });
-        builder.show();
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(getClass().getName(), requestCode + "");
-        if (resultCode != RESULT_OK) {
-            return;
-        }
-
-        if (requestCode == 2) {
-            try {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                final InputStream ist = this.getContentResolver().openInputStream(data.getData());
-                final Bitmap bitmap = BitmapFactory.decodeStream(ist, null, options);
-                imgProfile.setImageBitmap(bitmap);
-                ist.close();
-            }catch (Exception e){
-                e.printStackTrace();
-                Log.e(getClass().getName()+"image", e.getMessage());
+        super.onActivityResult(requestCode, resultCode, data);
+        // handle result of pick image chooser
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+            // For API >= 23 we need to check specifically that we have permissions to read external storage.
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+                // request permissions and handle the result in onRequestPermissionsResult()
+                mCropImageUri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                // no permissions required or already grunted, can start crop image activity
+                startCropImageActivity(imageUri);
             }
-        } else if (requestCode == 1) {
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            Uri imageUri = result.getUri();
+            ImageUploader uploader = new ImageUploader(userName, email);
+            String upload;
             try {
-
-                File f = new File(Environment.getExternalStorageDirectory()
-                        .toString());
-                for (File temp : f.listFiles()) {
-                    if (temp.getName().equals("temp.jpg")) {
-                        f = temp;
-                        break;
+                upload = uploader.execute(imageUri.getPath()).get();
+                if (upload != null) {
+                    urlProfileImg = "https://wayneking.me/mongoDB/leftover_images/user_avatar/avatars/" + email + "_" + userName + "." + upload.replace("\"", "");
+                    if (updateAvatar()) {
+                        loadNavHeader();
+                    } else {
+                        Toast.makeText(this, "Sorry cannot upload your icon", Toast.LENGTH_LONG).show();
                     }
+
                 }
-                Bitmap bitmap;
-                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-                bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
-                        bitmapOptions);
-                imgProfile.setImageBitmap(bitmap);
-
-                String path = android.os.Environment
-                        .getExternalStorageDirectory()
-                        + File.separator
-                        + "Phoenix" + File.separator + "default";
-                f.delete();
-                OutputStream outFile = null;
-                File file = new File(path, String.valueOf(System
-                        .currentTimeMillis()) + ".jpg");
-                try {
-                    outFile = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-                    outFile.flush();
-                    outFile.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        } else if (CropImage.isExplicitCameraPermissionRequired(this)) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            Uri imageUri = CropImage.getCaptureImageOutputUri(this);
+            // request permissions and handle the result in onRequestPermissionsResult()
+            mCropImageUri = imageUri;
+            startCropImageActivity(mCropImageUri);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                // required permissions granted, start crop image activity
+                startCropImageActivity(mCropImageUri);
+            } else {
+                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+        if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                // required permissions granted, start crop image activity
+                startCropImageActivity(mCropImageUri);
+            } else {
+                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
             }
         }
     }
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setAllowRotation(true)
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .start(this);
+    }
+
+    private boolean updateAvatar() throws ExecutionException, InterruptedException {
+        String json = "email=" + email + "&collection=usersInfo" + "&action=updateOne"
+                + "&which=avatar" + "&to=" + urlProfileImg;
+        MongoDB mongoDB = new MongoDB(this);
+        String result = mongoDB.execute(json).get();
+        if (result != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /***
      * Load navigation menu header information
@@ -269,8 +266,8 @@ public class MainActivity extends AppCompatActivity {
                 .crossFade()
                 .thumbnail(0.5f)
                 .bitmapTransform(new CircleTransform(this))
-
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(imgProfile);
 
         // showing dot next to notifications label
@@ -435,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
                 Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shrink_to_original);
                 imgProfile.startAnimation(anim);
-                if (Login.loginStatus == 1 && Login.loginStatus != 0){
+                if (Login.loginStatus == 1 && Login.loginStatus != 0) {
                     avatarClickListener();
                 }
                 super.onDrawerOpened(drawerView);
@@ -522,7 +519,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_login) {
             LogIn_Dialog loginDialog = new LogIn_Dialog();
-            synchronized (this){loginDialog.show(getFragmentManager(), "Login");}
+            synchronized (this) {
+                loginDialog.show(getFragmentManager(), "Login");
+            }
             drawer.closeDrawers();
         }
         //noinspection SimplifiableIfStatement
