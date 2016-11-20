@@ -1,25 +1,17 @@
 package com.bcit.Leftovers.activity;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,7 +33,6 @@ import com.bcit.Leftovers.other.MongoDB;
 import com.bcit.Leftovers.other.SaveSharedPreference;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.fragment.FindAMeal_Fragment;
 import com.bcit.Leftovers.fragment.Home_Fragment;
@@ -49,18 +40,8 @@ import com.bcit.Leftovers.fragment.Ingredients_Fragment;
 import com.bcit.Leftovers.fragment.Nearby_Fragment;
 import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
