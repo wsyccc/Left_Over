@@ -158,7 +158,7 @@ public class SignUp_Dialog extends DialogFragment{
     public boolean storeData(String email, String username, String password) throws Exception {
         String json = "email=" + email + "&username=" + username + "&pwd="
                 + Encryption.encrypt(email,password) + "&collection=usersInfo"
-                + "&action=insert" + "&login=1";
+                + "&action=insert" + "&login=1"+"&avatar=https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
         MongoDB mongoDB = new MongoDB(getActivity());
         String result;
         try {

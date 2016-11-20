@@ -14,11 +14,12 @@ public class SaveSharedPreference {
     static SharedPreferences getSharedPreferences(Context ctx){
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
-    public static void setUser(String email, String userName, Context ctx){
+    public static void setUser(String email, String userName, String avatarUrl, Context ctx){
         editor = getSharedPreferences(ctx).edit();
         clear();
         editor.putString("email", email);
         editor.putString("userName", userName);
+        editor.putString("avatarUrl", avatarUrl);
         editor.commit();
     }
     public static String getUser(Context ctx, String what){

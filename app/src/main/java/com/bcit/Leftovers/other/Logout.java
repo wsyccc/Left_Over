@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.bcit.Leftovers.activity.MainActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.json.JSONObject;
 
@@ -45,6 +47,14 @@ public class Logout {
             MainActivity.txtName.setText(MainActivity.userName);
             MainActivity.email = "leftover@bcit.ca";
             MainActivity.txtWebsite.setText(MainActivity.email);
+            MainActivity.urlProfileImg = "https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
+            Glide.with(context).load(MainActivity.urlProfileImg)
+                    .crossFade()
+                    .thumbnail(0.5f)
+                    .bitmapTransform(new CircleTransform(context))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(MainActivity.imgProfile);
             String json = "email=" + email + "&collection=usersInfo"
                     + "&action=updateOne" + "&which=login" + "&to=0";
             MongoDB mongoDB = new MongoDB(context);
