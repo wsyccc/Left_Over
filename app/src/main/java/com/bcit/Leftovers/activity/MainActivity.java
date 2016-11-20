@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -48,6 +49,12 @@ import com.bcit.Leftovers.fragment.Ingredients_Fragment;
 import com.bcit.Leftovers.fragment.Nearby_Fragment;
 import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -356,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
     private void setToolbarTitle() {
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
     }
 
     private void selectNavMenu() {
