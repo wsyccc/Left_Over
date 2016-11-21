@@ -3,12 +3,21 @@ package com.bcit.Leftovers.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.other.BannerAdapter;
+import android.widget.LinearLayout.LayoutParams;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,11 +33,25 @@ public class Home_Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private ViewPager mViewPager;
+    private List<ImageView> mlist;
+    private TextView mTextView;
+    private LinearLayout mLinearLayout;
+    private int[] bannerImages = { R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4 };
+    private String[] bannerTexts = { "COLOMBIAN VEGETABLE SOUP", "PRESSURE COOKER CORN SOUP",
+            "QUICK AND EASY PRESSURE COOKER CHICKEN, LENTIL, AND BACON STEW WITH CARROTS",
+            "QUICK AND EASY PRESSURE COOKER CHICKEN AND BLACK BEAN STEW" };
+    private BannerAdapter mAdapter;
+    private BannerListener bannerListener;
+    private int pointIndex = 0;
+    private boolean isStop = false;
 
     public Home_Fragment() {
         // Required empty public constructor
@@ -66,6 +89,89 @@ public class Home_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView();
+        initData();
+        initAction();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!isStop) {
+                    SystemClock.sleep(3000);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    class BannerListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            int newPosition = position % bannerImages.length;
+            mTextView.setText(bannerTexts[newPosition]);
+            mLinearLayout.getChildAt(newPosition).setEnabled(true);
+            mLinearLayout.getChildAt(pointIndex).setEnabled(false);
+            pointIndex = newPosition;
+        }
+
+    }
+
+    
+    private void initView() {
+        mViewPager = (ViewPager) getActivity().findViewById(R.id.viewpager);
+        mTextView = (TextView) getActivity().findViewById(R.id.tv_bannertext);
+        mLinearLayout = (LinearLayout) getActivity().findViewById(R.id.points);
+    }
+
+
+    private void initAction() {
+        bannerListener = new BannerListener();
+        mViewPager.addOnPageChangeListener(bannerListener);
+        int index = (Integer.MAX_VALUE / 2) - (Integer.MAX_VALUE / 2 % mlist.size());
+        mViewPager.setCurrentItem(index);
+        mLinearLayout.getChildAt(pointIndex).setEnabled(true);
+    }
+
+
+    private void initData() {
+        mlist = new ArrayList<>();
+        View view;
+        LayoutParams params;
+        for (int i = 0; i < bannerImages.length; i++) {
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            imageView.setBackgroundResource(bannerImages[i]);
+            mlist.add(imageView);
+            view = new View(getActivity());
+            params = new LayoutParams(5, 5);
+            params.leftMargin = 10;
+            view.setBackgroundResource(R.drawable.point_background);
+            view.setLayoutParams(params);
+            view.setEnabled(false);
+
+            mLinearLayout.addView(view);
+        }
+        mAdapter = new BannerAdapter(mlist);
+        mViewPager.setAdapter(mAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +197,12 @@ public class Home_Fragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    @Override
+    public void onDestroy() {
+        isStop = true;
+        super.onDestroy();
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
