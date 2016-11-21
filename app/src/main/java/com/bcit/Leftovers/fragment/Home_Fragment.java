@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +54,8 @@ public class Home_Fragment extends Fragment {
     private BannerListener bannerListener;
     private int pointIndex = 0;
     private boolean isStop = false;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
     public Home_Fragment() {
         // Required empty public constructor
@@ -88,8 +92,10 @@ public class Home_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        return rootView;
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
