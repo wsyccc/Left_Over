@@ -42,6 +42,7 @@ import com.bcit.Leftovers.fragment.History_Fragment;
 import com.bcit.Leftovers.other.CircleTransform;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.util.concurrent.ExecutionException;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -190,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-        } else if (CropImage.isExplicitCameraPermissionRequired(this)) {
+        } else if (resultCode == RESULT_OK){
             if (CropImage.isExplicitCameraPermissionRequired(this)){
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
             }else {
@@ -199,8 +200,6 @@ public class MainActivity extends AppCompatActivity {
                 mCropImageUri = imageUri;
                 startCropImageActivity(mCropImageUri);
             }
-        }else{
-
         }
     }
 
