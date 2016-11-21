@@ -7,6 +7,10 @@ import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,8 @@ import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.BannerAdapter;
+import com.bcit.Leftovers.other.Home_Fragment_Info;
+
 import android.widget.LinearLayout.LayoutParams;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +60,9 @@ public class Home_Fragment extends Fragment {
     private BannerListener bannerListener;
     private int pointIndex = 0;
     private boolean isStop = false;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private List<String> imageUrl;
     private RecyclerView mRecyclerView;
+    private Home_Fragment_Info recycleAdapter;
 
     public Home_Fragment() {
         // Required empty public constructor
@@ -93,8 +100,14 @@ public class Home_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        initUrl();
+        recycleAdapter = new Home_Fragment_Info(getActivity(), imageUrl);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        mRecyclerView.setAdapter(recycleAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         return rootView;
     }
     @Override
@@ -217,6 +230,11 @@ public class Home_Fragment extends Fragment {
     public void onDestroy() {
         isStop = true;
         super.onDestroy();
+    }
+    public void initUrl(){
+        imageUrl = new ArrayList<>();
+        imageUrl.add("https://wayneking.me/mongoDB/leftover_images/recipes/images/1.jpg");
+        imageUrl.add("https://wayneking.me/mongoDB/leftover_images/recipes/images/2.jpg");
     }
 
 

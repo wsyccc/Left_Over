@@ -4,6 +4,7 @@
     android:layout_height="125dp"
     android:baselineAligned="false"
     android:orientation="horizontal"
+    android:id="@+id/row"
     android:padding="4dp">
 
 
