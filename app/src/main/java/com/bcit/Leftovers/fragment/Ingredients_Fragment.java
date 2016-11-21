@@ -1,6 +1,7 @@
 package com.bcit.Leftovers.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bcit.Leftovers.R;
+
+import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.beardedhen.androidbootstrap.BootstrapThumbnail;
+import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
+
+import static com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand.INFO;
+import static com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand.PRIMARY;
+import static com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand.REGULAR;
+import static com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand.SUCCESS;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +80,7 @@ public class Ingredients_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_find_a_meal, container, false);
+        return inflater.inflate(R.layout.fragment_ingredients, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,5 +120,21 @@ public class Ingredients_Fragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void chooseIngredient(View v) {
+        BootstrapCircleThumbnail b = (BootstrapCircleThumbnail) v;
+
+        BootstrapBrand i = b.getBootstrapBrand();
+
+        if (i.equals(DefaultBootstrapBrand.SUCCESS)) {
+            b.setBootstrapBrand(REGULAR);
+        } else {
+            b.setBootstrapBrand(SUCCESS);
+        }
+    }
+
+    public void nextStep(View v) {
+
     }
 }

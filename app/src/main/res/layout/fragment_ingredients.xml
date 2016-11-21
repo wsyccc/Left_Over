@@ -1,0 +1,389 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bcit.Leftovers.fragment.Nearby_Fragment"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:text="Meat/Protein"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_row="0"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_row="1"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example5"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example7"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example8"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+
+            </GridLayout>
+
+            <TextView
+                android:text="Vegetables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_row="0"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example9"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example10"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example11"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example12"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_row="1"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example13"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example14"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example15"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example16"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_row="2"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example17"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example18"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example19"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example20"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+
+            </GridLayout>
+
+            <TextView
+                android:text="Grains/Carbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="82dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_row="0"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example21"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example22"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example23"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example24"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+            </GridLayout>
+
+            <TextView
+                android:text="Dairy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_margin="10dp"
+                android:textSize="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="82dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_row="0"
+                    android:layout_column="0">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example25"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example26"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example27"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bcircle_border_change_example28"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo_library_black_24dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular"/>
+                </LinearLayout>
+            </GridLayout>
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true"
+                android:onClick="nextStep"
+                android:layout_weight="0.23" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
