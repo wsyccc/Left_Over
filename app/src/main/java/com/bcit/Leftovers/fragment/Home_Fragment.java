@@ -113,6 +113,9 @@ public class Home_Fragment extends Fragment {
         }).start();
     }
 
+    /**
+     * Banner Listener
+     */
     class BannerListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -135,14 +138,18 @@ public class Home_Fragment extends Fragment {
 
     }
 
-    
+    /**
+     * init Banner View
+     */
     private void initView() {
         mViewPager = (ViewPager) getActivity().findViewById(R.id.viewpager);
         mTextView = (TextView) getActivity().findViewById(R.id.tv_bannertext);
         mLinearLayout = (LinearLayout) getActivity().findViewById(R.id.points);
     }
 
-
+    /**
+     * init Banner Action
+     */
     private void initAction() {
         bannerListener = new BannerListener();
         mViewPager.addOnPageChangeListener(bannerListener);
@@ -151,7 +158,9 @@ public class Home_Fragment extends Fragment {
         mLinearLayout.getChildAt(pointIndex).setEnabled(true);
     }
 
-
+    /**
+     * init Banner Data
+     */
     private void initData() {
         mlist = new ArrayList<>();
         View view;
@@ -180,6 +189,7 @@ public class Home_Fragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
     @Override
     public void onAttach(Context context) {

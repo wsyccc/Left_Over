@@ -191,12 +191,16 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else if (CropImage.isExplicitCameraPermissionRequired(this)) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
-        } else {
-            Uri imageUri = CropImage.getCaptureImageOutputUri(this);
-            // request permissions and handle the result in onRequestPermissionsResult()
-            mCropImageUri = imageUri;
-            startCropImageActivity(mCropImageUri);
+            if (CropImage.isExplicitCameraPermissionRequired(this)){
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            }else {
+                Uri imageUri = CropImage.getCaptureImageOutputUri(this);
+                // request permissions and handle the result in onRequestPermissionsResult()
+                mCropImageUri = imageUri;
+                startCropImageActivity(mCropImageUri);
+            }
+        }else{
+
         }
     }
 

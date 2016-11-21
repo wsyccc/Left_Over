@@ -53,12 +53,7 @@
 
             </RelativeLayout>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:alpha="0.3"
-                android:src="@drawable/ic_home_black_24dp" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
