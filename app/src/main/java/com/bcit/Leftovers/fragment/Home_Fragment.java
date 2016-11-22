@@ -3,39 +3,48 @@ package com.bcit.Leftovers.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.ToxicBakery.viewpager.transforms.ABaseTransformer;
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
+import com.ToxicBakery.viewpager.transforms.BackgroundToForegroundTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
+import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
+import com.ToxicBakery.viewpager.transforms.FlipHorizontalTransformer;
+import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
+import com.ToxicBakery.viewpager.transforms.ForegroundToBackgroundTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.ToxicBakery.viewpager.transforms.StackTransformer;
+import com.ToxicBakery.viewpager.transforms.ZoomInTransformer;
+import com.ToxicBakery.viewpager.transforms.ZoomOutTranformer;
 import com.bcit.Leftovers.R;
-import com.bcit.Leftovers.other.BannerAdapter;
-import com.bcit.Leftovers.other.Home_Fragment_Info;
+import com.bcit.Leftovers.other.ImageHolderView;
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
-import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Home_Fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Home_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Home_Fragment extends Fragment {
+public class Home_Fragment extends Fragment implements AdapterView.OnItemClickListener, ViewPager.OnPageChangeListener, OnItemClickListener {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,25 +57,29 @@ public class Home_Fragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ViewPager mViewPager;
-    private List<ImageView> mlist;
-    private TextView mTextView;
-    private LinearLayout mLinearLayout;
-    private int[] bannerImages = { R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4 };
-    private String[] bannerTexts = { "COLOMBIAN VEGETABLE SOUP", "PRESSURE COOKER CORN SOUP",
-            "QUICK AND EASY PRESSURE COOKER CHICKEN, LENTIL, AND BACON STEW WITH CARROTS",
-            "QUICK AND EASY PRESSURE COOKER CHICKEN AND BLACK BEAN STEW" };
-    private BannerAdapter mAdapter;
-    private BannerListener bannerListener;
-    private int pointIndex = 0;
-    private boolean isStop = false;
-    private List<String> imageUrl;
-    private RecyclerView mRecyclerView;
-    private Home_Fragment_Info recycleAdapter;
+    private int change = 0;
+    private ConvenientBanner convenientBanner;
+    private List<String> networkImages;
+    private String[] images = {
+            "https://wayneking.me/mongoDB/leftover_images/adBanner/image1.jpg",
+            "https://wayneking.me/mongoDB/leftover_images/adBanner/image2.jpg",
+            "https://wayneking.me/mongoDB/leftover_images/adBanner/image3.jpg",
+            "https://wayneking.me/mongoDB/leftover_images/adBanner/image4.jpg",
+            "https://wayneking.me/mongoDB/leftover_images/adBanner/image5.jpg",
+            "https://wayneking.me/mongoDB/leftover_images/adBanner/image6.jpg"
+    };
+    private ListView listView;
+    private ArrayAdapter transformerArrayAdapter;
+    private ArrayList<String> transformerList = new ArrayList<>(Arrays.asList(
+            DefaultTransformer.class.getSimpleName(), AccordionTransformer.class.getSimpleName(),
+            BackgroundToForegroundTransformer.class.getSimpleName(), CubeInTransformer.class.getSimpleName(),
+            CubeOutTransformer.class.getSimpleName(), DepthPageTransformer.class.getSimpleName(),
+            FlipHorizontalTransformer.class.getSimpleName(), FlipVerticalTransformer.class.getSimpleName(),
+            ForegroundToBackgroundTransformer.class.getSimpleName(), RotateDownTransformer.class.getSimpleName(),
+            RotateUpTransformer.class.getSimpleName(), StackTransformer.class.getSimpleName(),
+            ZoomInTransformer.class.getSimpleName(), ZoomOutTranformer.class.getSimpleName()));
 
-    public Home_Fragment() {
-        // Required empty public constructor
-    }
+    public Home_Fragment() {}
 
     /**
      * Use this factory method to create a new instance of
@@ -93,151 +106,135 @@ public class Home_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-        initUrl();
-        recycleAdapter = new Home_Fragment_Info(getActivity(), imageUrl);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        mRecyclerView.setAdapter(recycleAdapter);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         return rootView;
     }
+
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView();
-        initData();
-        initAction();
-        new Thread(new Runnable() {
+    public void onStart(){
+        convenientBanner = (ConvenientBanner) getActivity().findViewById(R.id.convenientBanner);
+        listView = (ListView) getActivity().findViewById(R.id.listView);
+        transformerArrayAdapter = new ArrayAdapter(getActivity().getBaseContext(), R.layout.adapter_transformer, transformerList);
+        listView.setAdapter(transformerArrayAdapter);
+        listView.setOnItemClickListener(this);
+        networkImages= Arrays.asList(images);
+        convenientBanner.setPages(
+                new CBViewHolderCreator<ImageHolderView>() {
             @Override
-            public void run() {
-                while (!isStop) {
-                    SystemClock.sleep(3000);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                        }
-                    });
+            public ImageHolderView createHolder() {
+                return new ImageHolderView();
+            }
+        },networkImages);
+        convenientBanner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Collections.swap(transformerList, 0, new Random().nextInt(13-1)+1);
+                String transforemerName = transformerList.get(0);
+                try {
+                    Class cls = Class.forName("com.ToxicBakery.viewpager.transforms." + transforemerName);
+                    ABaseTransformer transforemer= (ABaseTransformer)cls.newInstance();
+                    convenientBanner.getViewPager().setPageTransformer(true,transforemer);
+
+                    //部分3D特效需要调整滑动速度
+                    if(transforemerName.equals("StackTransformer")){
+                        convenientBanner.setScrollDuration(1200);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(getClass().getName(), e.getMessage());
                 }
             }
-        }).start();
+        });
+        super.onStart();
     }
 
-    /**
-     * Banner Listener
-     */
-    class BannerListener implements ViewPager.OnPageChangeListener {
 
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            int newPosition = position % bannerImages.length;
-            mTextView.setText(bannerTexts[newPosition]);
-            mLinearLayout.getChildAt(newPosition).setEnabled(true);
-            mLinearLayout.getChildAt(pointIndex).setEnabled(false);
-            pointIndex = newPosition;
-        }
-
-    }
-
-    /**
-     * init Banner View
-     */
-    private void initView() {
-        mViewPager = (ViewPager) getActivity().findViewById(R.id.viewpager);
-        mTextView = (TextView) getActivity().findViewById(R.id.tv_bannertext);
-        mLinearLayout = (LinearLayout) getActivity().findViewById(R.id.points);
-    }
-
-    /**
-     * init Banner Action
-     */
-    private void initAction() {
-        bannerListener = new BannerListener();
-        mViewPager.addOnPageChangeListener(bannerListener);
-        int index = (Integer.MAX_VALUE / 2) - (Integer.MAX_VALUE / 2 % mlist.size());
-        mViewPager.setCurrentItem(index);
-        mLinearLayout.getChildAt(pointIndex).setEnabled(true);
-    }
-
-    /**
-     * init Banner Data
-     */
-    private void initData() {
-        mlist = new ArrayList<>();
-        View view;
-        LayoutParams params;
-        for (int i = 0; i < bannerImages.length; i++) {
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-            imageView.setBackgroundResource(bannerImages[i]);
-            mlist.add(imageView);
-            view = new View(getActivity());
-            params = new LayoutParams(5, 5);
-            params.leftMargin = 10;
-            view.setBackgroundResource(R.drawable.point_background);
-            view.setLayoutParams(params);
-            view.setEnabled(false);
-
-            mLinearLayout.addView(view);
-        }
-        mAdapter = new BannerAdapter(mlist);
-        mViewPager.setAdapter(mAdapter);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        //开始自动翻页
+        convenientBanner.startTurning(5000);
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        convenientBanner.stopTurning();
     }
     @Override
     public void onDestroy() {
-        isStop = true;
         super.onDestroy();
     }
-    public void initUrl(){
-        imageUrl = new ArrayList<>();
-        imageUrl.add("https://wayneking.me/mongoDB/leftover_images/recipes/images/1.jpg");
-        imageUrl.add("https://wayneking.me/mongoDB/leftover_images/recipes/images/2.jpg");
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+//        点击后加入两个内容
+//        localImages.clear();
+//        localImages.add(R.drawable.ic_test_2);
+//        localImages.add(R.drawable.ic_test_4);
+//        convenientBanner.notifyDataSetChanged();
+
+        //控制是否循环
+//        convenientBanner.setCanLoop(!convenientBanner.isCanLoop());
+
+
+//        String transforemerName = transformerList.get(position);
+//        try {
+//            Class cls = Class.forName("com.ToxicBakery.viewpager.transforms." + transforemerName);
+//            ABaseTransformer transforemer= (ABaseTransformer)cls.newInstance();
+//            convenientBanner.getViewPager().setPageTransformer(true,transforemer);
+//
+//            //部分3D特效需要调整滑动速度
+//            if(transforemerName.equals("StackTransformer")){
+//                convenientBanner.setScrollDuration(1200);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e(getClass().getName(), e.getMessage());
+//        }
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        Log.d("PageScrolled", "123456789");
+    }
 
+    @Override
+    public void onPageSelected(int position) {
+        Toast.makeText(getContext(),"监听到翻到第"+position+"了",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        Log.d("PageScrolled", "123456789");
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Toast.makeText(getActivity().getBaseContext(),"点击了第"+position+"个",Toast.LENGTH_SHORT).show();
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
