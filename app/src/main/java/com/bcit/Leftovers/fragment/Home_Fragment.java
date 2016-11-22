@@ -43,7 +43,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Home_Fragment extends Fragment implements AdapterView.OnItemClickListener, ViewPager.OnPageChangeListener, OnItemClickListener {
+public class Home_Fragment extends Fragment implements AdapterView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -143,7 +143,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                     ABaseTransformer transforemer= (ABaseTransformer)cls.newInstance();
                     convenientBanner.getViewPager().setPageTransformer(true,transforemer);
 
-                    //部分3D特效需要调整滑动速度
                     if(transforemerName.equals("StackTransformer")){
                         convenientBanner.setScrollDuration(1200);
                     }
@@ -154,6 +153,22 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 }
             }
         });
+        convenientBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d("PageScrolled", position+"");
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d("onPageSelected", position+"");
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Log.d("PageScrollStateChanged", state+"");
+            }
+        });
         super.onStart();
     }
 
@@ -161,7 +176,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onResume() {
         super.onResume();
-        //开始自动翻页
         convenientBanner.startTurning(5000);
     }
 
@@ -188,53 +202,9 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-//        点击后加入两个内容
-//        localImages.clear();
-//        localImages.add(R.drawable.ic_test_2);
-//        localImages.add(R.drawable.ic_test_4);
-//        convenientBanner.notifyDataSetChanged();
-
-        //控制是否循环
-//        convenientBanner.setCanLoop(!convenientBanner.isCanLoop());
-
-
-//        String transforemerName = transformerList.get(position);
-//        try {
-//            Class cls = Class.forName("com.ToxicBakery.viewpager.transforms." + transforemerName);
-//            ABaseTransformer transforemer= (ABaseTransformer)cls.newInstance();
-//            convenientBanner.getViewPager().setPageTransformer(true,transforemer);
-//
-//            //部分3D特效需要调整滑动速度
-//            if(transforemerName.equals("StackTransformer")){
-//                convenientBanner.setScrollDuration(1200);
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.e(getClass().getName(), e.getMessage());
-//        }
     }
+    
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.d("PageScrolled", "123456789");
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        Toast.makeText(getContext(),"监听到翻到第"+position+"了",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        Log.d("PageScrolled", "123456789");
-    }
-
-    @Override
-    public void onItemClick(int position) {
-
-        Toast.makeText(getActivity().getBaseContext(),"点击了第"+position+"个",Toast.LENGTH_SHORT).show();
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
