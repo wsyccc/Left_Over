@@ -7,6 +7,6 @@
     android:minWidth="110dp"
     android:adjustViewBounds="true"
     android:scaleType="centerCrop"
-    android:background="#7ad3ab"
+    android:background="?android:colorBackground"
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:targetApi="lollipop" />

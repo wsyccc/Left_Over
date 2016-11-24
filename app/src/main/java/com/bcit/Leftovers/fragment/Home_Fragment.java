@@ -260,8 +260,14 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ID = 1;
-                new GetData().execute(ID);
+                int count = 0;
+                if (mAdapter != null){
+                    count = mAdapter.getItemCount();
+                }
+                if (count == 0){
+                    ID = 1;
+                    new GetData().execute(ID);
+                }
             }
         });
 
@@ -303,7 +309,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
                 // 滑动状态停止并且剩余少于两个item时，自动加载下一页
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 2 >= mLayoutManager.getItemCount()) {
+                        && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
                     new GetData().execute(ID += 10);
                 }
             }
