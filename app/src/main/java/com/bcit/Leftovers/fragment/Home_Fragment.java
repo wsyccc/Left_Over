@@ -307,7 +307,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
-                // 滑动状态停止并且剩余少于两个item时，自动加载下一页
+                // 滑动状态停止并且剩余少于三个item时，自动加载下一页
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
                     new GetData().execute(ID += 10);
@@ -386,9 +386,8 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                     JSONArray jsonArray = new JSONArray(result);
                     jsonData = jsonArray.toString();
                     //防止不停的加载
-                    if (jsonData.length() < 4000){
+                    if (jsonData.length() < 5000 || jsonArray.length() <= 0){
                         SnackbarUtil.ShortSnackbar(coordinatorLayout, "This is the last one", SnackbarUtil.Info).show();
-                        ID = 1;
                     }else {
                         if (recipes == null || recipes.size() == 0) {
                             recipes = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
@@ -424,7 +423,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             itemTouchHelper.startDrag(recyclerview.getChildViewHolder(view));
                         }
                     });
-
                     itemTouchHelper.attachToRecyclerView(recyclerview);
                 } else {
                     mAdapter.notifyDataSetChanged();
