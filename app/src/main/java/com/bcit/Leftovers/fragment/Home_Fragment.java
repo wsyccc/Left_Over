@@ -42,6 +42,7 @@ import com.bcit.Leftovers.other.SnackbarUtil;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
@@ -264,8 +265,10 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 if (mAdapter != null){
                     count = mAdapter.getItemCount();
                 }
-                if (count == 0){
+                if (count != 0){
+                    recipes.clear();
                     ID = 1;
+                    Log.d("aaaaaaaaa","cdafdsfafs");
                     new GetData().execute(ID);
                 }
             }
@@ -386,7 +389,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                     JSONArray jsonArray = new JSONArray(result);
                     jsonData = jsonArray.toString();
                     //防止不停的加载
-                    if (jsonData.length() < 5000 || jsonArray.length() <= 0){
+                    if (jsonArray.length() <= 0){
                         SnackbarUtil.ShortSnackbar(coordinatorLayout, "This is the last one", SnackbarUtil.Info).show();
                     }else {
                         if (recipes == null || recipes.size() == 0) {
