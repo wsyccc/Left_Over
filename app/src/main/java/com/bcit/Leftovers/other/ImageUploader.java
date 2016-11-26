@@ -110,7 +110,7 @@ public class ImageUploader extends AsyncTask<String, Void, String> {
                     dos.write(sb.toString().getBytes());
 
 
-                    System.out.println("--文件--:" + path);
+                    System.out.println("--file--:" + path);
                     InputStream is = new FileInputStream(path);
                     byte[] bytes = new byte[1024];
                     int len;

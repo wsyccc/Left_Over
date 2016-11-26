@@ -67,7 +67,11 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if (data != null){
+            return data.size();
+        }else{
+            return 0;
+        }
     }
 
 
