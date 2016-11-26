@@ -8,6 +8,7 @@ public class Recipe {
 
     private int recipeID;
     private String mainImage;
+    private String recipeName;
 
 //    public Recipe(int recipeID, String mainImage){
 //        this.recipeID = recipeID;

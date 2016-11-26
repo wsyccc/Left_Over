@@ -380,14 +380,13 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (!TextUtils.isEmpty(result)) {
-
                 Gson gson = new Gson();
                 String jsonData;
-
                 try {
                     JSONArray jsonArray = new JSONArray(result);
                     jsonData = jsonArray.toString();
-                    if (jsonData.length() < 10){
+                    //防止不停的加载
+                    if (jsonData.length() < 4000){
                         SnackbarUtil.ShortSnackbar(coordinatorLayout, "This is the last one", SnackbarUtil.Info).show();
                         ID = 1;
                     }else {
