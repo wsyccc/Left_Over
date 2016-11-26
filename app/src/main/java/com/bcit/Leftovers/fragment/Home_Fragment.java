@@ -405,7 +405,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             }.getType());
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
-                            recipes.remove(ID);
+                            recipes.remove(10);
                         } else {
                             List<Recipe> more = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
                             }.getType());

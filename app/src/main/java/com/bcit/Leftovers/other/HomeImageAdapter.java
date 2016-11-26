@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.bcit.Leftovers.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.thinkcool.circletextimageview.CircleTextImageView;
 
 import java.util.List;
 
@@ -97,11 +98,11 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        private ImageButton iv;
+        private CircleTextImageView iv;
 
         public MyViewHolder(View view) {
             super(view);
-            iv = (ImageButton) view.findViewById(R.id.iv);
+            iv = (CircleTextImageView) view.findViewById(R.id.iv);
         }
     }
 }
