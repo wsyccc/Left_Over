@@ -99,7 +99,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
     private List<Recipe> recipes;
     private GridLayoutManager mLayoutManager;
     private int lastVisibleItem;
-    private static int ID = 1;
+    private static int ID = 0;
     private ItemTouchHelper itemTouchHelper;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -261,16 +261,23 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                int count = 0;
-                if (mAdapter != null){
-                    count = mAdapter.getItemCount();
-                }
-                if (count != 0){
-                    recipes.clear();
-                    ID = 1;
-                    Log.d("aaaaaaaaa","cdafdsfafs");
-                    new GetData().execute(ID);
-                }
+                ID = 0;
+                recipes.clear();
+                Log.d("aaaaaaaaa",ID+"");
+                new GetData().execute(ID);
+                //Log.d("bbbbbbbbb",recipes.size()+"");
+//                int count = 0;
+//                if (mAdapter != null){
+//                    count = mAdapter.getItemCount();
+//                }
+//                if (count != 0){
+//                    recipes.clear();
+//                    HomeImageAdapter.data.clear();
+//                    ID = 1;
+//                    Log.d("aaaaaaaaa",ID+"");
+//                    Log.d("bbbbbbbbb",recipes.size()+"");
+//                    new GetData().execute(ID);
+//                }
             }
         });
 
@@ -313,7 +320,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 // 滑动状态停止并且剩余少于三个item时，自动加载下一页
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
-                    new GetData().execute(ID += 10);
+                    new GetData().execute(ID);
                 }
             }
 
@@ -392,43 +399,48 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                     if (jsonArray.length() <= 0){
                         SnackbarUtil.ShortSnackbar(coordinatorLayout, "This is the last one", SnackbarUtil.Info).show();
                     }else {
+                        ID += 10;
                         if (recipes == null || recipes.size() == 0) {
                             recipes = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
                             }.getType());
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
+                            recipes.remove(ID);
                         } else {
                             List<Recipe> more = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
                             }.getType());
                             recipes.addAll(more);
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
+                            recipes.remove(ID);
+                        }
+                        if (mAdapter == null || ID == 10) {
+                            Log.d("?????", jsonData);
+                            Log.d("!!!!!!", jsonArray.length()+"");
+                            recyclerview.setAdapter(mAdapter = new HomeImageAdapter(getActivity(), recipes));
+
+                            mAdapter.setOnItemClickListener(new HomeImageAdapter.OnRecyclerViewItemClickListener() {
+                                @Override
+                                public void onItemClick(View view) {
+                                    int position = recyclerview.getChildAdapterPosition(view);
+                                    SnackbarUtil.ShortSnackbar(coordinatorLayout, "I'm number" + position, SnackbarUtil.Info).show();
+                                }
+
+                                @Override
+                                public void onItemLongClick(View view) {
+                                    itemTouchHelper.startDrag(recyclerview.getChildViewHolder(view));
+                                }
+                            });
+                            itemTouchHelper.attachToRecyclerView(recyclerview);
+                        } else {
+                            Log.d("555555", jsonData);
+                            Log.d("666666", jsonArray.length()+"");
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
-                    Log.d("?????", jsonData);
-                    Log.d("!!!!!!", jsonArray.length()+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(getClass().getName(), e.getMessage());
-                }
-                if (mAdapter == null) {
-                    recyclerview.setAdapter(mAdapter = new HomeImageAdapter(getActivity(), recipes));
-
-                    mAdapter.setOnItemClickListener(new HomeImageAdapter.OnRecyclerViewItemClickListener() {
-                        @Override
-                        public void onItemClick(View view) {
-                            int position = recyclerview.getChildAdapterPosition(view);
-                            SnackbarUtil.ShortSnackbar(coordinatorLayout, "I'm number" + position, SnackbarUtil.Info).show();
-                        }
-
-                        @Override
-                        public void onItemLongClick(View view) {
-                            itemTouchHelper.startDrag(recyclerview.getChildViewHolder(view));
-                        }
-                    });
-                    itemTouchHelper.attachToRecyclerView(recyclerview);
-                } else {
-                    mAdapter.notifyDataSetChanged();
                 }
             }
             //停止swipeRefreshLayout加载动画

@@ -2,6 +2,7 @@ package com.bcit.Leftovers.other;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
     private Context context;
-    private List<Recipe> data;
+    public static List<Recipe> data;
 
     public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view);
@@ -37,6 +38,7 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public HomeImageAdapter(Context context, List<Recipe> data) {
         this.context = context;
         this.data = data;
+        Log.d("123456789", data.size()+"");
     }
 
     @Override
@@ -56,12 +58,13 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d("987654321", data.size()+"");
         if (data.get(position).getMainImage() != null){
             Glide.with(context)
                     .load(data.get(position).getMainImage())
                     .crossFade()
                     .bitmapTransform(new CircleTransform(context))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((MyViewHolder) holder).iv);
         }
     }
