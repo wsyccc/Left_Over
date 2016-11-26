@@ -153,6 +153,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        ID = 0;
         super.onActivityCreated(savedInstanceState);
 //        convenientBanner = (ConvenientBanner) LayoutInflater.from(getContext()).inflate(R.layout.adapter_header_cb,null);
 //        convenientBanner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,600));
@@ -209,6 +210,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public void onResume() {
         super.onResume();
+        ID = 0;
         convenientBanner.startTurning(5000);
     }
 
