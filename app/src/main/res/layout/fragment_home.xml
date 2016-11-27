@@ -15,7 +15,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="20dp"
-        android:background="#7ad3ab"  />
+        android:background="?android:colorBackground"  />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/grid_swipe_refresh"

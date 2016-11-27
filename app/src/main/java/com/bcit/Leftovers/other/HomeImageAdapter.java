@@ -62,7 +62,6 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (data.get(position).getMainImage() != null){
             Glide.with(context)
                     .load(data.get(position).getMainImage())
-                    .crossFade()
                     .bitmapTransform(new CircleTransform(context))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(((MyViewHolder) holder).iv);
