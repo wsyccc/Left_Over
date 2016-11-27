@@ -407,14 +407,19 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             }.getType());
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
-                            recipes.remove(10);
+                            if (jsonArray.length() != recipes.size()){
+                                recipes.remove(recipes.size()-1);
+                            }
+
                         } else {
                             List<Recipe> more = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
                             }.getType());
                             recipes.addAll(more);
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
-                            recipes.remove(ID);
+                            if (jsonArray.length() != recipes.size()){
+                                recipes.remove(recipes.size()-1);
+                            }
                         }
                         if (mAdapter == null || ID == 10) {
                             Log.d("?????", jsonData);

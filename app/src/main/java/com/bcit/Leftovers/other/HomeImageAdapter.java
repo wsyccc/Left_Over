@@ -59,13 +59,12 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.d("987654321", data.size()+"");
         if (data.get(position).getMainImage() != null){
             Glide.with(context)
                     .load(data.get(position).getMainImage())
                     .crossFade()
                     .bitmapTransform(new CircleTransform(context))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(((MyViewHolder) holder).iv);
         }
     }

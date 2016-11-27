@@ -145,7 +145,12 @@ public class MainActivity extends AppCompatActivity {
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropImage.startPickImageActivity(MainActivity.this);
+                if (CropImage.isExplicitCameraPermissionRequired(MainActivity.this)) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+                } else {
+                    CropImage.startPickImageActivity(MainActivity.this);
+                }
+                //CropImage.startPickImageActivity(MainActivity.this);
             }
         });
     }
