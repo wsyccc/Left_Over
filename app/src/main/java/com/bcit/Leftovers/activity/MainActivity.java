@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
     // and profile image
     public static String urlProfileImg = "https://static.mengniang.org/common/thumb/a/a2/59205988_p0.jpg/250px-59205988_p0.jpg";
     //userName
-    public static String userName = "King";
+    public static String userName = "Leftovers";
     //email
-    public static String email = "leftover@bcit.ca";
+    public static String email = "Please Login or Sign up";
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
