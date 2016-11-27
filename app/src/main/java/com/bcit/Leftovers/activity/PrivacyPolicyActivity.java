@@ -2,7 +2,10 @@ package com.bcit.Leftovers.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.MenuItem;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
 
@@ -12,8 +15,10 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_privacy_policy);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_privacy_policy);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
 
     @Override
