@@ -1,14 +1,17 @@
 package com.bcit.Leftovers.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.activity.Diet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,5 +108,15 @@ public class FindAMeal_Fragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void chooseMeal(View v) {
+        /*Button b = (Button) v;
+        String meal = b.getText().toString();
+
+        Intent i = new Intent(this, Diet.class);
+
+        i.putExtra("mealType", meal);
+        startActivity(i);*/
     }
 }

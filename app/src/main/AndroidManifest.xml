@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera2" />
     <uses-feature android:name="android.hardware.camera2.autofocus" />
 
@@ -45,15 +46,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AboutUsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/activity_title_about_us" />
+            android:label="@string/activity_title_about_us"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PrivacyPolicyActivity"
+            android:label="@string/activity_title_privacy_policy"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
-            android:label="@string/activity_title_privacy_policy" />
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.AppCompat"/>
+            android:theme="@style/Base.Theme.AppCompat" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -70,8 +72,10 @@
 
         <activity
             android:name=".activity.MapsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.Diet" />
+        <activity android:name=".activity.Allergies"></activity>
     </application>
 
 </manifest>

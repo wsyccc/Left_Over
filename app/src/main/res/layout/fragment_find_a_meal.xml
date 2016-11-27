@@ -26,7 +26,7 @@
         app:buttonMode="regular"
         app:showOutline="false"
         app:roundedCorners="true"
-        android:onClick="nextStep" />
+        android:onClick="chooseMeal" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         app:buttonMode="regular"
         app:showOutline="false"
         app:roundedCorners="true"
-        android:onClick="nextStep" />
+        android:onClick="chooseMeal" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="match_parent"
@@ -52,6 +52,6 @@
         app:buttonMode="regular"
         app:showOutline="false"
         app:roundedCorners="true"
-        android:onClick="nextStep" />
+        android:onClick="chooseMeal" />
 
 </LinearLayout>

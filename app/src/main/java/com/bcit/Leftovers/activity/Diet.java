@@ -8,15 +8,15 @@ import android.widget.Button;
 
 import com.bcit.Leftovers.R;
 
-public class SpiceLevel extends AppCompatActivity {
+public class Diet extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spice_level);
+        setContentView(R.layout.activity_diet);
     }
 
-    public void chooseSpice(View view) {
+    public void chooseDiet(View view) {
         Intent i = new Intent(this, SpiceLevel.class);
 
         Button b = (Button) view;
