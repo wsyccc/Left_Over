@@ -39,7 +39,6 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public HomeImageAdapter(Context context, List<Recipe> data) {
         this.context = context;
         this.data = data;
-        Log.d("123456789", data.size()+"");
     }
 
     @Override

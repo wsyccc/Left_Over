@@ -1,6 +1,7 @@
 package com.bcit.Leftovers.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.ToxicBakery.viewpager.transforms.StackTransformer;
 import com.ToxicBakery.viewpager.transforms.ZoomInTransformer;
 import com.ToxicBakery.viewpager.transforms.ZoomOutTranformer;
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.activity.RecipeActivity;
 import com.bcit.Leftovers.other.HomeImageAdapter;
 import com.bcit.Leftovers.other.Recipe;
 import com.bcit.Leftovers.other.ImageHolderView;
@@ -275,6 +277,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 ID = 0;
                 recipes.clear();
                 new GetData().execute(ID);
+                ID = 10;
             }
         });
 
@@ -316,8 +319,10 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
                 // 滑动状态停止并且剩余少于三个item时，自动加载下一页
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 5 >= mLayoutManager.getItemCount()) {
-                    new GetData().execute(ID+=10);
+                        && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
+                    if (recipes != null){
+                        new GetData().execute(ID+=10);
+                    }
                 }
             }
 
@@ -392,7 +397,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 try {
                     JSONArray jsonArray = null;
                     Log.d("cccccccccc",result);
-                    if (!result.equalsIgnoreCase("<br />") || result.isEmpty() ||  result.equalsIgnoreCase("")){
+                    if (!result.equalsIgnoreCase("<br />")){
                         jsonArray = new JSONArray(result);
                         jsonData = convertStandardJSONString(jsonArray.toString());
                     }
@@ -406,6 +411,10 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             }.getType());
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
+                            if (recipes != null){
+                                Log.d("nimabi", recipes.get(0).getDescription());
+                            }
+
                             if (jsonArray.length() != recipes.size()){
                                 recipes.remove(recipes.size()-1);
                             }
@@ -427,10 +436,13 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                                 @Override
                                 public void onItemClick(View view) {
                                     int position = recyclerview.getChildAdapterPosition(view);
-                                    SnackbarUtil.ShortSnackbar(coordinatorLayout, recipes.get(position).getSteps().get(0).getStepInstruction(), SnackbarUtil.Info).show();
+                                    SnackbarUtil.ShortSnackbar(coordinatorLayout, recipes.get(position).getIngredients().get(0).getIngredient(), SnackbarUtil.Info).show();
+                                    Intent intent = new Intent(getActivity(), RecipeActivity.class);
+                                    intent.putExtra("recipe",recipes.get(position));
                                     Log.d("ID",recipes.get(position).getRecipeID()+"");
                                     Log.d("Name",recipes.get(position).getRecipeName());
                                     Log.d("222222", recipes.get(position).getSteps().get(0).getStepInstruction());
+                                    startActivity(intent);
                                 }
 
                                 @Override
@@ -443,10 +455,10 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             mAdapter.notifyDataSetChanged();
                         }
                     }
-                } catch (JSONException e) {
+                }catch (JsonSyntaxException e){
                     e.printStackTrace();
                     Log.e(getClass().getName(), e.getMessage());
-                } catch (JsonSyntaxException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(getClass().getName(), e.getMessage());
                 }
