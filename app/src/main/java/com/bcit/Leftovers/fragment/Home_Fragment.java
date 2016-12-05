@@ -455,6 +455,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
             swipeRefreshLayout.setRefreshing(false);
         }
     }
+
     public static String convertStandardJSONString(String data_json) {
         data_json = data_json.replaceAll("\\\\", "");
         data_json = data_json.replaceAll("\\\\r\\\\n", "");
