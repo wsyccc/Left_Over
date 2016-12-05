@@ -63,7 +63,7 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Glide.with(context)
                     .load(data.get(position).getMainImage())
                     .bitmapTransform(new CircleTransform(context))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((MyViewHolder) holder).iv);
         }
     }

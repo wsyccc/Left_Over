@@ -43,13 +43,23 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -169,13 +179,13 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
             @Override
             public void onItemClick(int position) {
                 Collections.swap(transformerList, 0, new Random().nextInt(13 - 1) + 1);
-                String transforemerName = transformerList.get(0);
+                String transformerName = transformerList.get(0);
                 try {
-                    Class cls = Class.forName("com.ToxicBakery.viewpager.transforms." + transforemerName);
-                    ABaseTransformer transforemer = (ABaseTransformer) cls.newInstance();
-                    convenientBanner.getViewPager().setPageTransformer(true, transforemer);
+                    Class cls = Class.forName("com.ToxicBakery.viewpager.transforms." + transformerName);
+                    ABaseTransformer transformer = (ABaseTransformer) cls.newInstance();
+                    convenientBanner.getViewPager().setPageTransformer(true, transformer);
 
-                    if (transforemerName.equals("StackTransformer")) {
+                    if (transformerName.equals("StackTransformer")) {
                         convenientBanner.setScrollDuration(1200);
                     }
 
@@ -264,21 +274,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
             public void onRefresh() {
                 ID = 0;
                 recipes.clear();
-                Log.d("aaaaaaaaa",ID+"");
                 new GetData().execute(ID);
-                //Log.d("bbbbbbbbb",recipes.size()+"");
-//                int count = 0;
-//                if (mAdapter != null){
-//                    count = mAdapter.getItemCount();
-//                }
-//                if (count != 0){
-//                    recipes.clear();
-//                    HomeImageAdapter.data.clear();
-//                    ID = 1;
-//                    Log.d("aaaaaaaaa",ID+"");
-//                    Log.d("bbbbbbbbb",recipes.size()+"");
-//                    new GetData().execute(ID);
-//                }
             }
         });
 
@@ -320,8 +316,8 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
                 // 滑动状态停止并且剩余少于三个item时，自动加载下一页
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
-                    new GetData().execute(ID);
+                        && lastVisibleItem + 5 >= mLayoutManager.getItemCount()) {
+                    new GetData().execute(ID+=10);
                 }
             }
 
@@ -392,15 +388,19 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
             super.onPostExecute(result);
             if (!TextUtils.isEmpty(result)) {
                 Gson gson = new Gson();
-                String jsonData;
+                String jsonData = null;
                 try {
-                    JSONArray jsonArray = new JSONArray(result);
-                    jsonData = jsonArray.toString();
+                    JSONArray jsonArray = null;
+                    Log.d("cccccccccc",result);
+                    if (!result.equalsIgnoreCase("<br />") || result.isEmpty() ||  result.equalsIgnoreCase("")){
+                        jsonArray = new JSONArray(result);
+                        jsonData = convertStandardJSONString(jsonArray.toString());
+                    }
                     //防止不停的加载
-                    if (jsonArray.length() <= 0){
+                    if (jsonArray == null || jsonArray.length() <= 0){
                         SnackbarUtil.ShortSnackbar(coordinatorLayout, "This is the last one", SnackbarUtil.Info).show();
                     }else {
-                        ID += 10;
+                        //ID += 10;
                         if (recipes == null || recipes.size() == 0) {
                             recipes = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
                             }.getType());
@@ -421,15 +421,16 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             }
                         }
                         if (mAdapter == null || ID == 10) {
-                            Log.d("?????", jsonData);
-                            Log.d("!!!!!!", jsonArray.length()+"");
                             recyclerview.setAdapter(mAdapter = new HomeImageAdapter(getActivity(), recipes));
 
                             mAdapter.setOnItemClickListener(new HomeImageAdapter.OnRecyclerViewItemClickListener() {
                                 @Override
                                 public void onItemClick(View view) {
                                     int position = recyclerview.getChildAdapterPosition(view);
-                                    SnackbarUtil.ShortSnackbar(coordinatorLayout, "I'm number" + position, SnackbarUtil.Info).show();
+                                    SnackbarUtil.ShortSnackbar(coordinatorLayout, recipes.get(position).getSteps().get(0).getStepInstruction(), SnackbarUtil.Info).show();
+                                    Log.d("ID",recipes.get(position).getRecipeID()+"");
+                                    Log.d("Name",recipes.get(position).getRecipeName());
+                                    Log.d("222222", recipes.get(position).getSteps().get(0).getStepInstruction());
                                 }
 
                                 @Override
@@ -439,12 +440,13 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             });
                             itemTouchHelper.attachToRecyclerView(recyclerview);
                         } else {
-                            Log.d("555555", jsonData);
-                            Log.d("666666", jsonArray.length()+"");
                             mAdapter.notifyDataSetChanged();
                         }
                     }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(getClass().getName(), e.getMessage());
+                } catch (JsonSyntaxException e){
                     e.printStackTrace();
                     Log.e(getClass().getName(), e.getMessage());
                 }
@@ -452,6 +454,14 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
             //停止swipeRefreshLayout加载动画
             swipeRefreshLayout.setRefreshing(false);
         }
+    }
+    public static String convertStandardJSONString(String data_json) {
+        data_json = data_json.replaceAll("\\\\", "");
+        data_json = data_json.replaceAll("\\\\r\\\\n", "");
+        data_json = data_json.replace("\"{", "{");
+        data_json = data_json.replace("}\",", "},");
+        data_json = data_json.replace("}\"", "}");
+        return data_json;
     }
 
 }

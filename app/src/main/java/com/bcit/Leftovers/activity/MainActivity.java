@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED && mCropImageUri != null) {
                 // required permissions granted, start crop image activity
                 startCropImageActivity(mCropImageUri);
             } else {
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED && mCropImageUri != null) {
                 // required permissions granted, start crop image activity
                 startCropImageActivity(mCropImageUri);
             } else {
