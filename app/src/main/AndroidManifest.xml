@@ -78,7 +78,11 @@
         <activity android:name=".activity.Diet" />
         <activity android:name=".activity.Allergies" />
         <activity android:name=".fragment.map" />
-        <activity android:name=".activity.RecipeScreen"></activity>
+        <activity
+            android:name=".activity.RecipeActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
