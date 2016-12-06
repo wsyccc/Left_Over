@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.other.Recipe;
@@ -20,6 +21,9 @@ public class RecipeActivity extends AppCompatActivity {
     private Recipe recipe;
     private CollapsingToolbarLayoutState state;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private TextView titleText;
+    private ImageView titleImage;
+    private AppBarLayout app_bar;
 
     private enum CollapsingToolbarLayoutState {
         EXPANDED,
@@ -43,13 +47,20 @@ public class RecipeActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        init();
+
+    }
+
+    public void init(){
         recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        ImageView tileImage = (ImageView) findViewById(R.id.title_image);
+        titleImage = (ImageView) findViewById(R.id.title_image);
+        titleText = (TextView) findViewById(R.id.title_text);
+        titleText.setText(recipe.getRecipeName());
         Glide.with(this)
                 .load(recipe.getMainImage())
-                .into(tileImage);
-        AppBarLayout app_bar = (AppBarLayout)findViewById(R.id.app_bar);
+                .into(titleImage);
+        app_bar = (AppBarLayout)findViewById(R.id.app_bar);
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -57,18 +68,18 @@ public class RecipeActivity extends AppCompatActivity {
                 if (verticalOffset == 0) {
                     if (state != CollapsingToolbarLayoutState.EXPANDED) {
                         state = CollapsingToolbarLayoutState.EXPANDED;//修改状态标记为展开
-                        collapsingToolbarLayout.setTitle("EXPANDED");//设置title为EXPANDED
+                        collapsingToolbarLayout.setTitle(recipe.getRecipeName());//设置title为EXPANDED
                     }
                 } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
                     if (state != CollapsingToolbarLayoutState.COLLAPSED) {
                         collapsingToolbarLayout.setTitle("");//设置title不显示
-                        //playButton.setVisibility(View.VISIBLE);//隐藏播放按钮
+                        titleText.setVisibility(View.VISIBLE);//隐藏播放按钮
                         state = CollapsingToolbarLayoutState.COLLAPSED;//修改状态标记为折叠
                     }
                 } else {
                     if (state != CollapsingToolbarLayoutState.INTERNEDIATE) {
                         if(state == CollapsingToolbarLayoutState.COLLAPSED){
-                            //playButton.setVisibility(View.GONE);//由折叠变为中间状态时隐藏播放按钮
+                            titleText.setVisibility(View.GONE);//由折叠变为中间状态时隐藏播放按钮
                         }
                         collapsingToolbarLayout.setTitle("INTERNEDIATE");//设置title为INTERNEDIATE
                         state = CollapsingToolbarLayoutState.INTERNEDIATE;//修改状态标记为中间
