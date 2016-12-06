@@ -54,4 +54,25 @@
         app:roundedCorners="true"
         android:onClick="chooseMeal" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/btn_img_breakfast"
+        android:id="@+id/imageView2"
+        android:layout_weight="0.12" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/btn_img_lunch"
+        android:id="@+id/imageView3"
+        android:layout_weight="0.12" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/btn_img_dinner"
+        android:id="@+id/imageView5"
+        android:layout_weight="0.12" />
+
 </LinearLayout>
