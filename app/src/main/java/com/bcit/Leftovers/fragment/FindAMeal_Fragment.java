@@ -38,6 +38,8 @@ public class FindAMeal_Fragment extends Fragment {
     private ArrayList<String> mealType;
     private DiscreteSlider spice_Level;
     private DiscreteSlider difficulty;
+    private ThumbUpView vegan;
+    private TextView vegan_text;
     private RelativeLayout tickMarkLabelsRelativeLayout;
     private RelativeLayout difficulty_labels;
     private int spice_level_int = 1;
@@ -213,8 +215,8 @@ public class FindAMeal_Fragment extends Fragment {
         });
     }
     public void setVegan(){
-        ThumbUpView vegan = (ThumbUpView) view.findViewById(R.id.vegan);
-        final TextView vegan_text = (TextView) view.findViewById(R.id.vegan_text);
+        vegan = (ThumbUpView) view.findViewById(R.id.vegan);
+        vegan_text = (TextView) view.findViewById(R.id.vegan_text);
         vegan.setUnLikeType(ThumbUpView.LikeType.broken);
         vegan.setOnThumbUp(new ThumbUpView.OnThumbUp(){
             @Override
@@ -249,7 +251,11 @@ public class FindAMeal_Fragment extends Fragment {
         breakfast.setSelected(false);
         lunch.setSelected(false);
         dinner.setSelected(false);
-
+        spice_Level.setPosition(1);
+        difficulty.setPosition(1);
+        vegan_text.setText("Vegetarian");
+        vegan.UnLike();
+        vegan.stopAnim();
     }
 //
 //    @Override

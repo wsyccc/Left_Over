@@ -12,6 +12,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.bcit.Leftovers.R;
@@ -117,11 +119,16 @@ public class Find_Meal_Activity extends AppCompatActivity {
 
     public void setTags() {
         for (Map.Entry<String, List> entry : result.entrySet()) {
+            Animation anim = AnimationUtils.loadAnimation(this, R.anim.shrink_to_original);
             for (int i = 0; i < entry.getValue().size(); i++) {
                 BootstrapLabel label = new BootstrapLabel(this);
-                label.setRounded(true);
                 label.setBootstrapBrand(DefaultBootstrapBrand.WARNING);
                 label.setBootstrapHeading(DefaultBootstrapHeading.H6);
+                label.setAnimation(anim);
+                label.startAnimation(anim);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(0, 0, 20, 0);
+                label.setLayoutParams(lp);
                 if (entry.getKey().equals("mealType")) {
                     label.setText(entry.getValue().get(i).toString());
                 } else if (entry.getKey().equals("hotness")) {
@@ -152,7 +159,7 @@ public class Find_Meal_Activity extends AppCompatActivity {
                             label.setText("Easy");
                             break;
                         case 1:
-                            label.setText("OK");
+                            label.setText("Slightly Easy");
                             break;
                         case 2:
                             label.setText("Not Hard");
