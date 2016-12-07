@@ -42,7 +42,7 @@ dependencies {
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.jaeger.statusbaruitl:library:1.3.0'
-
+    compile 'phelat.textview:textviewplus:1.1.0'
     compile 'com.github.thinkcool:circletextimageview:1.0.20151218'
 
 }

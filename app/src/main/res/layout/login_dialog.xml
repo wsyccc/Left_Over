@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ScrollView
@@ -31,11 +32,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dip"
                 android:layout_marginRight="20dip"
-                android:gravity="left"
+                android:gravity="start"
                 android:text="Email"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
+            <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/login_txt_email"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -43,7 +44,10 @@
                 android:layout_marginRight="20dip"
                 android:gravity="fill_horizontal"
                 android:inputType="textEmailAddress"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:bootstrapBrand="warning"
+                app:bootstrapSize="md"
+                app:roundedCorners="true"/>
 
 
             <TextView
@@ -56,15 +60,18 @@
                 android:text="Password"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
+            <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/login_txt_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dip"
                 android:layout_marginRight="20dip"
+                app:bootstrapBrand="warning"
                 android:gravity="fill_horizontal"
                 android:inputType="numberPassword"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:bootstrapSize="md"
+                app:roundedCorners="true"/>
 
         </LinearLayout>
     </ScrollView>

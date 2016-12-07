@@ -140,6 +140,10 @@ public class Recipe implements Serializable {
         private String email;
         @Expose
         private String content;
+        @Expose
+        private String title;
+        @Expose
+        private int rate;
 
         public void setEmail(String email){
             this.email = email;
@@ -153,6 +157,18 @@ public class Recipe implements Serializable {
         }
         public String getContent(){
             return content;
+        }
+        public String getTitle(){
+            return title;
+        }
+        public void setTitle(String title){
+            this.title = title;
+        }
+        public void setRate(int rate){
+            this.rate = rate;
+        }
+        public int getRate(){
+            return rate;
         }
     }
     public static class DietTypeBean implements Serializable{
@@ -192,14 +208,14 @@ public class Recipe implements Serializable {
     }
     public static class IngredientDescriptionBean implements Serializable{
         @Expose
-        private String ingredientDescription;
+        private String details;
 
-        public void setIngredientDescription(String ingredientDescription){
-            this.ingredientDescription = ingredientDescription;
+        public void setDetails(String ingredientDescription){
+            this.details = ingredientDescription;
         }
 
-        public String getIngredientDescription(){
-            return ingredientDescription;
+        public String getDetails(){
+            return details;
         }
     }
 }

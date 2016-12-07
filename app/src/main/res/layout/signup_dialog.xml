@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ScrollView
@@ -35,7 +36,7 @@
                 android:text="Email"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
+            <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/txt_email"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -43,7 +44,10 @@
                 android:layout_marginRight="20dip"
                 android:gravity="fill_horizontal"
                 android:inputType="textEmailAddress"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:bootstrapSize="md"
+                app:bootstrapBrand="warning"
+                app:roundedCorners="true"/>
 
             <TextView
                 android:id="@+id/username"
@@ -55,7 +59,7 @@
                 android:text="Username"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
+            <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/txt_username"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +67,10 @@
                 android:layout_marginRight="20dip"
                 android:gravity="fill_horizontal"
                 android:inputType="text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:bootstrapSize="md"
+                app:bootstrapBrand="warning"
+                app:roundedCorners="true"/>
 
             <TextView
                 android:id="@+id/password"
@@ -75,7 +82,7 @@
                 android:text="Password"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
+            <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/txt_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +90,10 @@
                 android:layout_marginRight="20dip"
                 android:gravity="fill_horizontal"
                 android:inputType="numberPassword"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:bootstrapSize="md"
+                app:bootstrapBrand="warning"
+                app:roundedCorners="true"/>
 
             <TextView
                 android:id="@+id/repassword"
@@ -95,7 +105,7 @@
                 android:text="Confirm Password"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
+            <com.beardedhen.androidbootstrap.BootstrapEditText
                 android:id="@+id/txt_repassword"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -103,7 +113,10 @@
                 android:layout_marginRight="20dip"
                 android:gravity="fill_horizontal"
                 android:inputType="numberPassword"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:bootstrapSize="md"
+                app:bootstrapBrand="warning"
+                app:roundedCorners="true"/>
             
         </LinearLayout>
     </ScrollView>

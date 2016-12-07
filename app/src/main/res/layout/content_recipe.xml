@@ -4,14 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/nestedScroll"
+    android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bcit.Leftovers.activity.RecipeActivity"
     tools:showIn="@layout/activity_recipe">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        />
+    <LinearLayout
+        android:id="@+id/recipe_liner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- for Description -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Description"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@drawable/textblock"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- for Hotness -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Hotness"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <ImageView
+            android:id="@+id/hotness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:src="@drawable/btn_star_off_focused_holo_dark" />
+
+        <!-- for Difficulty -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Difficulty"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <ImageView
+            android:id="@+id/difficulty_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:src="@drawable/btn_star_off_focused_holo_dark" />
+
+        <!-- for Diet Type -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Diet Type"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <TextView
+            android:id="@+id/dietType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@drawable/textblock"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- for Meal Type -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Meal Type"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <TextView
+            android:id="@+id/mealType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@drawable/textblock"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- for Ingredients -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Ingredients"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <TextView
+            android:id="@+id/ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@drawable/textblock"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- for IngredientsDescription -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Ingredients Description"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <TextView
+            android:id="@+id/ingredients_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@drawable/textblock"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- for Steps -->
+        <com.beardedhen.androidbootstrap.BootstrapLabel
+            style="@style/wrapping_button"
+            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:text="Steps"
+            app:bootstrapBrand="warning"
+            app:bootstrapHeading="h4"
+            app:roundedCorners="true" />
+
+        <TextView
+            android:id="@+id/steps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@drawable/textblock"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <!-- for Comment -->
+
+
+        <ListView
+            android:id="@+id/comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin" />
+
+
+    </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

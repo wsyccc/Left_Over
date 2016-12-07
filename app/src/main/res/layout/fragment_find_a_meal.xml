@@ -13,29 +13,31 @@
         android:id="@+id/textView1"
         android:layout_weight="0.12"
         android:textSize="20dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_marginTop="@dimen/activity_vertical_margin" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/wrapping_button"
         android:text="Breakfast"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        app:bootstrapBrand="regular"
-        app:bootstrapSize="lg"
+        app:bootstrapBrand="success"
         app:buttonMode="regular"
         app:showOutline="false"
         app:roundedCorners="true"
-        android:onClick="chooseMeal" />
+        android:onClick="chooseMeal"
+        android:layout_marginTop="@dimen/bootstrap_badge_default_size" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/wrapping_button"
         android:text="Lunch"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        app:bootstrapBrand="regular"
-        app:bootstrapSize="lg"
+        app:bootstrapBrand="success"
         app:buttonMode="regular"
         app:showOutline="false"
         app:roundedCorners="true"
@@ -44,11 +46,11 @@
     <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/wrapping_button"
         android:text="Dinner"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        app:bootstrapBrand="regular"
-        app:bootstrapSize="lg"
+        app:bootstrapBrand="success"
         app:buttonMode="regular"
         app:showOutline="false"
         app:roundedCorners="true"

@@ -396,7 +396,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                 String jsonData = null;
                 try {
                     JSONArray jsonArray = null;
-                    Log.d("cccccccccc",result);
                     if (!result.equalsIgnoreCase("<br />")){
                         jsonArray = new JSONArray(result);
                         jsonData = convertStandardJSONString(jsonArray.toString());
@@ -411,10 +410,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                             }.getType());
                             Recipe recipe = new Recipe();
                             recipes.add(recipe);
-                            if (recipes != null){
-                                Log.d("nimabi", recipes.get(0).getDescription());
-                            }
-
                             if (jsonArray.length() != recipes.size()){
                                 recipes.remove(recipes.size()-1);
                             }
@@ -439,9 +434,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
                                     SnackbarUtil.ShortSnackbar(coordinatorLayout, recipes.get(position).getIngredients().get(0).getIngredient(), SnackbarUtil.Info).show();
                                     Intent intent = new Intent(getActivity(), RecipeActivity.class);
                                     intent.putExtra("recipe",recipes.get(position));
-                                    Log.d("ID",recipes.get(position).getRecipeID()+"");
-                                    Log.d("Name",recipes.get(position).getRecipeName());
-                                    Log.d("222222", recipes.get(position).getSteps().get(0).getStepInstruction());
                                     startActivity(intent);
                                 }
 
