@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.fragment.FindAMeal_Fragment;
@@ -23,6 +24,7 @@ import com.bcit.Leftovers.other.Recipe;
 import com.beardedhen.androidbootstrap.BootstrapLabel;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapHeading;
+import com.google.android.gms.vision.text.Text;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -56,6 +58,7 @@ public class Find_Meal_Activity extends AppCompatActivity {
     private GridLayoutManager mLayoutManager;
     private HomeImageAdapter mAdapter;
     private RecyclerView recyclerview;
+    private TextView nothing;
     private String vegan;
 
     @Override
@@ -68,6 +71,8 @@ public class Find_Meal_Activity extends AppCompatActivity {
         recyclerview = (RecyclerView) findViewById(R.id.results);
         mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(mLayoutManager);
+        nothing = (TextView) findViewById(R.id.no_result);
+        nothing.setVisibility(View.INVISIBLE);
         result = (HashMap<String, List>) getIntent().getSerializableExtra("choices");
         mealType = result.get("mealType");
         setTags();
@@ -249,7 +254,8 @@ public class Find_Meal_Activity extends AppCompatActivity {
                     if (!result.equalsIgnoreCase("<br />")) {
                         jsonArray = new JSONArray(result);
                         jsonData = convertStandardJSONString(jsonArray.toString());
-                        Log.d("fa",jsonData);
+                    }if (result.equals("") || result.equals("[]")){
+                        nothing.setVisibility(View.VISIBLE);
                     }
                     recipes = gson.fromJson(jsonData, new TypeToken<List<Recipe>>() {
                     }.getType());
