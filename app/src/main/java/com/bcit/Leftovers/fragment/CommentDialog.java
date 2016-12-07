@@ -5,13 +5,16 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
 import com.bcit.Leftovers.R;
+import com.bcit.Leftovers.activity.RecipeActivity;
 import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.SaveSharedPreference;
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapButtonGroup;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 
@@ -37,6 +40,11 @@ public class CommentDialog extends DialogFragment {
     private String content;
     private int rate;
     private int recipeID;
+    private BootstrapButton rate_1;
+    private BootstrapButton rate_2;
+    private BootstrapButton rate_3;
+    private BootstrapButton rate_4;
+    private BootstrapButton rate_5;
 
     public CommentDialog(int recipeID){
         this.recipeID = recipeID;
@@ -44,12 +52,14 @@ public class CommentDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.comment_dialog, null);
+        setOnclickListener();
         builder.setView(view)
                 .setTitle("Comment")
                 .setPositiveButton(android.R.string.ok, null)
@@ -81,7 +91,6 @@ public class CommentDialog extends DialogFragment {
                 public void onClick(View v) {
                     title = title_view.getText().toString();
                     content = content_view.getText().toString();
-                    rate = group_view.getBottom();
                     String query = "collection=recipe" + "&title=" + title + "&content=" + content
                             + "&rate=" + rate + "&email="+ SaveSharedPreference.getUser(getActivity(), "email")
                             +"&action=findAndInsert"+"&recipeID="+ recipeID;
@@ -103,6 +112,75 @@ public class CommentDialog extends DialogFragment {
                 }
             });
         }
+    }
+    public void setOnclickListener(){
+        rate_1 = (BootstrapButton) view.findViewById(R.id.rate_1);
+        rate_2 = (BootstrapButton) view.findViewById(R.id.rate_2);
+        rate_3 = (BootstrapButton) view.findViewById(R.id.rate_3);
+        rate_4 = (BootstrapButton) view.findViewById(R.id.rate_4);
+        rate_5 = (BootstrapButton) view.findViewById(R.id.rate_5);
+        rate_1.setOnCheckedChangedListener(new BootstrapButton.OnCheckedChangedListener() {
+            @Override
+            public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
+                if (isChecked) {
+                    rate_2.setSelected(false);
+                    //rate_2.setChecked(false);
+                    rate_3.setSelected(false);
+                    rate_4.setSelected(false);
+                    rate_5.setSelected(false);
+                    rate = 1;
+                }
+            }
+        });
+        rate_2.setOnCheckedChangedListener(new BootstrapButton.OnCheckedChangedListener() {
+            @Override
+            public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
+                if (isChecked) {
+                    rate_1.setSelected(false);
+                    rate_3.setSelected(false);
+                    rate_4.setSelected(false);
+                    rate_5.setSelected(false);
+                    rate = 2;
+                }
+            }
+        });
+        rate_3.setOnCheckedChangedListener(new BootstrapButton.OnCheckedChangedListener() {
+            @Override
+            public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
+                if (isChecked) {
+                    rate_1.setSelected(false);
+                    rate_2.setSelected(false);
+                    rate_4.setSelected(false);
+                    rate_5.setSelected(false);
+                    rate = 3;
+                }
+            }
+        });
+        rate_4.setOnCheckedChangedListener(new BootstrapButton.OnCheckedChangedListener() {
+            @Override
+            public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
+                if (isChecked) {
+                    rate_1.setSelected(false);
+                    rate_2.setSelected(false);
+                    rate_3.setSelected(false);
+                    rate_5.setSelected(false);
+                    rate = 4;
+                }
+            }
+        });
+        rate_5.setOnCheckedChangedListener(new BootstrapButton.OnCheckedChangedListener() {
+            @Override
+            public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
+                if (isChecked) {
+                    rate_1.setSelected(false);
+                    rate_2.setSelected(false);
+                    rate_3.setSelected(false);
+                    rate_4.setSelected(false);
+                    rate = 5;
+                }
+            }
+        });
+
     }
     private class GetData extends AsyncTask<String, Void, String> {
 

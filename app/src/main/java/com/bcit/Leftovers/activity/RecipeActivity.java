@@ -5,22 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.NestedScrollingChild;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.fragment.CommentDialog;
 import com.bcit.Leftovers.other.CommentListAdapter;
@@ -28,8 +20,6 @@ import com.bcit.Leftovers.other.Login;
 import com.bcit.Leftovers.other.Recipe;
 import com.bcit.Leftovers.other.SnackbarUtil;
 import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -37,7 +27,6 @@ public class RecipeActivity extends AppCompatActivity {
     private Recipe recipe;
     private CollapsingToolbarLayoutState state;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private LinearLayout linearLayout;
     private ListView listView;
     private CommentListAdapter adapter;
     private TextView titleText;
@@ -57,7 +46,7 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,14 +59,14 @@ public class RecipeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Login.loginStatus == 1 && adapter != null && listView != null){
+                if (Login.loginStatus == 1 && adapter != null && listView != null) {
                     CommentDialog commentDialog = new CommentDialog(recipe.getRecipeID());
                     commentDialog.show(getFragmentManager(), "Comment");
-                    if (adapter != null && listView != null){
-                        adapter.notifyDataSetChanged();
-                        listView.setAdapter(adapter);
-                    }
-                }else{
+                    adapter.notifyDataSetChanged();
+                    listView.invalidate();
+                    listView.setAdapter(adapter);
+
+                } else {
                     SnackbarUtil.ShortSnackbar(collapsingToolbarLayout, "Please Sign up!", SnackbarUtil.Alert).show();
                 }
             }
@@ -86,18 +75,17 @@ public class RecipeActivity extends AppCompatActivity {
 
     }
 
-    public void init(){
+    public void init() {
         recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         comment = recipe.getComment();
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        linearLayout = (LinearLayout) findViewById(R.id.recipe_liner);
         titleImage = (ImageView) findViewById(R.id.title_image);
         titleText = (TextView) findViewById(R.id.title_text);
         titleText.setText(recipe.getRecipeName());
         Glide.with(this)
                 .load(recipe.getMainImage())
                 .into(titleImage);
-        app_bar = (AppBarLayout)findViewById(R.id.app_bar);
+        app_bar = (AppBarLayout) findViewById(R.id.app_bar);
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -116,7 +104,7 @@ public class RecipeActivity extends AppCompatActivity {
                     }
                 } else {
                     if (state != CollapsingToolbarLayoutState.INTERNEDIATE) {
-                        if(state == CollapsingToolbarLayoutState.COLLAPSED){
+                        if (state == CollapsingToolbarLayoutState.COLLAPSED) {
                             titleText.setVisibility(View.GONE);//由折叠变为中间状态时隐藏播放按钮
                         }
                         collapsingToolbarLayout.setTitle(recipe.getRecipeName());//设置title为INTERNEDIATE
@@ -145,29 +133,28 @@ public class RecipeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void expandRecipe(){
+    public void expandRecipe() {
         List<Recipe.StepsBean> steps = recipe.getSteps();
         List<Recipe.DietTypeBean> dietType = recipe.getDietType();
         List<Recipe.MealTypeBean> mealType = recipe.getMealType();
         List<Recipe.IngredientsBean> ingredients = recipe.getIngredients();
         List<Recipe.IngredientDescriptionBean> ingredientDescription = recipe.getIngredientDescription();
-        for (Recipe.StepsBean s: steps){
-            stepsStr += "&#9679; " + s.getStepInstruction()+"<br/><br/>";
+        for (Recipe.StepsBean s : steps) {
+            stepsStr += "&#9679; " + s.getStepInstruction() + "<br/><br/>";
         }
-        for (Recipe.DietTypeBean s : dietType){
-            dietTypeStr += "&#9679; " + s.getDiet()+"<br/>";
+        for (Recipe.DietTypeBean s : dietType) {
+            dietTypeStr += "&#9679; " + s.getDiet() + "<br/>";
         }
-        for (Recipe.MealTypeBean s: mealType){
-            mealTypeStr += "&#9679; " + s.getType()+"<br/>";
+        for (Recipe.MealTypeBean s : mealType) {
+            mealTypeStr += "&#9679; " + s.getType() + "<br/>";
         }
-        for (Recipe.IngredientsBean s: ingredients){
-            ingredientsStr += "&#9679; " + s.getIngredient()+"<br/>";
+        for (Recipe.IngredientsBean s : ingredients) {
+            ingredientsStr += "&#9679; " + s.getIngredient() + "<br/>";
         }
-        for (Recipe.IngredientDescriptionBean s: ingredientDescription){
-            ingredientDescriptionStr += "&#9679; " + s.getDetails() +"<br/>";
+        for (Recipe.IngredientDescriptionBean s : ingredientDescription) {
+            ingredientDescriptionStr += "&#9679; " + s.getDetails() + "<br/>";
         }
     }
-
 
 
     @Override

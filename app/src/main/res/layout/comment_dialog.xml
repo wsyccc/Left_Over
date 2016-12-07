@@ -60,6 +60,7 @@
                 android:layout_marginTop="10sp"
                 app:bootstrapBrand="warning"
                 app:buttonMode="checkbox"
+                app:roundedCorners="true"
                 >
 
                 <com.beardedhen.androidbootstrap.BootstrapButton

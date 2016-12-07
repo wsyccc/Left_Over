@@ -555,9 +555,9 @@ public class MainActivity extends AppCompatActivity {
         iF.chooseIngredient(v);
     }
 
-    public void chooseMeal(View v) {
-        fF.chooseMeal(v);
-    }
+//    public void chooseMeal(View v) {
+//        fF.chooseMeal(v);
+//    }
 
     public void nextStep(View v) {
         iF.nextStep(v);

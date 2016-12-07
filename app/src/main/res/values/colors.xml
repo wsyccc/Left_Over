@@ -3,4 +3,23 @@
     <color name="colorPrimary">#7ad3ab</color>
     <color name="colorPrimaryDark">#7ad3ab</color>
     <color name="colorAccent">#ffbb33</color>
+
+    <color name="five_percent_transparency_white">#0Dffffff</color>
+    <color name="ten_percent_transparency_white">#1Affffff</color>
+    <color name="twenty_percent_transparency_white">#33ffffff</color>
+    <color name="thirty_percent_transparency_white">#4Dffffff</color>
+    <color name="fifty_percent_transparency_white">#80ffffff</color>
+    <color name="sixty_percent_transparency_white">#99ffffff</color>
+    <color name="seventy_percent_transparency_white">#B3ffffff</color>
+    <color name="eighty_percent_transparency_white">#CCffffff</color>
+    <color name="ninty_percent_transparency_white">#E6ffffff</color>
+    <color name="ninty_five_percent_transparency_white">#F2ffffff</color>
+    <color name="fifty_percent_transparency_primary">#8003A9F4</color>
+    <color name="fifty_percent_transparency_darker_primary_dark">#80028bca</color>
+    <color name="mc_title_bar">#FF16C2DD</color>
+    <color name="mc_state_pressed">#FF1088DD</color>
+    <color name="mc_default_pager">#FFF0F0F0</color>
+    <color name="mc_black_t">#55000000</color>
+    <color name="mc_black_t_pic">#22000000</color>
+    <color name="mc_gallery_bg">#FF16C2DD</color>
 </resources>

@@ -34,19 +34,25 @@ dependencies {
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
     //android boostrap
     compile 'com.beardedhen:androidbootstrap:2.3.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    //compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.android.gms:play-services:9.8.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:24.0.0'
+    //the slide bar
     compile 'com.bigkoo:convenientbanner:2.0.5'
+    //animation slide bar
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.jaeger.statusbaruitl:library:1.3.0'
-    compile 'phelat.textview:textviewplus:1.1.0'
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+
+    //circle image
     compile 'com.github.thinkcool:circletextimageview:1.0.20151218'
+    //the seek bar
+    compile 'com.github.lawloretienne:discreteslider:0.0.9'
+    //yes or no
+    compile 'com.ldoublem.thumbUplib:ThumbUplib:0.2'
+    //compile 'com.github.VictorAlbertos:SwipeCoordinator:0.0.1'
 }
