@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bcit.Leftovers.fragment.Nearby_Fragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.bcit.Leftovers.fragment.Nearby_Fragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,12 +17,12 @@
             android:weightSum="1">
 
             <TextView
-                android:text="Meat/Protein"
+                android:id="@+id/meat_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView4"
                 android:layout_margin="10dp"
-                android:textSize="16dp"/>
+                android:text="Meat/Protein"
+                android:textSize="16dp" />
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -30,99 +30,77 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
                     android:layout_row="0"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example1"
+                        android:id="@+id/beef_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
                         app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example2"
+                        android:id="@+id/chicken_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example3"
+                        android:id="@+id/fish_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example4"
+                        android:id="@+id/pork_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
                     android:layout_row="1"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example5"
+                        android:id="@+id/shrimp_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example6"
+                        android:id="@+id/turkey_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
-
-                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example7"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
-                        android:layout_margin="10dp"
-                        android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
-
-                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example8"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
-                        android:layout_margin="10dp"
-                        android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
 
             </GridLayout>
 
             <TextView
-                android:text="Vegetables"
+                android:id="@+id/vegetable_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5"
                 android:layout_margin="10dp"
-                android:textSize="16dp"/>
+                android:text="Vegetables"
+                android:textSize="16dp" />
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -130,142 +108,229 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
                     android:layout_row="0"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example9"
+                        android:id="@+id/asparagus_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example10"
+                        android:id="@+id/bellpeppers_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example11"
+                        android:id="@+id/bokchoy_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example12"
+                        android:id="@+id/broccoli_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
                     android:layout_row="1"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example13"
+                        android:id="@+id/cabbage_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example14"
+                        android:id="@+id/carrots_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example15"
+                        android:id="@+id/cauliflower_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example16"
+                        android:id="@+id/chillipepper_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
                     android:layout_row="2"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example17"
+                        android:id="@+id/corn_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example18"
+                        android:id="@+id/cucumbers_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example19"
+                        android:id="@+id/jalapeno_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example20"
+                        android:id="@+id/lemon_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:orientation="horizontal">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/lettuce_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/lime_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/mushrooms_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/peas_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="4"
+                    android:orientation="horizontal">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/potato_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/spinach_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/tofu_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/tomato_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="5"
+                    android:orientation="horizontal">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/zucchini_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
 
             </GridLayout>
 
             <TextView
+                android:id="@+id/grain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="Grains/Carbs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                android:layout_margin="10dp"
-                android:textSize="16dp"/>
+                android:textSize="16dp" />
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -273,55 +338,78 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
                     android:layout_row="0"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example21"
+                        android:id="@+id/almond_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example22"
+                        android:id="@+id/bread_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example23"
+                        android:id="@+id/noodle_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example24"
+                        android:id="@+id/pasta_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:orientation="horizontal">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/peanuts_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/rice_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                </LinearLayout>
+
             </GridLayout>
 
             <TextView
-                android:text="Dairy"
+                android:id="@+id/dairy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView8"
                 android:layout_margin="10dp"
-                android:textSize="16dp"/>
+                android:text="Dairy"
+                android:textSize="16dp" />
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -329,61 +417,192 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="83dp" android:orientation="horizontal"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
                     android:layout_row="0"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example25"
+                        android:id="@+id/butter_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example26"
+                        android:id="@+id/cheese_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example27"
+                        android:id="@+id/egg_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bcircle_border_change_example28"
+                        android:id="@+id/milk_image"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:src="@drawable/ic_photo_library_black_24dp"
                         android:layout_margin="10dp"
                         android:onClick="chooseIngredient"
-                        app:bootstrapBrand="regular"/>
+                        app:bootstrapBrand="regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:orientation="horizontal">
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/yogurt_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                    </LinearLayout>
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/fruits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Fruits"
+                android:textSize="16dp" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="82dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:orientation="horizontal">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/apple_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/avocado_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/banana_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/blueberry_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:orientation="horizontal">
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/orange_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/mango_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/peach_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/grape_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:orientation="horizontal">
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/pineapple_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/strawberry_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/watermelon_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:onClick="chooseIngredient"
+                        app:bootstrapBrand="regular" />
                 </LinearLayout>
             </GridLayout>
+
 
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Next"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                app:bootstrapBrand="regular"
+                android:layout_weight="0.23"
+                android:onClick="nextStep"
+                android:text="Next"
+                app:bootstrapBrand="success"
                 app:bootstrapSize="lg"
                 app:buttonMode="regular"
-                app:showOutline="false"
                 app:roundedCorners="true"
-                android:onClick="nextStep"
-                android:layout_weight="0.23" />
+                app:showOutline="false" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
