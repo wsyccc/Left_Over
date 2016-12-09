@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bcit.Leftovers.R;
 import com.bcit.Leftovers.fragment.FindAMeal_Fragment;
 import com.bcit.Leftovers.other.HomeImageAdapter;
+import com.bcit.Leftovers.other.PredicateLayout;
 import com.bcit.Leftovers.other.Recipe;
 import com.beardedhen.androidbootstrap.BootstrapLabel;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
@@ -48,7 +49,7 @@ import static com.bcit.Leftovers.fragment.Home_Fragment.convertStandardJSONStrin
 
 public class Find_Meal_Activity extends AppCompatActivity {
 
-    private LinearLayout linearLayout;
+    private PredicateLayout predicateLayout;
     private Map<String, List> result = null;
     private List<String> mealType;
     private int hotness;
@@ -67,7 +68,7 @@ public class Find_Meal_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_find__meal_);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("My Meal");
-        linearLayout = (LinearLayout) findViewById(R.id.tags);
+        predicateLayout = (PredicateLayout) findViewById(R.id.tags);
         recyclerview = (RecyclerView) findViewById(R.id.results);
         mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(mLayoutManager);
@@ -187,7 +188,7 @@ public class Find_Meal_Activity extends AppCompatActivity {
                         vegan = "normal";
                     }
                 }
-                linearLayout.addView(label);
+                predicateLayout.addView(label,new PredicateLayout.LayoutParams(2, 0));
             }
         }
     }
