@@ -54,6 +54,11 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         return holder;
     }
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder){
+        Glide.clear(holder.itemView);
+
+    }
 
 
     @Override

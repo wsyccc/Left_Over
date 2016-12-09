@@ -92,6 +92,7 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
     private static int ID = 0;
     private ItemTouchHelper itemTouchHelper;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View view;
 
 
     public Home_Fragment() {}
@@ -100,17 +101,21 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        coordinatorLayout = (LinearLayout) rootView.findViewById(R.id.line_coordinatorLayout);
-        recyclerview = (RecyclerView) rootView.findViewById(R.id.grid_recycler);
-        mLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
-        recyclerview.setLayoutManager(mLayoutManager);
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.grid_swipe_refresh);
-        swipeRefreshLayout.setProgressViewOffset(false, 0,
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30,
-                        getResources().getDisplayMetrics()));
-        return rootView;
+        try{
+            view = inflater.inflate(R.layout.fragment_home, container, false);
+            coordinatorLayout = (LinearLayout) view.findViewById(R.id.line_coordinatorLayout);
+            recyclerview = (RecyclerView) view.findViewById(R.id.grid_recycler);
+            mLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
+            recyclerview.setLayoutManager(mLayoutManager);
+            swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.grid_swipe_refresh);
+            swipeRefreshLayout.setProgressViewOffset(false, 0,
+                    (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30,
+                            getResources().getDisplayMetrics()));
+            return view;
+        }catch (Exception e){
+            e.printStackTrace();
+            return view;
+        }
     }
 
     @Override
@@ -207,70 +212,73 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
 
 
     private void setListener() {
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                ID = 0;
-                recipes.clear();
-                new GetData().execute(ID);
-                ID = 10;
-            }
-        });
-
-        itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-            @Override
-            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                int dragFlags = 0;
-                if (recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager || recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        try{
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    ID = 0;
+                    recipes.clear();
+                    new GetData().execute(ID);
+                    ID = 10;
                 }
-                return makeMovementFlags(dragFlags, 0);
-            }
+            });
 
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                int from = viewHolder.getAdapterPosition();
-                int to = target.getAdapterPosition();
-                Collections.swap(recipes, from, to);
-                mAdapter.notifyItemMoved(from, to);
-                return true;
-            }
+            itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+                @Override
+                public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                    int dragFlags = 0;
+                    if (recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager || recyclerView.getLayoutManager() instanceof GridLayoutManager) {
+                        dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+                    }
+                    return makeMovementFlags(dragFlags, 0);
+                }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    int from = viewHolder.getAdapterPosition();
+                    int to = target.getAdapterPosition();
+                    Collections.swap(recipes, from, to);
+                    mAdapter.notifyItemMoved(from, to);
+                    return true;
+                }
 
-            }
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
-            @Override
-            public boolean isLongPressDragEnabled() {
-                return false;
-            }
-        });
+                }
 
-        //recyclerview滚动监听
-        recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
-                // 滑动状态停止并且剩余少于三个item时，自动加载下一页
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
-                    if (recipes != null){
-                        new GetData().execute(ID+=10);
+                @Override
+                public boolean isLongPressDragEnabled() {
+                    return false;
+                }
+            });
+
+            //recyclerview滚动监听
+            recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
+                    // 滑动状态停止并且剩余少于三个item时，自动加载下一页
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE
+                            && lastVisibleItem + 3 >= mLayoutManager.getItemCount()) {
+                        if (recipes != null){
+                            new GetData().execute(ID+=10);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
 //                获取加载的最后一个可见视图在适配器的位置。
-                lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                    lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private class GetData extends AsyncTask<Integer, Void, String> {
@@ -405,5 +413,6 @@ public class Home_Fragment extends Fragment implements AdapterView.OnItemClickLi
         data_json = data_json.replace("}\"", "}");
         return data_json;
     }
+
 
 }

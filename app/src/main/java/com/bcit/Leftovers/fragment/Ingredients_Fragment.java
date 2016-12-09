@@ -30,40 +30,40 @@ import static com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand
 public class Ingredients_Fragment extends Fragment {
 
 
-
     private View view;
-    private static final int[] meatId = {R.id.beef_image,R.id.chicken_image,R.id.fish_image,R.id.pork_image,
-                                         R.id.shrimp_image,R.id.turkey_image};
-    private static final int[] vegeId = {R.id.asparagus_image, R.id.bellpeppers_image,R.id.bokchoy_image,R.id.broccoli_image,
-                                       R.id.cabbage_image, R.id.carrots_image,R.id.cauliflower_image,R.id.chillipepper_image,
-                                       R.id.corn_image,R.id.cucumbers_image,R.id.jalapeno_image,R.id.lemon_image,R.id.lettuce_image,
-                                       R.id.lime_image,R.id.mushrooms_image,R.id.peas_image,R.id.potato_image,R.id.spinach_image,
-                                       R.id.tofu_image,R.id.tomato_image,R.id.zucchini_image};
-    private static final int[] grainId = {R.id.almond_image,R.id.bread_image,R.id.noodle_image,R.id.pasta_image,R.id.peanuts_image,
-                                        R.id.rice_image};
-    private static final int[] dairyId = {R.id.butter_image,R.id.cheese_image,R.id.egg_image,R.id.milk_image,R.id.yogurt_image};
-    private static final int[] fruitId = {R.id.apple_image,R.id.avocado_image,R.id.banana_image,R.id.blueberry_image,R.id.orange_image,
-                                        R.id.mango_image,R.id.peach_image,R.id.grape_image,R.id.pineapple_image,R.id.strawberry_image,
-                                        R.id.watermelon_image};
+    private static final int[] meatId = {R.id.beef_image, R.id.chicken_image, R.id.fish_image, R.id.pork_image,
+            R.id.shrimp_image, R.id.turkey_image};
+    private static final int[] vegeId = {R.id.asparagus_image, R.id.bellpeppers_image, R.id.bokchoy_image, R.id.broccoli_image,
+            R.id.cabbage_image, R.id.carrots_image, R.id.cauliflower_image, R.id.chillipepper_image,
+            R.id.corn_image, R.id.cucumbers_image, R.id.jalapeno_image, R.id.lemon_image, R.id.lettuce_image,
+            R.id.lime_image, R.id.mushrooms_image, R.id.peas_image, R.id.potato_image, R.id.spinach_image,
+            R.id.tofu_image, R.id.tomato_image, R.id.zucchini_image};
+    private static final int[] grainId = {R.id.almond_image, R.id.bread_image, R.id.noodle_image, R.id.pasta_image, R.id.peanuts_image,
+            R.id.rice_image};
+    private static final int[] dairyId = {R.id.butter_image, R.id.cheese_image, R.id.egg_image, R.id.milk_image, R.id.yogurt_image};
+    private static final int[] fruitId = {R.id.apple_image, R.id.avocado_image, R.id.banana_image, R.id.blueberry_image, R.id.orange_image,
+            R.id.mango_image, R.id.peach_image, R.id.grape_image, R.id.pineapple_image, R.id.strawberry_image,
+            R.id.watermelon_image};
 
-    private static final int[] meatImage = {R.drawable.beef,R.drawable.chicken,R.drawable.fish,R.drawable.pork,R.drawable.shrimp,
-                                           R.drawable.turkey};
-    private static final int[] vegeImage = {R.drawable.asparagus, R.drawable.bellpeppers,R.drawable.bokchoy,R.drawable.broccoli,
-                                            R.drawable.cabbage, R.drawable.carrots,R.drawable.cauliflower,R.drawable.chillipepper,
-                                            R.drawable.corn,R.drawable.cucumbers,R.drawable.jalapeno,R.drawable.lemon,R.drawable.lettuce,
-                                            R.drawable.lime,R.drawable.mushrooms,R.drawable.peas,R.drawable.potato,R.drawable.spinach,
-                                            R.drawable.tofu,R.drawable.tomato,R.drawable.zucchini};
-    private static final int[] grainImage = {R.drawable.almond,R.drawable.bread,R.drawable.noodle,R.drawable.pasta,R.drawable.peanuts,
-                                             R.drawable.rice};
-    private static final int[] dairyImage = {R.drawable.butter,R.drawable.cheese,R.drawable.egg,R.drawable.milk,R.drawable.yogurt};
-    private static final int[] fruitImage = {R.drawable.apple,R.drawable.avocado,R.drawable.banana,R.drawable.blueberry,R.drawable.orange,
-                                             R.drawable.mango,R.drawable.peach,R.drawable.grape,R.drawable.pineapple,R.drawable.strawberry,
-                                             R.drawable.watermelon};
+    private static final int[] meatImage = {R.drawable.beef, R.drawable.chicken, R.drawable.fish, R.drawable.pork, R.drawable.shrimp,
+            R.drawable.turkey};
+    private static final int[] vegeImage = {R.drawable.asparagus, R.drawable.bellpeppers, R.drawable.bokchoy, R.drawable.broccoli,
+            R.drawable.cabbage, R.drawable.carrots, R.drawable.cauliflower, R.drawable.chillipepper,
+            R.drawable.corn, R.drawable.cucumbers, R.drawable.jalapeno, R.drawable.lemon, R.drawable.lettuce,
+            R.drawable.lime, R.drawable.mushrooms, R.drawable.peas, R.drawable.potato, R.drawable.spinach,
+            R.drawable.tofu, R.drawable.tomato, R.drawable.zucchini};
+    private static final int[] grainImage = {R.drawable.almond, R.drawable.bread, R.drawable.noodle, R.drawable.pasta, R.drawable.peanuts,
+            R.drawable.rice};
+    private static final int[] dairyImage = {R.drawable.butter, R.drawable.cheese, R.drawable.egg, R.drawable.milk, R.drawable.yogurt};
+    private static final int[] fruitImage = {R.drawable.apple, R.drawable.avocado, R.drawable.banana, R.drawable.blueberry, R.drawable.orange,
+            R.drawable.mango, R.drawable.peach, R.drawable.grape, R.drawable.pineapple, R.drawable.strawberry,
+            R.drawable.watermelon};
 
     private List<Integer> choices;
     private List<BootstrapCircleThumbnail> buttons;
 
-    public Ingredients_Fragment() {}
+    public Ingredients_Fragment() {
+    }
 
 
     @Override
@@ -85,19 +85,21 @@ public class Ingredients_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Ingredients_Activity.class);
-                intent.putExtra("options", (Serializable)choices);
+                intent.putExtra("options", (Serializable) choices);
                 startActivity(intent);
             }
         });
         return view;
     }
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         init();
         setOnClickLisetener();
     }
-    public void onPause(){
+
+    public void onPause() {
         super.onPause();
 
     }
@@ -108,9 +110,10 @@ public class Ingredients_Fragment extends Fragment {
         super.onAttach(context);
 
     }
-    public void init(){
-        for(int i=0; i< meatId.length; i++){
-            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail)view.findViewById(meatId[i]);
+
+    public void init() {
+        for (int i = 0; i < meatId.length; i++) {
+            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail) view.findViewById(meatId[i]);
             Glide.with(getActivity())
                     .load(meatImage[i])
                     .asBitmap()
@@ -119,8 +122,8 @@ public class Ingredients_Fragment extends Fragment {
             buttons.add(thumbnail);
         }
 
-        for (int i=0; i< vegeId.length; i++){
-            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail)view.findViewById(vegeId[i]);
+        for (int i = 0; i < vegeId.length; i++) {
+            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail) view.findViewById(vegeId[i]);
             Glide.with(getActivity())
                     .load(vegeImage[i])
                     .asBitmap()
@@ -128,8 +131,8 @@ public class Ingredients_Fragment extends Fragment {
                     .into(thumbnail);
             buttons.add(thumbnail);
         }
-        for (int i=0; i< grainId.length; i++){
-            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail)view.findViewById(grainId[i]);
+        for (int i = 0; i < grainId.length; i++) {
+            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail) view.findViewById(grainId[i]);
             Glide.with(getActivity())
                     .load(grainImage[i])
                     .asBitmap()
@@ -137,8 +140,8 @@ public class Ingredients_Fragment extends Fragment {
                     .into(thumbnail);
             buttons.add(thumbnail);
         }
-        for (int i=0; i< dairyId.length; i++){
-            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail)view.findViewById(dairyId[i]);
+        for (int i = 0; i < dairyId.length; i++) {
+            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail) view.findViewById(dairyId[i]);
             Glide.with(getActivity())
                     .load(dairyImage[i])
                     .asBitmap()
@@ -146,8 +149,8 @@ public class Ingredients_Fragment extends Fragment {
                     .into(thumbnail);
             buttons.add(thumbnail);
         }
-        for (int i=0; i< fruitId.length; i++){
-            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail)view.findViewById(fruitId[i]);
+        for (int i = 0; i < fruitId.length; i++) {
+            BootstrapCircleThumbnail thumbnail = (BootstrapCircleThumbnail) view.findViewById(fruitId[i]);
             Glide.with(getActivity())
                     .load(fruitImage[i])
                     .asBitmap()
@@ -162,25 +165,26 @@ public class Ingredients_Fragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-    public void setOnClickLisetener(){
-        for (int i=0; i < buttons.size(); i++){
+
+    public void setOnClickLisetener() {
+        for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     BootstrapCircleThumbnail b = (BootstrapCircleThumbnail) v;
-                    BootstrapBrand i = b.getBootstrapBrand();
-                    if (i.equals(DefaultBootstrapBrand.SUCCESS)) {
+                    if (b.getBootstrapBrand().equals(DefaultBootstrapBrand.WARNING)) {
                         b.setBootstrapBrand(REGULAR);
-                    } else {
-                        b.setBootstrapBrand(WARNING);
-                    }
-                    if (choices != null){
-                        for (int k=0; k < choices.size(); k++){
-                            if (choices.get(k) == v.getId()){
-                                choices.remove(k);
-                                break;
+                        if (choices != null) {
+                            for (int k = 0; k < choices.size(); k++) {
+                                if (choices.get(k) == v.getId()) {
+                                    choices.remove(k);
+                                    break;
+                                }
                             }
                         }
+                    } else {
+                        b.setBootstrapBrand(WARNING);
                         choices.add(v.getId());
                     }
                 }

@@ -83,7 +83,7 @@ public class Ingredients_Activity extends AppCompatActivity {
                     choices.add("beef");
                     break;
                 case R.id.cheese_image:
-                    choices.add("chicken");
+                    choices.add("cheese");
                     break;
                 case R.id.shrimp_image:
                     choices.add("shrimp");
@@ -222,6 +222,9 @@ public class Ingredients_Activity extends AppCompatActivity {
                     break;
                 case R.id.watermelon_image:
                     choices.add("watermelon");
+                    break;
+                case R.id.chicken_image:
+                    choices.add("chicken");
                     break;
                 default:
                     break;
