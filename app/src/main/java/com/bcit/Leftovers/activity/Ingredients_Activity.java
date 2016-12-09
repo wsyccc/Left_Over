@@ -37,56 +37,222 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import static com.bcit.Leftovers.fragment.Home_Fragment.convertStandardJSONString;
 
-public class Find_Meal_Activity extends AppCompatActivity {
+public class Ingredients_Activity extends AppCompatActivity {
 
+    private List<Integer> options;
+    private List<String> choices;
     private PredicateLayout predicateLayout;
-    private Map<String, List> result = null;
-    private List<String> mealType;
-    private int hotness;
-    private int difficulty;
     private List<Recipe> recipes;
     private ItemTouchHelper itemTouchHelper;
     private GridLayoutManager mLayoutManager;
     private HomeImageAdapter mAdapter;
     private RecyclerView recyclerview;
     private TextView nothing;
-    private String vegan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_meal);
+        setContentView(R.layout.activity_ingredients);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("My Meal");
-        predicateLayout = (PredicateLayout) findViewById(R.id.tags);
-        recyclerview = (RecyclerView) findViewById(R.id.results);
+        predicateLayout = (PredicateLayout) findViewById(R.id.ingredient_tags);
+        recyclerview = (RecyclerView) findViewById(R.id.ingredient_results);
         mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(mLayoutManager);
-        nothing = (TextView) findViewById(R.id.no_result);
+        nothing = (TextView) findViewById(R.id.none_result);
         nothing.setVisibility(View.INVISIBLE);
-        result = (HashMap<String, List>) getIntent().getSerializableExtra("choices");
-        mealType = result.get("mealType");
-        setTags();
+        options = new ArrayList<>();
+        options = (List<Integer>) getIntent().getSerializableExtra("options");
+        choices = new ArrayList<>();
+        getActualIngredients();
+        setTag();
         setListener();
-        new GetData().execute(generateQuery());
+        new GetData().execute(getQuery());
+    }
+    public void getActualIngredients(){
+        for (int result : options){
+            switch (result){
+                case R.id.beef_image:
+                    choices.add("beef");
+                    break;
+                case R.id.cheese_image:
+                    choices.add("chicken");
+                    break;
+                case R.id.shrimp_image:
+                    choices.add("shrimp");
+                    break;
+                case R.id.fish_image:
+                    choices.add("fish");
+                    break;
+                case R.id.pork_image:
+                    choices.add("pork");
+                    break;
+                case R.id.turkey_image:
+                    choices.add("turkey");
+                    break;
+                case R.id.asparagus_image:
+                    choices.add("asparagus");
+                    break;
+                case R.id.bellpeppers_image:
+                    choices.add("bell peppers");
+                    break;
+                case R.id.bokchoy_image:
+                    choices.add("bokchoy");
+                    break;
+                case R.id.broccoli_image:
+                    choices.add("broccoli");
+                    break;
+                case R.id.cabbage_image:
+                    choices.add("cabbage");
+                    break;
+                case R.id.carrots_image:
+                    choices.add("carrots");
+                    break;
+                case R.id.cauliflower_image:
+                    choices.add("flower");
+                    break;
+                case R.id.chillipepper_image:
+                    choices.add("chili");
+                    break;
+                case R.id.corn_image:
+                    choices.add("corn");
+                    break;
+                case R.id.cucumbers_image:
+                    choices.add("cucumber");
+                    break;
+                case R.id.jalapeno_image:
+                    choices.add("jalapeno");
+                    break;
+                case R.id.lemon_image:
+                    choices.add("lemon");
+                    break;
+                case R.id.lettuce_image:
+                    choices.add("lettuce");
+                    break;
+                case R.id.lime_image:
+                    choices.add("lime");
+                    break;
+                case R.id.mushrooms_image:
+                    choices.add("mushroom");
+                    break;
+                case R.id.peas_image:
+                    choices.add("peas");
+                    break;
+                case R.id.potato_image:
+                    choices.add("potato");
+                    break;
+                case R.id.spinach_image:
+                    choices.add("spinach");
+                    break;
+                case R.id.tofu_image:
+                    choices.add("tofu");
+                    break;
+                case R.id.tomato_image:
+                    choices.add("tomato");
+                    break;
+                case R.id.zucchini_image:
+                    choices.add("zucchini");
+                    break;
+                case R.id.almond_image:
+                    choices.add("almond");
+                    break;
+                case R.id.bread_image:
+                    choices.add("bread");
+                    break;
+                case R.id.noodle_image:
+                    choices.add("noodle");
+                    break;
+                case R.id.pasta_image:
+                    choices.add("pasta");
+                    break;
+                case R.id.peanuts_image:
+                    choices.add("peanut");
+                    break;
+                case R.id.rice_image:
+                    choices.add("rice");
+                    break;
+                case R.id.butter_image:
+                    choices.add("butter");
+                    break;
+                case R.id.egg_image:
+                    choices.add("egg");
+                    break;
+                case R.id.milk_image:
+                    choices.add("milk");
+                    break;
+                case R.id.yogurt_image:
+                    choices.add("yogurt");
+                    break;
+                case R.id.apple_image:
+                    choices.add("apple");
+                    break;
+                case R.id.avocado_image:
+                    choices.add("avocado");
+                    break;
+                case R.id.banana_image:
+                    choices.add("banana");
+                    break;
+                case R.id.blueberry_image:
+                    choices.add("blueberry");
+                    break;
+                case R.id.orange_image:
+                    choices.add("orange");
+                    break;
+                case R.id.mango_image:
+                    choices.add("mango");
+                    break;
+                case R.id.peach_image:
+                    choices.add("peach");
+                    break;
+                case R.id.grape_image:
+                    choices.add("grape");
+                    break;
+                case R.id.pineapple_image:
+                    choices.add("pineapple");
+                    break;
+                case R.id.strawberry_image:
+                    choices.add("strawberry");
+                    break;
+                case R.id.watermelon_image:
+                    choices.add("watermelon");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
-    public String generateQuery(){
-        String meal = "";
-        for (String type: mealType){
-            meal += type+",";
+    public void setTag(){
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.shrink_to_original);
+        if (choices != null){
+            for (int i =0; i< choices.size(); i++){
+                BootstrapLabel label = new BootstrapLabel(this);
+                label.setBootstrapBrand(DefaultBootstrapBrand.WARNING);
+                label.setBootstrapHeading(DefaultBootstrapHeading.H6);
+                label.setAnimation(anim);
+                label.startAnimation(anim);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(0, 0, 20, 0);
+                label.setLayoutParams(lp);
+                label.setText(choices.get(i));
+                predicateLayout.addView(label,new PredicateLayout.LayoutParams(2, 0));
+            }
         }
-        return "collection=recipe"+"&hotness="+hotness+"&difficulty="+difficulty+"&mealType="+meal+
-                "&vegan="+ vegan + "&action=findMeal";
+    }
+
+    public String getQuery(){
+        String selection = "";
+        for (String item: choices){
+            selection += item+",";
+        }
+        return "collection=recipe"+"&ingredients="+selection + "&action=findByIngredient";
     }
 
     public void setListener() {
@@ -121,77 +287,6 @@ public class Find_Meal_Activity extends AppCompatActivity {
         });
     }
 
-    public void setTags() {
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.shrink_to_original);
-        for (Map.Entry<String, List> entry : result.entrySet()) {
-            for (int i = 0; i < entry.getValue().size(); i++) {
-                BootstrapLabel label = new BootstrapLabel(this);
-                label.setBootstrapBrand(DefaultBootstrapBrand.WARNING);
-                label.setBootstrapHeading(DefaultBootstrapHeading.H6);
-                label.setAnimation(anim);
-                label.startAnimation(anim);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(0, 0, 20, 0);
-                label.setLayoutParams(lp);
-                if (entry.getKey().equals("mealType")) {
-                    label.setText(entry.getValue().get(i).toString());
-                } else if (entry.getKey().equals("hotness")) {
-                    hotness = (Integer) entry.getValue().get(i);
-                    switch (hotness) {
-                        case 0:
-                            label.setText("Non Spicy");
-                            break;
-                        case 1:
-                            label.setText("Slightly Spicy");
-                            break;
-                        case 2:
-                            label.setText("Small Chili");
-                            break;
-                        case 3:
-                            label.setText("Medium Hot");
-                            break;
-                        case 4:
-                            label.setText("Super spicy");
-                            break;
-                        default:
-                            break;
-                    }
-                } else if (entry.getKey().equals("difficulty")) {
-                    difficulty = (Integer) entry.getValue().get(i);
-                    switch (difficulty) {
-                        case 0:
-                            label.setText("Easy");
-                            break;
-                        case 1:
-                            label.setText("Slightly Easy");
-                            break;
-                        case 2:
-                            label.setText("Not Hard");
-                            break;
-                        case 3:
-                            label.setText("Hard");
-                            break;
-                        case 4:
-                            label.setText("Extremely Hard");
-                            break;
-                        default:
-                            break;
-                    }
-                } else if (entry.getKey().equals("vegan")) {
-                    if ((Boolean) entry.getValue().get(i)) {
-                        label.setText("Vegan");
-                        vegan = "vegetarian";
-                    } else {
-                        label.setText("Meat Lover");
-                        vegan = "normal";
-                    }
-                }
-                predicateLayout.addView(label,new PredicateLayout.LayoutParams(2, 0));
-            }
-        }
-    }
-
-
     private class GetData extends AsyncTask<String, Void, String> {
 
         private HttpsURLConnection connection;
@@ -219,7 +314,6 @@ public class Find_Meal_Activity extends AppCompatActivity {
                 this.connection.connect();
                 out = new PrintWriter(this.connection.getOutputStream());
                 out.print(params[0]);
-                Log.d("comment", params[0]);
                 out.flush();
                 if (this.connection.getResponseCode() == 200) {
                     in = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
@@ -263,12 +357,12 @@ public class Find_Meal_Activity extends AppCompatActivity {
                     if (jsonArray.length() != recipes.size()) {
                         recipes.remove(recipes.size() - 1);
                     }
-                    recyclerview.setAdapter(mAdapter = new HomeImageAdapter(Find_Meal_Activity.this, recipes));
+                    recyclerview.setAdapter(mAdapter = new HomeImageAdapter(Ingredients_Activity.this, recipes));
                     mAdapter.setOnItemClickListener(new HomeImageAdapter.OnRecyclerViewItemClickListener() {
                         @Override
                         public void onItemClick(View view) {
                             int position = recyclerview.getChildAdapterPosition(view);
-                            Intent intent = new Intent(Find_Meal_Activity.this, RecipeActivity.class);
+                            Intent intent = new Intent(Ingredients_Activity.this, RecipeActivity.class);
                             intent.putExtra("recipe", recipes.get(position));
                             startActivity(intent);
                         }
@@ -305,11 +399,9 @@ public class Find_Meal_Activity extends AppCompatActivity {
         if (id == android.R.id.home) {
             // finish the activity
             onBackPressed();
-            FindAMeal_Fragment.choices.clear();
+            choices.clear();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

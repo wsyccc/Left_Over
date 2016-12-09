@@ -105,6 +105,10 @@ public class FindAMeal_Fragment extends Fragment {
             @Override
             public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
                 if (isChecked) {
+//                    //remove later
+//                    lunch.setSelected(false);
+//                    dinner.setSelected(false);
+
                     for (int i = 0; i < mealType.size(); i++){
                         if (mealType.get(i).equals("breakfast")){
                             mealType.remove(i);
@@ -124,6 +128,10 @@ public class FindAMeal_Fragment extends Fragment {
             @Override
             public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
                 if (isChecked) {
+//                    //remove later
+//                    breakfast.setSelected(false);
+//                    dinner.setSelected(false);
+
                     for (int i = 0; i < mealType.size(); i++){
                         if (mealType.get(i).equals("lunch")){
                             mealType.remove(i);
@@ -143,6 +151,10 @@ public class FindAMeal_Fragment extends Fragment {
             @Override
             public void OnCheckedChanged(BootstrapButton bootstrapButton, boolean isChecked) {
                 if (isChecked) {
+//                    //remove later
+//                    lunch.setSelected(false);
+//                    breakfast.setSelected(false);
+
                     for (int i = 0; i < mealType.size(); i++){
                         if (mealType.get(i).equals("dinner")){
                             mealType.remove(i);

@@ -27,8 +27,8 @@ public class RecipeActivity extends AppCompatActivity {
     private Recipe recipe;
     private CollapsingToolbarLayoutState state;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private ListView listView;
-    private CommentListAdapter adapter;
+    private static ListView listView;
+    private static CommentListAdapter adapter;
     private TextView titleText;
     private ImageView titleImage;
     private AppBarLayout app_bar;
@@ -63,7 +63,7 @@ public class RecipeActivity extends AppCompatActivity {
                     CommentDialog commentDialog = new CommentDialog(recipe.getRecipeID());
                     commentDialog.show(getFragmentManager(), "Comment");
                     adapter.notifyDataSetChanged();
-                    listView.invalidate();
+//                    listView.invalidate();
                     listView.setAdapter(adapter);
 
                 } else {

@@ -86,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
     private Handler mHandler;
     private static Uri mCropImageUri;
 
-    public FindAMeal_Fragment fF;
-    public Ingredients_Fragment iF;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
             avatarClickListener();
         }
 
-        fF = new FindAMeal_Fragment();
-        iF = new Ingredients_Fragment();
     }
 
     /**
@@ -549,17 +544,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void chooseIngredient(View v) {
-        iF.chooseIngredient(v);
-    }
-
-//    public void chooseMeal(View v) {
-//        fF.chooseMeal(v);
-//    }
-
-    public void nextStep(View v) {
-        iF.nextStep(v);
     }
 }

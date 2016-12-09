@@ -1,17 +1,4 @@
-<!--<ImageButton xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:id="@+id/iv"-->
-    <!--android:layout_margin="5dp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:minHeight="110dp"-->
-    <!--android:minWidth="110dp"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:scaleType="centerCrop"-->
-    <!--android:background="?android:colorBackground"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--tools:targetApi="lollipop" />-->
 <com.thinkcool.circletextimageview.CircleTextImageView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/iv"
     android:layout_width="110dp"

@@ -70,11 +70,14 @@
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
-        <activity android:name=".fragment.map" />
         <activity
             android:name=".activity.RecipeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activity.Find_Meal_Activity"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.Find_Meal_Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.Ingredients_Activity"></activity>
     </application>
 
 </manifest>
