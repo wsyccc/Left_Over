@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bcit.Leftovers.R;
 
@@ -21,6 +22,8 @@ import static com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand
 public class Ingredients_Fragment extends Fragment {
 
 
+
+    private static final String[] ids = 
     public Ingredients_Fragment() {}
 
 
@@ -41,6 +44,10 @@ public class Ingredients_Fragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+    }
+    public void init(){
+
     }
 
     @Override
