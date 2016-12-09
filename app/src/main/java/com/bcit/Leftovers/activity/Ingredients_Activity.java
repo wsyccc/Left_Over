@@ -130,9 +130,6 @@ public class Ingredients_Activity extends AppCompatActivity {
                 case R.id.jalapeno_image:
                     choices.add("jalapeno");
                     break;
-                case R.id.lemon_image:
-                    choices.add("lemon");
-                    break;
                 case R.id.lettuce_image:
                     choices.add("lettuce");
                     break;
