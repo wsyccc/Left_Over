@@ -41,6 +41,7 @@
             style="@style/wrapping_button"
             android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
             android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:layout_marginBottom="8sp"
             android:text="Hotness"
             app:bootstrapBrand="warning"
             app:bootstrapHeading="h4"
@@ -48,9 +49,9 @@
 
         <ImageView
             android:id="@+id/hotness"
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
+            android:layout_marginLeft="20sp"
             android:src="@drawable/btn_star_off_focused_holo_dark" />
 
         <!-- for Difficulty -->
@@ -58,6 +59,7 @@
             style="@style/wrapping_button"
             android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
             android:layout_marginTop="@dimen/bootstrap_dropdown_default_item_font_size"
+            android:layout_marginBottom="8sp"
             android:text="Difficulty"
             app:bootstrapBrand="warning"
             app:bootstrapHeading="h4"
@@ -67,7 +69,6 @@
             android:id="@+id/difficulty_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
             android:src="@drawable/btn_star_off_focused_holo_dark" />
 
         <!-- for Diet Type -->
