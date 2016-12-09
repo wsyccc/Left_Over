@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.bcit.Leftovers"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -28,7 +28,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.android.support:design:24.2.0'
-    // Glide image library
+    //Glide image library
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //Crop Image
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.1'

@@ -1,5 +1,6 @@
 package com.bcit.Leftovers.activity;
 
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -120,8 +121,37 @@ public class RecipeActivity extends AppCompatActivity {
         TextView ingredients = (TextView) findViewById(R.id.ingredients);
         TextView ingredientsDescription = (TextView) findViewById(R.id.ingredients_description);
         TextView steps = (TextView) findViewById(R.id.steps);
-
+        ImageView hotness = (ImageView) findViewById(R.id.hotness);
+        ImageView difficulty = (ImageView) findViewById(R.id.difficulty_image);
+        int difficultyImage;
         description.setText(recipe.getDescription());
+        switch (recipe.getHotness()){
+            case 0:
+                
+        }
+        switch (recipe.getDifficulty()){
+            case 0:
+                difficultyImage = R.drawable.btn_difficulty_lvl_1;
+                break;
+            case 1:
+                difficultyImage = R.drawable.btn_difficulty_lvl_2;
+                break;
+            case 2:
+                difficultyImage = R.drawable.btn_difficulty_lvl_3;
+                break;
+            case 3:
+                difficultyImage = R.drawable.btn_difficulty_lvl_4;
+                break;
+            case 4:
+                difficultyImage = R.drawable.btn_difficulty_lvl_5;
+                break;
+            default:
+                difficultyImage = R.drawable.btn_difficulty_lvl_1;
+                break;
+        }
+        Glide.with(this)
+                .load(difficultyImage)
+                .into(difficulty);
         dietType.setText(Html.fromHtml(dietTypeStr.replaceAll("null", "")));
         mealType.setText(Html.fromHtml(mealTypeStr.replaceAll("null", "")));
         ingredients.setText(Html.fromHtml(ingredientsStr.replaceAll("null", "")));

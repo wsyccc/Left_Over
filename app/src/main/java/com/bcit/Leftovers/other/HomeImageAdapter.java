@@ -57,7 +57,6 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder){
         Glide.clear(holder.itemView);
-
     }
 
 
@@ -67,7 +66,7 @@ public class HomeImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Glide.with(context)
                     .load(data.get(position).getMainImage())
                     .bitmapTransform(new CircleTransform(context))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(((MyViewHolder) holder).iv);
         }
     }

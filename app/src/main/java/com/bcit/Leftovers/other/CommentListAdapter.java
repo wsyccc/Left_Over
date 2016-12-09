@@ -57,7 +57,6 @@ public class CommentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("mamade11111111", position + "");
         //View vi = convertView;
         View vi = inflater.inflate(R.layout.comment_list_adapter,null);
         TextView title = (TextView)vi.findViewById(R.id.title_comment);
@@ -85,28 +84,26 @@ public class CommentListAdapter extends BaseAdapter {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-//        switch (one.getRate()){
-//            case 0:
-//                rate.setImageResource(R.drawable.star_zero);
-//                break;
-//            case 1:
-//                rate.setImageResource(R.drawable.star_one);
-//                break;
-//            case 2:
-//                rate.setImageResource(R.drawable.star_two);
-//                break;
-//            case 3:
-//                rate.setImageResource(R.drawable.three);
-//                break;
-//            case 4:
-//                rate.setImageResource(R.drawable.four);
-//                break;
-//            case 5:
-//                rate.setImageResource(R.drawable.five);
-//                break;
-//            default:
-//                break;
-//        }
+        switch (one.getRate()){
+            case 0:
+                rate.setImageResource(R.drawable.btn_favourite_lvl_1);
+                break;
+            case 1:
+                rate.setImageResource(R.drawable.btn_favourite_lvl_2);
+                break;
+            case 2:
+                rate.setImageResource(R.drawable.btn_favourite_lvl_3);
+                break;
+            case 3:
+                rate.setImageResource(R.drawable.btn_favourite_lvl_4);
+                break;
+            case 4:
+                rate.setImageResource(R.drawable.btn_favourite_lvl_5);
+                break;
+            default:
+                rate.setImageResource(R.drawable.btn_favourite_lvl_1);
+                break;
+        }
         return vi;
     }
 
