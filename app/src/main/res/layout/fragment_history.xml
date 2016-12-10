@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="com.bcit.Leftovers.fragment.History_Fragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Under Construction"
+        android:textSize="24dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="40sp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:id="@+id/setting_image"
+        android:alpha="0.3"
+        android:src="@drawable/ic_settings_black_24dp"
+        android:layout_marginTop="20sp"
+        />
+
+</LinearLayout>

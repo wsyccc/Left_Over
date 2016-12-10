@@ -317,26 +317,26 @@ public class MainActivity extends AppCompatActivity {
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
-                // home
+
                 Home_Fragment homeFragment = new Home_Fragment();
                 return homeFragment;
             case 1:
-                // photos
+
                 Ingredients_Fragment ingredientsFragment = new Ingredients_Fragment();
                 return ingredientsFragment;
 
             case 2:
-                // movies fragment
+
                 FindAMeal_Fragment find_a_meal_Fragment = new FindAMeal_Fragment();
                 return find_a_meal_Fragment;
 
             case 3:
-                // notifications fragment
+
                 Nearby_Fragment nearbyFragment = new Nearby_Fragment();
                 return nearbyFragment;
 
             case 4:
-                // settings fragment
+
                 History_Fragment historyFragment = new History_Fragment();
                 return historyFragment;
             default:
