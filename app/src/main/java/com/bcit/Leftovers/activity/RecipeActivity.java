@@ -68,7 +68,7 @@ public class RecipeActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
 
                 } else {
-                    SnackbarUtil.ShortSnackbar(collapsingToolbarLayout, "Please Sign up!", SnackbarUtil.Alert).show();
+                    SnackbarUtil.ShortSnackbar(collapsingToolbarLayout, "Please Sign up or Login!", SnackbarUtil.Alert).show();
                 }
             }
         });

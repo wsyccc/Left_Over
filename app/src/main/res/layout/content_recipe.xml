@@ -40,8 +40,8 @@
         <com.beardedhen.androidbootstrap.BootstrapLabel
             style="@style/wrapping_button"
             android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="8sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginBottom="15sp"
             android:text="Hotness"
             android:background="?android:colorBackground"
             app:bootstrapBrand="warning"
@@ -58,8 +58,8 @@
         <com.beardedhen.androidbootstrap.BootstrapLabel
             style="@style/wrapping_button"
             android:layout_marginLeft="@dimen/cast_mini_controller_font_size_line1"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="8sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginBottom="15sp"
             android:text="Difficulty"
             app:bootstrapBrand="warning"
             app:bootstrapHeading="h4"

@@ -102,7 +102,6 @@ public class CommentListAdapter extends BaseAdapter {
                 rate.setImageResource(R.drawable.btn_favourite_lvl_5);
                 break;
             default:
-                rate.setImageResource(R.drawable.btn_favourite_lvl_1);
                 break;
         }
         return vi;
