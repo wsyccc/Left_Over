@@ -124,10 +124,27 @@ public class RecipeActivity extends AppCompatActivity {
         ImageView hotness = (ImageView) findViewById(R.id.hotness);
         ImageView difficulty = (ImageView) findViewById(R.id.difficulty_image);
         int difficultyImage;
+        int hotnessImage;
         description.setText(recipe.getDescription());
         switch (recipe.getHotness()){
             case 0:
-                
+                hotnessImage = R.drawable.btn_spiciness_lvl_1;
+                break;
+            case 1:
+                hotnessImage = R.drawable.btn_spiciness_lvl_2;
+                break;
+            case 2:
+                hotnessImage = R.drawable.btn_spiciness_lvl_3;
+                break;
+            case 3:
+                hotnessImage = R.drawable.btn_spiciness_lvl_4;
+                break;
+            case 4:
+                hotnessImage = R.drawable.btn_spiciness_lvl_5;
+                break;
+            default:
+                hotnessImage = R.drawable.btn_spiciness_lvl_1;
+                break;
         }
         switch (recipe.getDifficulty()){
             case 0:
@@ -152,6 +169,9 @@ public class RecipeActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(difficultyImage)
                 .into(difficulty);
+        Glide.with(this)
+                .load(hotnessImage)
+                .into(hotness);
         dietType.setText(Html.fromHtml(dietTypeStr.replaceAll("null", "")));
         mealType.setText(Html.fromHtml(mealTypeStr.replaceAll("null", "")));
         ingredients.setText(Html.fromHtml(ingredientsStr.replaceAll("null", "")));
